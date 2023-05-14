@@ -37,3 +37,9 @@
 .jumbotron .lang-logo img {
     max-width: 100%;
 }
+
+/*index*/
+
+.loginborderIndex{
+    border-width: 10px;
+}
