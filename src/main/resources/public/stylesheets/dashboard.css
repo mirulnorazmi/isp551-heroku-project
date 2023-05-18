@@ -1,0 +1,327 @@
+body{
+  position: relative;
+width: 1440px;
+height: 1570px;
+
+background: #F0F2F5;
+}
+
+nav{
+  background: white;
+  position: absolute;
+  width: 1440px;
+  height: 64px;
+  left: 0px;
+  top: 0px;
+  
+}
+
+.img-fluid{
+  cursor: pointer;
+}
+
+.container{
+position: absolute;
+width: 1440px;
+height: 64px;
+left: 0px;
+top: 0px;
+
+}
+.row {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  width: 111.9%;
+  
+  background: #FFFFFF;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+.side-menu{
+  position: absolute;
+  background-color: white;
+  width:326px;
+  height: 961px;
+  top : 65px;
+  left: 0px;
+}
+
+
+.side-menu a{
+  display: block;
+  line-height: 60px;
+  transition: 0.5s;
+  
+}
+
+.side-menu a:hover{
+  background-color: white;
+  padding-left: 20px;
+}
+
+
+
+
+.hr{
+  padding: 0;
+  margin: 0;
+}
+
+.container{
+  background: white;
+  position: absolute;
+width: 1440px;
+height: 64px;
+left: 0px;
+top: 0px;
+}
+
+.hr1{
+width: 240.99px;
+height: 1.98px;
+left: 45px;
+top: 161px;
+border: 2px solid #E8E8E8;
+transform: rotate(-0.47deg);
+}
+
+
+
+.dashboard{
+  position: absolute;
+  left: 28.83%;
+  right: 2.76%;
+  top: 8.64%;
+  bottom: 88.24%;
+  
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  /* or 112% */
+  
+  letter-spacing: 0.45px;
+  
+  color: #0B0B0B;
+}
+
+.icondash{
+position: absolute;
+left: 13.19%;
+right: 77.61%;
+top: 8.64%;
+bottom: 88.24%;
+}
+
+.acc{
+  position: absolute;
+  left: 28.83%;
+  right: 2.76%;
+  top: 21.54%;
+  bottom: 75.34%;
+  
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  /* or 112% */
+  
+  letter-spacing: 0.45px;
+  color: #0B0B0B;
+}
+
+.iconuser{
+  position: absolute;
+left: 13.19%;
+right: 77.61%;
+top: 21.54%;
+bottom: 75.34%;
+}
+
+.iconitems{
+  position: absolute;
+left: 13.19%;
+right: 77.61%;
+top: 34.24%;
+bottom: 62.64%;
+}
+
+.items{
+  position: absolute;
+left: 28.83%;
+right: 2.76%;
+top: 34.24%;
+bottom: 62.64%;
+
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 27px;
+/* or 112% */
+
+letter-spacing: 0.45px;
+color: #0B0B0B;
+
+}
+
+.createitem{
+  position: absolute;
+left: 13.19%;
+right: 77.61%;
+top: 41.94%;
+bottom: 54.94%;
+}
+
+.create{
+  position: absolute;
+left: 28.83%;
+right: 2.76%;
+top: 41.94%;
+bottom: 54.94%;
+
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 27px;
+/* or 112% */
+
+letter-spacing: 0.45px;
+color: #0B0B0B;
+}
+
+.approve{
+  position: absolute;
+left: 13.19%;
+right: 77.61%;
+top: 49.64%;
+bottom: 47.24%;
+}
+
+.app{
+  position: absolute;
+left: 28.83%;
+right: 2.76%;
+top: 49.64%;
+bottom: 47.24%;
+
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 27px;
+/* or 112% */
+
+letter-spacing: 0.45px;
+color: #0B0B0B;
+
+
+}
+
+.releaseitem{
+  
+position: absolute;
+left: 13.19%;
+right: 77.61%;
+top: 57.34%;
+bottom: 39.54%;
+}
+
+.release{
+  position: absolute;
+  left: 28.83%;
+  right: 2.76%;
+  top: 57.34%;
+  bottom: 39.54%;
+  
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  /* or 112% */
+  
+  letter-spacing: 0.45px;
+  color: #0B0B0B;
+}
+
+.hr1{
+  position: absolute;
+width: 240.99px;
+height: 1.98px;
+left: 45px;
+top: 161px;
+
+border: 2px solid #E8E8E8;
+transform: rotate(-0.47deg);
+}
+
+.hr2{
+  position: absolute;
+width: 240.99px;
+height: 1.98px;
+left: 45px;
+top: 282.98px;
+
+border: 2px solid #E8E8E8;
+transform: rotate(-0.47deg);
+}
+
+#rcorners2 {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px; 
+  width: 200px;
+  height: 150px;  
+}
+
+.nama{
+  position: absolute;
+  width: 79.96px;
+  height: 45px;
+  left: 1279px;
+  top: 11px;
+ 
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  /* or 112% */
+  
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.45px;
+  
+  color: #0B0B0B;
+}
+
+.border{
+  
+position: absolute;
+width: 130px;
+height: 45px;
+left: 1269px;
+top: 11px;
+border-radius: 20px;
+filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
+}
+
+.circle{
+position: absolute;
+left: 91.5%;
+right: 3.19%;
+top: 20.31%;
+bottom: 17.19%;
+width: 40px;
+border-radius: 50%;
+mix-blend-mode: normal;
+filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+}
