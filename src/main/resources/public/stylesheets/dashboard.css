@@ -3,7 +3,7 @@ body{
 width: 1440px;
 height: 1570px;
 
-background: #F0F2F5;
+background: #f0f2f5;
 }
 
 nav{
@@ -325,3 +325,349 @@ border-radius: 50%;
 mix-blend-mode: normal;
 filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
 }
+
+.summary-box{      
+  background-color: #ffffff;
+  position: absolute;
+  width: 1045px;
+  height: 324px;
+  left: 354px;
+  top: 152px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  .summary-box:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .text_summary{
+  position: absolute;
+  width: 166px;
+  height: 41px;
+  left: 354px;
+  top: 111px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 27px;
+  letter-spacing: 0.45px;
+  color: #0B0B0B;
+  }
+
+  /**.TotalInventoryimage{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 458px;
+    top: 212px;
+    background: url(TotalInventory.png);
+  }**/
+
+  .column {
+    float: left;
+    top: 22px;
+    width: 33.33%;
+    padding: 94px;
+    padding-top: 70px;
+    height: 300px; 
+  }
+
+  .box1{
+    padding: 10px;
+    bottom: 10px;
+  }
+
+  .totalitem{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  .totalitem-number{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    color: #3D65E8;
+  }
+
+  .requestItem{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  .requestItem-number{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    color: #3D65E8;
+  }
+
+  .totalAccount{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  .totalItem-number{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.45px;
+    color: #3D65E8;
+  }
+
+  .text_item_details{
+    position: absolute;
+    width: 213px;
+    height: 41px;
+    left: 352px;
+    top: 524px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #0B0B0B;
+  }
+
+  .itemDetails-box{
+    position: absolute;
+    width: 1040px;
+    height: 515.29px;
+    left: 354px;
+    top: 563px;
+    background: #FFFFFF;
+    border: 1px solid #F4F4F4;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+  }
+
+  .Types{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 550px;
+    top: 80px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  h2{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 580px;
+    top: 115px;
+    position: relative;
+    margin: .5rem 1rem;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  h2 span{
+    position: absolute;
+    right: -2rem;
+    top: 5rem;
+    height: 1.2rem;
+    width: 1.4rem;
+    left: -37px;
+    top: 5px;
+  }
+
+  span.dry-ingredients{
+    background-color: #ab2300;
+  }
+  
+  span.wet-ingredients{
+    background-color: #ffcd00;
+  }
+
+  span.stuff{
+    background-color: #009698;
+  }
+
+  .Quantity{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 550px;
+    top: 260px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  h2.Quantity_label{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 580px;
+    top: 180px;
+    position: relative;
+    margin: .5rem 1rem;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  .chart-pie-container {
+    padding: 3rem;
+    position: absolute;
+    width: 450px;
+    height: 410px;
+    left: 70px;
+    top: 60px
+  }
+
+.Account-Details-box{
+    position: absolute;
+    width: 1040px;
+    height: 450.29px;
+    left: 354px;
+    top: 1165px;
+    background: #FFFFFF;
+    border: 1px solid #F4F4F4;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+.text_account_details{
+    position: absolute;
+    width: 257px;
+    height: 41px;
+    left: 352px;
+    top: 1126px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #0B0B0B;
+}
+
+  .Types-account{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 550px;
+    top: 80px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+
+  }
+
+  h2.type-account{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 580px;
+    top: 115px;
+    position: relative;
+    margin: .5rem 1rem;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  .Quantity-account{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 550px;
+    top: 215px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  h2.Quantity_account_label{
+    position: absolute;
+    width: 244px;
+    height: 31px;
+    left: 580px;
+    top: 180px;
+    position: relative;
+    margin: .5rem 1rem;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.45px;
+    color: #000000;
+  }
+
+  span.Staff{
+    background-color: #00aaee;
+  }
+
+  span.Supervisor{
+    background-color: #ffae00;
+  }
+
+  

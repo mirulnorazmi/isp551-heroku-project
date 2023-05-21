@@ -23,8 +23,6 @@
       </div>   
   </div>
   
-  
-  
     <div class="side-menu">
       <a href="#"><img src="../public/img-icon/house-chimney.png" class="icondash" ><span class="dashboard">Dashboard</span></a>
       <a href="#"><img src="../public/img-icon/users.png" class="iconuser"><span class="acc">Accounts</span></a>
@@ -36,11 +34,106 @@
       <hr class="hr2"/>
     </div>
 
-    
-      
-    
+    <section>
+    <p class="text_summary">Summary</p>
+    <div class="summary-box">
+        <div class="column">
+          <div class="box1">
+            <img src="../public/img-icon/TotalInventory.png" class="TotalInventoryimage">    
+          </div>
+          <p class="totalitem">Total item</p>
+          <p class="totalitem-number">120</p>
+        </div>
 
+        <div class="column">
+          <div class="box1">
+            <img src="../public/img-icon/RequestInventory.png">  
+          </div>
+           <p class="requestItem">Request item</p> 
+           <p class="requestItem-number">2</p>
+        </div>
+            
+        <div class="column">
+          <div class="box1">
+            <img src="../public/img-icon/TotalAccount.png">    
+          </div>
+            <p class="totalAccount">Total Account</p>
+            <p class="totalItem-number">32</p>
+        </div>
+    </div>  
+    </section>
     
+    <section name="itemDetails">
+    <p class="text_item_details">Item Details</p>
+    <div class="itemDetails-box">
+      <p class="Types">Types</p>
+        <div class="pie-label">
+            <h2>Dry ingredients <span class="dry-ingredients"></span></h2>
+            <h2>Wet ingredients <span class="wet-ingredients"></span></h2>
+            <h2>Stuff <span class="stuff"></span></h2>
+        </div>
+
+      <p class="Quantity">Quantity</p>
+        <div class="pie-quantity">
+          <h2 class="Quantity_label">20 ingredients <span class="dry-ingredients"></span></h2>
+          <h2 class="Quantity_label">40 ingredients <span class="wet-ingredients"></span></h2>
+         <h2 class="Quantity_label">60 <span class="stuff"></span></h2>
+        </div>
+
+        <div class="chart-pie-container">
+          <canvas id="pie-chart"></canvas> 
+          <script src="../public/chart.min.js"></script>
+          <script>
+            new Chart(document.getElementById('pie-chart'), {
+              type : 'pie',
+              data : {
+                datasets : [{
+                    backgroundColor : [ "#009698","#ab2300","#ffcd00"
+							],
+                    data : [60, 20, 40]
+                }]
+             }
+           });
+          </script>
+        </div>
+    </div>
+    </section>
+
+    <section name="Account-Details">
+      <p class="text_account_details">Account Details</p>
+      <div class="Account-Details-box">
+      <p class="Types-account">Types</p>
+        <div class="pie-label">
+            <h2 class="type-account">Staff <span class="Staff"></span></h2>
+            <h2 class="type-account">Supervisor <span class="Supervisor"></span></h2>
+        </div>
+
+      <p class="Quantity-account">Quantity</p>
+        <div class="account-quantity">
+          <h2 class="Quantity_account_label">30 account <span class="Staff"></span></h2>
+          <h2 class="Quantity_account_label">5 account <span class="Supervisor"></span></h2>
+        </div>
+        
+        <div class="chart-pie-container">
+          <canvas id="pie-chart2"></canvas> 
+          <script src="../public/chart.min.js"></script>
+          <script>
+            new Chart(document.getElementById('pie-chart2'), {
+              type : 'pie',
+              data : {
+                datasets : [{
+                    backgroundColor : [ "#00aaee","#ffae00"
+							],
+                    data : [30, 20]
+                }]
+             }
+           });
+          </script>
+        </div>
+      </div>
+    </section>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
