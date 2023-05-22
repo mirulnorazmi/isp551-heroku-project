@@ -44,21 +44,16 @@
     margin: 0;
 }
 
-#con1{
-
-}
-
 #con2{
     margin: 8% 5%;
 }
 
 .signinText{
-    font-family: 'Lato';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
-    line-height: 58px;
-    text-align: center; 
+    /* line-height: 58px; */
+    text-align: center;
     color: #3D65E8;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -72,7 +67,7 @@
 }
 
 .indexFormtext{
-    font-family: 'Lato';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -80,7 +75,7 @@
 }
 
 .subButton{
-    font-family: 'Lato';
+    font-family: 'Roboto';
     font-style: normal;
     text-align: center;
     color: #FFFFFF;
