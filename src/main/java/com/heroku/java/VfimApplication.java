@@ -43,7 +43,7 @@ public class VfimApplication {
   @GetMapping("/logout")
   public String logout(HttpSession session) {
     session.invalidate();
-    return "redirect:/index";
+    return "redirect:/";
   }
 
   @PostMapping("/login")
