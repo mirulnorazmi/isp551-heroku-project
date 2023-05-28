@@ -20,50 +20,39 @@ import java.util.Map;
 
 @SpringBootApplication
 @Controller
-public class GettingStartedApplication {
+public class VfimApplication {
   private final DataSource dataSource;
   // Object logger
-  Logger logger = LogManager.getLogger(GettingStartedApplication.class);
+  Logger logger = LogManager.getLogger(VfimApplication.class);
 
   @Autowired
-  public GettingStartedApplication(DataSource dataSource) {
+  public VfimApplication(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
   @GetMapping("/")
-  public String index() {
-    return "index";
+  public String index(HttpSession session) {
+    if (session.getAttribute("username") != null) {
+        return "redirect:/dashboard";
+    } else {
+      System.out.println("Session expired or invalid...");
+      return "index";
+    }
   }
 
   @GetMapping("/logout")
   public String logout(HttpSession session) {
     session.invalidate();
-    return "redirect:/";
+    return "redirect:/index";
   }
 
-  @GetMapping("/homepage")
-  public String homepageForm(Model model) {
-  model.addAttribute("staff", new Staff());
-  return "homepage";
-  }
-
-  // @PostMapping("/homepage")
-  // public String homepageSubmit(@ModelAttribute Staff staff, Model model) {
-  // model.addAttribute("staff", staff);
-  // System.out.println("Staff data-------- : " + staff);
-  // return "homepage";
-  // }
-
-  @PostMapping("/homepage")
-  // String homepage(@RequestParam("username") String userName,
-  // @RequestParam("password") String password, @ModelAttribute Staff staff, Model
-  // model) {
-  String homepage(HttpSession session, @ModelAttribute("user") Staff staff, Model model) {
+  @PostMapping("/login")
+  String homepage(HttpSession session, @ModelAttribute("user") Users user, Model model) {
     try (Connection connection = dataSource.getConnection()) {
       final var statement = connection.createStatement();
 
       final var resultSet = statement.executeQuery("SELECT username, password,roles FROM staff");
-      
+
       String returnPage = "";
 
       while (resultSet.next()) {
@@ -71,25 +60,39 @@ public class GettingStartedApplication {
         String pwd = resultSet.getString("password");
         String roles = resultSet.getString("roles");
 
-        if (username.equals(staff.getUsername()) && pwd.equals(staff.getPassword())) {
-          // output.add("Username : " + username + "<br>roles : " + roles);
-          model.addAttribute("staff", staff);
-          
-          session.setAttribute("user", staff);
-          returnPage = "homepage";
+        if (username.equals(user.getUsername()) && pwd.equals(user.getPassword())) {
+
+          session.setAttribute("username", user.getUsername());
+          session.setAttribute("role", roles);
+          session.setMaxInactiveInterval(1440 * 60);
+          returnPage = "redirect:/dashboard";
           break;
         } else {
-          returnPage = "redirect:/";
+          returnPage = "index";
         }
       }
-
-      logger.info("Successfully login!");
       return returnPage;
 
     } catch (Throwable t) {
       System.out.println("message : " + t.getMessage());
-      return "error";
+      return "index";
     }
+  }
+
+  @GetMapping("/dashboard")
+  public String showDashboard(HttpSession session) {
+    // Check if user is logged in
+    if (session.getAttribute("username") != null) {
+      if (session.getAttribute("role").equals("supervisor")) {
+        return "supervisor/dashboard";
+      } else {
+        return "staff/dashboard";
+      }
+    } else {
+      System.out.println("Session expired or invalid...");
+      return "redirect:/";
+    }
+
   }
 
   @GetMapping("/database")
@@ -115,6 +118,6 @@ public class GettingStartedApplication {
   }
 
   public static void main(String[] args) {
-    SpringApplication.run(GettingStartedApplication.class, args);
+    SpringApplication.run(VfimApplication.class, args);
   }
 }

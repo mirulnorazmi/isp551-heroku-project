@@ -1,6 +1,6 @@
 package com.heroku.java;
 
-public class Staff {
+public class Users {
 
   private String username;
   private String password;
