@@ -135,7 +135,7 @@
           </div>
 
           <section name="itemDetails">
-            <p class="text_item_details">Item Details</p>
+            <p class="text_details">Item Details</p>
             <div class="itemDetails-box">
               <div class="chart-pie-container">
                 <canvas id="pie-chart"></canvas>
@@ -186,6 +186,51 @@
             </div>
           </section>
 
+          <section name="accountDetails">
+            <p class="text_details">Account Details</p>
+            <div class="itemDetails-box">
+              <div class="chart-pie-container">
+                <canvas id="pie-chart2"></canvas>
+                <script src="/chart.min.js"></script>
+                <script>
+                  new Chart(document.getElementById("pie-chart2"), {
+                    type: "pie",
+                    data: {
+                      datasets: [
+                        {
+                          backgroundColor: ["#06aae9", "#fbb03b"],
+                          data: [30, 5],
+                        },
+                      ],
+                    },
+                  });
+                </script>
+              </div>
+              <div class="pie-label">
+                <h4 style="margin-bottom: 15px">Types</h4>
+                <h5 class="pLabel">
+                  <div class="colorselection colorselection--blue"></div>
+                  Staff
+                </h5>
+                <h5 class="pLabel">
+                  <div class="colorselection colorselection--yel"></div>
+                  Supervisor
+                </h5>
+                
+
+                <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
+                <h5 class="pLabel">
+                  <div class="colorselection colorselection--blue"></div>
+                  30 account
+                </h5>
+                <h5 class="pLabel">
+                  <div class="colorselection colorselection--yel"></div>
+                  5 account
+                </h5>
+              </div>
+            </div>
+          </section>
+
           <!-- <section name="Account-Details">
             <p class="text_account_details">Account Details</p>
             <div class="Account-Details-box">
@@ -229,18 +274,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="side-menu">
-      <a href="#"><img src="/img-icon/house-chimney.png" class="icondash" ><span class="dashboard">Dashboard</span></a>
-      <a href="#"><img src="/img-icon/users.png" class="iconuser"><span class="acc">Accounts</span></a>
-      <a href="#"><img src="/img-icon/box-open.png" class="iconitems"></i><span class="items">Items</span></a>
-      <a href="#"><img src="/img-icon/box.png" class="createitem"></i><span class="create">Create item</span></a>
-      <a href="#"><img src="/img-icon/hand-holding-box.png" class="approve"></i><span class="app">Approve item</span></a>
-      <a href="#"><img src="/img-icon/box-alt.png" class="releaseitem"></i><span class="release">Release item</span></a>
-      <hr class="hr1"/>
-      <hr class="hr2"/>
-    </div>
-
-    <section> -->
+    
 
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
