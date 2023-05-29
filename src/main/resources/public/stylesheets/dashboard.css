@@ -114,6 +114,7 @@ nav {
   padding: 94px;
   padding-top: 70px;
   height: 300px;
+  
 }
 .pie-label{
   display: flex;
@@ -151,6 +152,17 @@ nav {
 }
 
 .totalitem {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  text-align: center;
+  letter-spacing: 0.45px;
+  color: #000000;
+}
+
+.totalAccount {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
