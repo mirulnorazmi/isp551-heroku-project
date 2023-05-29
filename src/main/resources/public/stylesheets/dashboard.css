@@ -59,7 +59,6 @@ body {
 .nav-vfim{
   display: flex;
   justify-content: space-between;
-
 }
 .sidebar .active {
   border-radius: 5px;
