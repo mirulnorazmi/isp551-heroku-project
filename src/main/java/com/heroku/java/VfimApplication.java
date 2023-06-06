@@ -33,7 +33,7 @@ public class VfimApplication {
   @GetMapping("/")
   public String index(HttpSession session) {
     if (session.getAttribute("username") != null) {
-        return "redirect:/dashboard";
+      return "redirect:/dashboard";
     } else {
       System.out.println("Session expired or invalid...");
       return "index";
@@ -71,6 +71,7 @@ public class VfimApplication {
           returnPage = "index";
         }
       }
+
       return returnPage;
 
     } catch (Throwable t) {
