@@ -34,12 +34,6 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.vaadin/vaadin-sass-compiler -->
-    <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-sass-compiler</artifactId>
-      <version>0.9.13</version>
-    </dependency>
 
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
