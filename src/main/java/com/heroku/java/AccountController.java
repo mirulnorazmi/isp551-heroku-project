@@ -21,6 +21,17 @@ import java.util.Map;
 @Controller
 public class AccountController {
 
+  @GetMapping("/accounts")
+  public String showSignUp(HttpSession session) {
+    // if (session.getAttribute("username") != null) {
+    //   return "redirect:/dashboard";
+    // } else {
+    //   System.out.println("No valid session or session...");
+    //   return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+    return "/supervisor/PAGE_ACCOUNT/accounts";
+  }
+  
   @GetMapping("/accounts/create-account")
   public String showSignUp(HttpSession session) {
     // if (session.getAttribute("username") != null) {
@@ -31,6 +42,4 @@ public class AccountController {
     // }
     return "/supervisor/PAGE_ACCOUNT/create-account";
   }
- 
-
 }

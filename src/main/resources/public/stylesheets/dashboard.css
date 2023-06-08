@@ -1,13 +1,9 @@
-body {
-  /* position: relative;
-width: 1440px;
-height: 1570px; */
+@import "framework.css";
 
+body {
   background: #f0f2f5;
 }
-body {
-  background-color: #fbfbfb;
-}
+
 @media (min-width: 991.98px) {
   main {
     padding-left: 240px;
@@ -17,18 +13,6 @@ body {
   background: #ffffff;
   border: 1px solid #f4f4f4;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-}
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  padding: 58px 0 0; /* Height of navbar */
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 240px;
-  z-index: 600;
 }
 
 .img_logo{
@@ -59,7 +43,6 @@ body {
 .nav-vfim{
   display: flex;
   justify-content: space-between;
-
 }
 .sidebar .active {
   border-radius: 5px;
@@ -84,10 +67,6 @@ nav {
   top: 0px;
 }
 
-.img-fluid {
-  cursor: pointer;
-}
-
 .nav-link{
   text-decoration: none;
   color: #000 !important;
@@ -96,186 +75,6 @@ nav {
 .nav-link:hover {
   background-color: #f4f4f4;
   padding-left: 20px;
-}
-
-hr {
-  margin: 1rem 0;
-  color: inherit;
-  background-color: currentColor;
-  border: 0;
-  opacity: 0.25;
-}
-
-.container {
-  background: white;
-  position: absolute;
-  width: 1440px;
-  height: 64px;
-  left: 0px;
-  top: 0px;
-}
-
-.dashboard {
-  position: absolute;
-  left: 28.83%;
-  right: 2.76%;
-  top: 8.64%;
-  bottom: 88.24%;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  /* or 112% */
-
-  letter-spacing: 0.45px;
-
-  color: #0b0b0b;
-}
-
-.icondash {
-  position: absolute;
-  left: 13.19%;
-  right: 77.61%;
-  top: 8.64%;
-  bottom: 88.24%;
-}
-
-.acc {
-  position: absolute;
-  left: 28.83%;
-  right: 2.76%;
-  top: 21.54%;
-  bottom: 75.34%;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  /* or 112% */
-
-  letter-spacing: 0.45px;
-  color: #0b0b0b;
-}
-
-.items {
-  position: absolute;
-  left: 28.83%;
-  right: 2.76%;
-  top: 34.24%;
-  bottom: 62.64%;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  /* or 112% */
-
-  letter-spacing: 0.45px;
-  color: #0b0b0b;
-}
-
-.create {
-  position: absolute;
-  left: 28.83%;
-  right: 2.76%;
-  top: 41.94%;
-  bottom: 54.94%;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  /* or 112% */
-
-  letter-spacing: 0.45px;
-  color: #0b0b0b;
-}
-
-.app {
-  position: absolute;
-  left: 28.83%;
-  right: 2.76%;
-  top: 49.64%;
-  bottom: 47.24%;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  /* or 112% */
-
-  letter-spacing: 0.45px;
-  color: #0b0b0b;
-}
-
-
-.hr1 {
-  position: absolute;
-  width: 240.99px;
-  height: 1.98px;
-  left: 45px;
-  top: 161px;
-
-  border: 2px solid #e8e8e8;
-  transform: rotate(-0.47deg);
-}
-
-#rcorners2 {
-  border-radius: 25px;
-  border: 2px solid #73ad21;
-  padding: 20px;
-  width: 200px;
-  height: 150px;
-}
-
-.nama {
-  position: absolute;
-  width: 79.96px;
-  height: 45px;
-  left: 1279px;
-  top: 11px;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  /* or 112% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.45px;
-
-  color: #0b0b0b;
-}
-
-.border {
-  position: absolute;
-  width: 130px;
-  height: 45px;
-  left: 1269px;
-  top: 11px;
-  border-radius: 20px;
-  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
-}
-
-.circle {
-  position: absolute;
-  left: 91.5%;
-  right: 3.19%;
-  top: 20.31%;
-  bottom: 17.19%;
-  width: 40px;
-  border-radius: 50%;
-  mix-blend-mode: normal;
-  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
 }
 
 .summary-box {
@@ -296,28 +95,6 @@ hr {
   clear: both;
 }
 
-.text_summary {
-  width: 166px;
-  height: 41px;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #0b0b0b;
-}
-
-/**.TotalInventoryimage{
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    left: 458px;
-    top: 212px;
-    background: url(TotalInventory.png);
-  }**/
-
 .column {
   float: left;
   top: 22px;
@@ -325,6 +102,7 @@ hr {
   padding: 94px;
   padding-top: 70px;
   height: 300px;
+  
 }
 .pie-label{
   display: flex;
@@ -372,6 +150,17 @@ hr {
   color: #000000;
 }
 
+.totalAccount {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  text-align: center;
+  letter-spacing: 0.45px;
+  color: #000000;
+}
+
 .totalitem-number {
   font-family: "Roboto";
   font-style: normal;
@@ -405,16 +194,6 @@ hr {
   color: #3d65e8;
 }
 
-.totalAccount {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  text-align: center;
-  letter-spacing: 0.45px;
-  color: #000000;
-}
 
 .totalItem-number {
   font-family: "Roboto";
@@ -427,14 +206,14 @@ hr {
   color: #3d65e8;
 }
 
-.text_item_details {
+/* .text_details {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
   font-size: 26px;
   margin-top: 35px;
   color: #0b0b0b;
-}
+} */
 
 .itemDetails-box {
   display: flex;
@@ -448,76 +227,6 @@ hr {
   border-radius: 20px;
 }
 
-.Types {
-  width: 244px;
-  height: 31px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
-}
-
-/* h2 {
-  position: absolute;
-  width: 244px;
-  height: 31px;
-  left: 580px;
-  top: 115px;
-  position: relative;
-  margin: 0.5rem 1rem;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
-} */
-
-/* h2 span {
-  height: 1.4rem;
-  width: 1.4rem;
-} */
-
-span.dry-ingredientt {
-  background: #ab2300;
-}
-span.wet-ingredients {
-  background-color: #ffcd00;
-}
-
-span.stuff {
-  background-color: #009698;
-}
-
-.Quantity {
-  width: 244px;
-  height: 31px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
-}
-
-h2.Quantity_label {
-  width: 244px;
-  height: 31px;
-  margin: 0.5rem 1rem;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
-}
-
 .chart-pie-container {
   display: flex;
   justify-content: center;
@@ -526,67 +235,30 @@ h2.Quantity_label {
   height: 410px;
 }
 
-.Account-Details-box {
-  width: 1040px;
-  height: 450.29px;
-  background: #ffffff;
-  border: 1px solid #f4f4f4;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+.chart-pie-account {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+  width: 50%;
+  height: 250px;
 }
 
-.text_account_details {
-  width: 257px;
-  height: 41px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #0b0b0b;
+.accountDetails-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: space-around;
+  width: 100%;
+  background: #FFFFFF;
+ border: 1px solid #F4F4F4;
+ box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+border-radius: 20px;
 }
 
-.Types-account {
-  width: 244px;
-  height: 31px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
+.colorselection--blue{
+  background: #06aae9;
 }
 
-h2.type-account {
-  width: 244px;
-  height: 31px;
-  position: relative;
-  margin: 0.5rem 1rem;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
-}
-
-.Quantity-account {
-  width: 244px;
-  height: 31px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 27px;
-  letter-spacing: 0.45px;
-  color: #000000;
-}
-
-.badge {
-  content: "";
-  width: 10px;
-  height: 10px;
+.colorselection--yel{
+  background: #fbb03b;
 }
