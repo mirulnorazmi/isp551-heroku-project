@@ -3,7 +3,7 @@
   xmlns:th="http://www.thymeleaf.org"
   th:replace="~{fragments/layoutSupervisor :: layout (~{::body},'index')}"
 >
-  <head>
+  <head th:fragment="header">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title id="pageTitle">Dashboard Supervisor</title>
@@ -19,11 +19,6 @@
       integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      th:href="@{/stylesheets/dashboard.css}"
     />
   </head>
   <body>
