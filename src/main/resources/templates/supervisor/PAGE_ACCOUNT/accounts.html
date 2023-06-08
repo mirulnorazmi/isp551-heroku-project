@@ -26,16 +26,17 @@
   <body>
     <div class="vims-containerTop d-flex justify-content-between align-items-center">
       <h3>Accounts</h3> 
-      <a class="addAccountButton" href="/accounts/create-account">
+      <a class="addAccountButton" href="...">
         <img src="/img-icon/addButton.png" alt="..." class="img-button" />
         <span>Add Account</span>
       </a>
     </div>
-    <div id="userTable"></div>
-
+    <div id="userTable"  class="d-flex flex-wrap justify-content-between"></div>
     <script>
       var userArray = [{'Name':'Nora Ain Bte MD Tap', 'Role':'Supervisor'},
       {'Name':'Satina Binti Salleh', 'Role':'Supervisor'},
+      {'Name':'Roszilawati Binti MD Rashid', 'Role':'Staff'},
+      {'Name':'Roszilawati Binti MD Rashid', 'Role':'Staff'},
       {'Name':'Roszilawati Binti MD Rashid', 'Role':'Staff'}]
       
       buildTable(userArray)
@@ -44,9 +45,37 @@
         var table = document.getElementById('userTable')
 
         for (var i = 0; i < data.length; i++){
-          var row = `<div class="addAccountCon d-flex flex-column justify-content-center align-items-center">
-                        <p>${data[i].Name}</p>
-                        <p>${data[i].Role}</p>
+          var row = `<div class="addAccountCon d-flex justify-content-evenly align-items-center col-5">
+                        <div class ="firstletterBox">
+                          <h5>${data[i].Name.charAt(0)}</h5>
+                        </div>
+                        <div class="accountnamebox"> 
+                          <span class="accountnamebox-firstRow p-2 bd-highlight">${data[i].Name}</span>
+                          <span class="accountnamebox-secondRow p-2 bd-highlight">${data[i].Role}</span>
+                        </div>
+                        <div class="dropdown-center">
+                        <button
+                          class="btn"
+                          type="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <img src="/img-icon/settingsButton.png" alt="..." class="..." />
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                              <a class="dropdown-item" href="...">
+                                <img src="/img-icon/editButton.png" alt="..." class="..." />
+                                Edit
+                              </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="...">
+                              <img src="/img-icon/trashButton.png" alt="..." class="..." />
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                        </div>
                     </div>`
           table.innerHTML += row
         }
