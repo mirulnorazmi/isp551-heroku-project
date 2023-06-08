@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-  <head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
+>
+  <head th:fragment="header">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard Staff</title>
+    <title id="pageTitle">Dashboard Staff</title>
     <link
       th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css}"
       rel="stylesheet"
@@ -17,241 +19,90 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      th:href="@{/stylesheets/dashboard.css}"
-    />
   </head>
   <body>
-    <nav class="navbar fixed-top bg-body-tertiary nav-vfim">
-      <div class="row row-content">
-        <div id="con1">
-          <img src="/img-icon/logo.png" alt="..." class="img_logo" />
-        </div>
-      </div>
-      <div class="btn-container-user">
-        <div class="dropdown-center">
-          <button
-            class="btn dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            th:text="'@' + ${session.username}"
-          >
-           
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-3 position-fixed" id="sticky-sidebar">
-          <div
-            class="nav flex-column flex-nowrap vh-100 overflow-auto text-white"
-            style="padding: 15px 0"
-          >
-            <a
-              class="nav-link active"
-              aria-current="page"
-              href="#"
-              style="margin-top: 70px"
-            >
-              <img
-                src="/img-icon/house-chimney.png"
-                style="margin-right: 20px"
-              />
-              Home
-            </a>
-            <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
-              style="padding: 0 40px"
-            ></div>
-            <a class="nav-link" href="#">
-              <img src="/img-icon/users.png" style="margin-right: 20px" />
-              Accounts
-            </a>
-            <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
-              style="padding: 0 40px"
-            ></div>
-            <a class="nav-link" href="#">
-              <img src="/img-icon/box-open.png" style="margin-right: 20px" />
-              Items
-            </a>
-            <a class="nav-link" href="#">
-              <img src="/img-icon/box.png" style="margin-right: 20px" />
-              Create Item
-            </a>
-            <a class="nav-link" href="#">
-              <img
-                src="/img-icon/hand-holding-box.png"
-                style="margin-right: 20px"
-              />
-              Approve Item
-            </a>
-            <a class="nav-link" href="#">
-              <img src="/img-icon/box-alt.png" style="margin-right: 20px" />
-              Release Item
-            </a>
+    <section name="summaryDetails">
+      <p class="h4">Summary</p>
+      <div class="summary-box d-flex flex-row justify-content-center">
+        <div class="column">
+          <div class="box1">
+            <img
+              src="/img-icon/TotalInventory.png"
+              class="TotalInventoryimage"
+            />
           </div>
+          <p class="totalitem">Total item</p>
+          <p class="totalitem-number">120</p>
         </div>
-        <div
-          class="col-9 offset-3 main-section"
-          id="main"
-          style="padding-top: 70px"
-        >
-          <p class="text_summary">Summary</p>
-          <div class="summary-box">
-            <div class="column">
-              <div class="box1">
-                <img
-                  src="/img-icon/TotalInventory.png"
-                  class="TotalInventoryimage"
-                />
-              </div>
-              <p class="totalitem">Total item</p>
-              <p class="totalitem-number">120</p>
-            </div>
 
-            <div class="column">
-              <div class="box1">
-                <img src="/img-icon/RequestInventory.png" />
-              </div>
-              <p class="requestItem">Request item</p>
-              <p class="requestItem-number">2</p>
-            </div>
-
-            <div class="column">
-              <div class="box1">
-                <img src="/img-icon/TotalAccount.png" />
-              </div>
-              <p class="totalAccount">Total Account</p>
-              <p class="totalItem-number">32</p>
-            </div>
+        <div class="column">
+          <div class="box1">
+            <img src="/img-icon/RequestInventory.png" />
           </div>
-
-          <section name="itemDetails">
-            <p class="text_item_details">Item Details</p>
-            <div class="itemDetails-box">
-              <div class="chart-pie-container">
-                <canvas id="pie-chart"></canvas>
-                <script src="/chart.min.js"></script>
-                <script>
-                  new Chart(document.getElementById("pie-chart"), {
-                    type: "pie",
-                    data: {
-                      datasets: [
-                        {
-                          backgroundColor: ["#009698", "#ab2300", "#ffcd00"],
-                          data: [60, 20, 40],
-                        },
-                      ],
-                    },
-                  });
-                </script>
-              </div>
-              <div class="pie-label">
-                <h4 style="margin-bottom: 15px">Types</h4>
-                <h5 class="pLabel">
-                  <div class="colorselection colorselection--black"></div>
-                  Dry ingredients
-                </h5>
-                <h5 class="pLabel">
-                  <div class="colorselection colorselection--red"></div>
-                  Wet ingredients
-                </h5>
-                <h5 class="pLabel">
-                  <div class="colorselection colorselection--yellow"></div>
-                  Stuff
-                </h5>
-
-                <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
-                <h5 class="pLabel">
-                  <div class="colorselection colorselection--black"></div>
-                  20 ingredients
-                </h5>
-                <h5 class="pLabel">
-                  <div class="colorselection colorselection--red"></div>
-                  40 ingredients
-                </h5>
-                <h5 class="pLabel">
-                  <div class="colorselection colorselection--yellow"></div>
-                  60 stuff
-                </h5>
-              </div>
-            </div>
-          </section>
-
-          <!-- <section name="Account-Details">
-            <p class="text_account_details">Account Details</p>
-            <div class="Account-Details-box">
-              <p class="Types-account">Types</p>
-              <div class="pie-label">
-                <h2 class="type-account">Staff <span class="Staff"></span></h2>
-                <h2 class="type-account">
-                  Supervisor <span class="Supervisor"></span>
-                </h2>
-              </div>
-
-              <p class="Quantity-account">Quantity</p>
-              <div class="account-quantity">
-                <h2 class="Quantity_account_label">
-                  30 account <span class="Staff"></span>
-                </h2>
-                <h2 class="Quantity_account_label">
-                  5 account <span class="Supervisor"></span>
-                </h2>
-              </div>
-
-              <div class="chart-pie-container">
-                <canvas id="pie-chart2"></canvas>
-                <script src="/chart.min.js"></script>
-                <script>
-                  new Chart(document.getElementById("pie-chart2"), {
-                    type: "pie",
-                    data: {
-                      datasets: [
-                        {
-                          backgroundColor: ["#00aaee", "#ffae00"],
-                          data: [30, 5],
-                        },
-                      ],
-                    },
-                  });
-                </script>
-              </div>
-            </div>
-          </section> -->
+          <p class="requestItem">Request item</p>
+          <p class="requestItem-number">2</p>
         </div>
       </div>
-    </div>
-    <!-- <div class="side-menu">
-      <a href="#"><img src="/img-icon/house-chimney.png" class="icondash" ><span class="dashboard">Dashboard</span></a>
-      <a href="#"><img src="/img-icon/users.png" class="iconuser"><span class="acc">Accounts</span></a>
-      <a href="#"><img src="/img-icon/box-open.png" class="iconitems"></i><span class="items">Items</span></a>
-      <a href="#"><img src="/img-icon/box.png" class="createitem"></i><span class="create">Create item</span></a>
-      <a href="#"><img src="/img-icon/hand-holding-box.png" class="approve"></i><span class="app">Approve item</span></a>
-      <a href="#"><img src="/img-icon/box-alt.png" class="releaseitem"></i><span class="release">Release item</span></a>
-      <hr class="hr1"/>
-      <hr class="hr2"/>
-    </div>
+    </section>
 
-    <section> -->
+    <section name="itemDetails" class="mt-3 mb-3">
+      <p class="h4">Item Details</p>
+      <div class="itemDetails-box">
+        <div class="chart-pie-container">
+          <canvas id="pie-chart"></canvas>
+          <script src="/chart.min.js"></script>
+          <script>
+            new Chart(document.getElementById("pie-chart"), {
+              type: "pie",
+              data: {
+                datasets: [
+                  {
+                    backgroundColor: ["#009698", "#ab2300", "#ffcd00"],
+                    data: [60, 20, 40],
+                  },
+                ],
+              },
+            });
+          </script>
+        </div>
+        <div class="pie-label">
+          <h4 style="margin-bottom: 15px">Types</h4>
+          <h5 class="pLabel">
+            <div class="colorselection colorselection--black"></div>
+            Dry ingredients
+          </h5>
+          <h5 class="pLabel">
+            <div class="colorselection colorselection--red"></div>
+            Wet ingredients
+          </h5>
+          <h5 class="pLabel">
+            <div class="colorselection colorselection--yellow"></div>
+            Stuff
+          </h5>
+
+          <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
+          <h5 class="pLabel">
+            <div class="colorselection colorselection--black"></div>
+            20 ingredients
+          </h5>
+          <h5 class="pLabel">
+            <div class="colorselection colorselection--red"></div>
+            40 ingredients
+          </h5>
+          <h5 class="pLabel">
+            <div class="colorselection colorselection--yellow"></div>
+            60 stuff
+          </h5>
+        </div>
+      </div>
+    </section>
 
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
       crossorigin="anonymous"
     ></script>
-    <!-- <script
-      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js}"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-      crossorigin="anonymous"
-    ></script> -->
+
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js}"
       integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
