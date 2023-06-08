@@ -5,8 +5,9 @@
   lang="en"
 >
   <head>
+    <title th:include=":: #pageTitle">Layout Generic Title</title>
     <link rel="icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" href="icon-192x192.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="icon-192x192.png" sizes="192x192" />
     <link
     rel="stylesheet"
     type="text/css"
@@ -59,7 +60,7 @@
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
               style="padding: 0 40px"
             ></div>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/accounts/create-account">
               <img src="/img-icon/users.png" style="margin-right: 20px" />
               Accounts
             </a>
