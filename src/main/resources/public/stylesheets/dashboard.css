@@ -42,6 +42,7 @@ body {
 
 .nav-vfim{
   display: flex;
+
   justify-content: space-between;
 }
 .sidebar .active {
@@ -86,7 +87,9 @@ nav {
 }
 
 .main-section{
-  padding: 0 25px;
+  background-color: #F0F2F5;
+  /* height: 100vh; */
+  padding: 70px 25px 0!important;
 }
 
 .summary-box:after {

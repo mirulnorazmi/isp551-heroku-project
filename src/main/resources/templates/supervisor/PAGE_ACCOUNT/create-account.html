@@ -6,7 +6,7 @@
   <head th:fragment="header">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title id="pageTitle">Supervisor | Create account</title>
+    <title id="pageTitle">Create account</title>
     <link
       th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css}"
       rel="stylesheet"
@@ -24,21 +24,87 @@
     />
   </head>
   <body>
-    <div
-      class="addAccountCon d-flex flex-column justify-content-center align-items-center"
+    <section
+      class="d-flex justify-content-center align-items-center"
+      style="width: 100%; height: 90vh; padding-top: -70px !important"
     >
-      <h3>Add User</h3>
-      <hr />
-    </div>
-    
+      <form
+        th:action="@{/addAccount}"
+        th:object="${account}"
+        method="post"
+        modelAttribute="account"
+        class="addAccountCon d-flex flex-column justify-content-center align-items-center col-10"
+        style="padding: 20px 30px;"
+      >
+        <h3>Add User</h3>
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
+          style="padding: 0 40px; width: 100%"
+        ></div>
+        <div
+          class="container-fluid d-flex flex-row justify-content-evenly align-items-start mt-5"
+        >
+          <p class="h6 col-2 mt-2" style="text-align: center; margin: 0">
+            User Details
+          </p>
+          <div class="d-flex flex-column col-5">
+            <input
+              type="text"
+              name="fullname"
+              class="form-control mb-3"
+              aria-label="fullname"
+              placeholder="Full Name"
+            />
+            <input
+              type="text"
+              name="username"
+              class="form-control mb-3"
+              aria-label="username"
+              placeholder="Username"
+            />
+            <input
+              type="password"
+              name="password"
+              class="form-control mb-3"
+              aria-label="password"
+              placeholder="Password"
+            />
+            <select class="form-select" name="roles" aria-label="role">
+              <option selected hidden>User Role</option>
+              <option value="staff">staff</option>
+              <option value="supervisor">supervisor</option>
+            </select>
+
+            <div class="d-flex flex-row justify-content-end" style="margin-top: 5.5rem;">
+              <button
+                type="button"
+                class="btn btn-primary"
+                style="margin: 0 20px"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Create
+              </button>
+            </div>
+          </div>
+          
+        </div>
+        
+      </form>
+    </section>
+
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
       crossorigin="anonymous"
     ></script>
     <script
-      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js}"
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js}"
+      integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
       crossorigin="anonymous"
     ></script>
   </body>
