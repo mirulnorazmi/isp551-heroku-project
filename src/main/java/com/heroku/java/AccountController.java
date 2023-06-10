@@ -30,7 +30,7 @@ public class AccountController {
   @GetMapping("/accounts")
   public String showAccounts(HttpSession session) {
     if (session.getAttribute("username") != null) {
-      return "/supervisor/PAGE_ACCOUNT/accounts";
+      return "supervisor/PAGE_ACCOUNT/accounts";
     } else {
       System.out.println("No valid session or session...");
       return "redirect:/";
@@ -41,7 +41,7 @@ public class AccountController {
   @GetMapping("/accounts/create-account")
   public String showSignUp(HttpSession session) {
     if (session.getAttribute("username") != null) {
-      return "/supervisor/PAGE_ACCOUNT/create-account";
+      return "supervisor/PAGE_ACCOUNT/create-account";
     } else {
       System.out.println("No valid session or session...");
       return "redirect:/";
@@ -57,7 +57,7 @@ public class AccountController {
     // System.out.println("No valid session or session...");
     // return "/supervisor/PAGE_ACCOUNT/create-account";
     // }
-    return "/supervisor/PAGE_ACCOUNT/update-account";
+    return "supervisor/PAGE_ACCOUNT/update-account";
   }
 
   @PostMapping("/addAccount")
