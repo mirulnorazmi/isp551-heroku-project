@@ -27,15 +27,37 @@ public class AccountController {
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
+  @GetMapping("/accounts")
+  public String showAccounts(HttpSession session) {
+    if (session.getAttribute("username") != null) {
+      return "/supervisor/PAGE_ACCOUNT/accounts";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+    // return "/supervisor/PAGE_ACCOUNT/accounts";
+  }
+
   @GetMapping("/accounts/create-account")
   public String showSignUp(HttpSession session) {
+    if (session.getAttribute("username") != null) {
+      return "/supervisor/PAGE_ACCOUNT/create-account";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+  }
+
+  @GetMapping("/accounts/update-account")
+  public String showUpdateAccount(HttpSession session) {
     // if (session.getAttribute("username") != null) {
     // return "redirect:/dashboard";
     // } else {
     // System.out.println("No valid session or session...");
     // return "/supervisor/PAGE_ACCOUNT/create-account";
     // }
-    return "/supervisor/PAGE_ACCOUNT/create-account";
+    return "/supervisor/PAGE_ACCOUNT/update-account";
   }
 
   @PostMapping("/addAccount")
@@ -50,12 +72,12 @@ public class AccountController {
       statement.setString(3, passwordEncoder.encode(acc.getPassword()));
       statement.setString(4, acc.getRoles());
       statement.setInt(5, (int) session.getAttribute("staffid"));
-      // statement.setInt(5, 1); 
+      // statement.setInt(5, 1);
       statement.executeUpdate();
 
       connection.close();
 
-      return "redirect:/";
+      return "redirect:/accounts";
 
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());

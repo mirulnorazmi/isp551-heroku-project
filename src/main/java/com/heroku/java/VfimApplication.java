@@ -77,6 +77,7 @@ public class VfimApplication {
           returnPage = "index";
         }
       }
+
       return returnPage;
 
     } catch (Throwable t) {
@@ -98,7 +99,7 @@ public class VfimApplication {
       System.out.println("Session expired or invalid...");
       return "redirect:/";
     }
-
+    // return "supervisor/dashboard";
   }
 
   @GetMapping("/database")
