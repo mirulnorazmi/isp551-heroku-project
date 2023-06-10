@@ -24,34 +24,46 @@
     />
   </head>
   <body>
-    <div class="vims-containerTop d-flex justify-content-between align-items-center">
-      <h3>Accounts</h3> 
-      <a class="addAccountButton" href="...">
-        <img src="/img-icon/addButton.png" alt="..." class="img-button" />
-        <span>Add Account</span>
-      </a>
-    </div>
-    <div id="userTable"  class="d-flex flex-wrap justify-content-between"></div>
-    <script>
-      var userArray = [{'Name':'Nora Ain Bte MD Tap', 'Role':'Supervisor'},
-      {'Name':'Satina Binti Salleh', 'Role':'Supervisor'},
-      {'Name':'Roszilawati Binti MD Rashid', 'Role':'Staff'},
-      {'Name':'Roszilawati Binti MD Rashid', 'Role':'Staff'},
-      {'Name':'Roszilawati Binti MD Rashid', 'Role':'Staff'}]
-      
-      buildTable(userArray)
+    <section style="height: 90vh">
+      <div
+        class="vims-containerTop d-flex justify-content-between align-items-center"
+      >
+        <h3>Accounts</h3>
+        <a class="addAccountButton" href="/accounts/create-account">
+          <img src="/img-icon/addButton.png" alt="..." class="img-button" />
+          <span>Add Account</span>
+        </a>
+      </div>
+      <div
+        id="userTable"
+        class="d-flex flex-wrap justify-content-between"
+      ></div>
+      <script>
+        var userArray = [
+          { Name: "Nora Ain Bte MD Tap", Role: "Supervisor" },
+          { Name: "Satina Binti Salleh", Role: "Supervisor" },
+          { Name: "Roszilawati Binti MD Rashid", Role: "Staff" },
+          { Name: "Roszilawati Binti MD Rashid", Role: "Staff" },
+          { Name: "Roszilawati Binti MD Rashid", Role: "Staff" },
+        ];
 
-      function buildTable(data){
-        var table = document.getElementById('userTable')
+        buildTable(userArray);
 
-        for (var i = 0; i < data.length; i++){
-          var row = `<div class="addAccountCon d-flex justify-content-evenly align-items-center col-5">
+        function buildTable(data) {
+          var table = document.getElementById("userTable");
+
+          for (var i = 0; i < data.length; i++) {
+            var row = `<div class="addAccountCon d-flex justify-content-evenly align-items-center col-5">
                         <div class ="firstletterBox">
                           <h5>${data[i].Name.charAt(0)}</h5>
                         </div>
                         <div class="accountnamebox"> 
-                          <span class="accountnamebox-firstRow p-2 bd-highlight">${data[i].Name}</span>
-                          <span class="accountnamebox-secondRow p-2 bd-highlight">${data[i].Role}</span>
+                          <span class="accountnamebox-firstRow p-2 bd-highlight">${
+                            data[i].Name
+                          }</span>
+                          <span class="accountnamebox-secondRow p-2 bd-highlight">${
+                            data[i].Role
+                          }</span>
                         </div>
                         <div class="dropdown-center">
                         <button
@@ -76,12 +88,12 @@
                           </li>
                         </ul>
                         </div>
-                    </div>`
-          table.innerHTML += row
+                    </div>`;
+            table.innerHTML += row;
+          }
         }
-      }
-    </script>
-    
+      </script>
+    </section>
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
