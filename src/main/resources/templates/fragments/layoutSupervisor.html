@@ -16,7 +16,7 @@
   <head th:replace=":: header"> </head>
 
   <body>
-    <nav class="navbar fixed-top bg-body-tertiary nav-vfim">
+    <nav class="navbar fixed-top nav-vfim">
       <div class="row row-content">
         <div id="con1">
           <img src="/img-icon/logo.png" alt="..." class="img_logo" />
@@ -25,12 +25,16 @@
       <div class="btn-container-user">
         <div class="dropdown-center">
           <button
-            class="btn dropdown-toggle"
+            class="btn btn-user btn-outline-primary d-flex flex-row align-items-center"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            th:text="'@' + ${session.username}"
-          ></button>
+          >
+          <span th:text="${session.username == null} ? 'dev' : ${session.username}" style="margin-right: 10px;"></span>
+          <div class="avatar-circle">
+            <p th:text="${session.username == null } ? 'D' : ${session.username.substring(0,1).toUpperCase()}" style="margin: 0;"></p>
+          </div>
+        </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
@@ -60,7 +64,7 @@
               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
               style="padding: 0 40px"
             ></div>
-            <a class="nav-link" href="/accounts/create-account">
+            <a class="nav-link" href="/accounts">
               <img src="/img-icon/users.png" style="margin-right: 20px" />
               Accounts
             </a>
@@ -92,7 +96,6 @@
         <div
           class="col-9 offset-3 main-section"
           id="main"
-          style="padding-top: 70px"
         >
           <div th:replace="${template}"></div>
         </div>

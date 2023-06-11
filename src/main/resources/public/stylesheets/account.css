@@ -7,9 +7,51 @@
   border-radius: 20px;
 }
 
+.vims-containerTop{
+  margin: 20px;
+}
+
+.addAccountButton{
+  background: #ffffff;
+  border: 1px solid #f4f4f4;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 8px;
+  text-decoration: none;
+  color: black;
+}
+
+.addAccountButton:hover{
+  background: lightgray;
+}
+
+.img-button{
+  width: 20px;
+}
+
+.firstletterBox{
+  padding: 15px 25px;
+  border-radius: 20px;
+  background-color: #3D65E8;
+  color: #ffffff;
+  margin: 10px;
+  font-weight: bold;
+}
+
+.accountnamebox{
+  width: 50%;
+}
+.accountnamebox-firstRow{
+  font-weight: bold;
+}
+.accountnamebox-secondRow{
+  color: #0563C1;
+}
+
 .addAccountCon{
   background: #ffffff;
   border: 1px solid #f4f4f4;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  margin: 10px;
 }
