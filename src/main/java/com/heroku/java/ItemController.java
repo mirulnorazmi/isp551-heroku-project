@@ -26,7 +26,7 @@ public class ItemController {
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
-  @GetMapping("/create-items/create-item-wet")
+  @GetMapping("/create-items/create-item-dry")
   public String showAccounts(HttpSession session) {
     // if (session.getAttribute("username") != null) {
     //   return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
@@ -34,7 +34,7 @@ public class ItemController {
     //   System.out.println("No valid session or session...");
     //   return "redirect:/";
     // }
-    return "/supervisor/PAGE_CREATE_ITEM/create-item-wet";
+    return "/supervisor/PAGE_CREATE_ITEM/create-item-dry";
   }
 
   
