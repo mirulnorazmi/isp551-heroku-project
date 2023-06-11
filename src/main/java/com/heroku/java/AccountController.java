@@ -54,8 +54,8 @@ public class AccountController {
     // if (session.getAttribute("username") != null) {
     // return "redirect:/dashboard";
     // } else {
-    // System.out.println("No valid session or session...");
-    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    //   System.out.println("No valid session or session...");
+    //   return "/supervisor/PAGE_ACCOUNT/create-account";
     // }
     return "supervisor/PAGE_ACCOUNT/update-account";
   }
