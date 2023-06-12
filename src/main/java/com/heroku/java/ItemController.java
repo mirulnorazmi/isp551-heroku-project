@@ -27,7 +27,7 @@ public class ItemController {
   private BCryptPasswordEncoder passwordEncoder;
 
   @GetMapping("/create-items/create-item-dry")
-  public String showAccounts(HttpSession session) {
+  public String dry(HttpSession session) {
     // if (session.getAttribute("username") != null) {
     //   return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
     // } else {
@@ -37,5 +37,25 @@ public class ItemController {
     return "/supervisor/PAGE_CREATE_ITEM/create-item-dry";
   }
 
+  @GetMapping("/create-items/create-item-stuff")
+  public String stuff(HttpSession session) {
+    // if (session.getAttribute("username") != null) {
+    //   return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
+    // } else {
+    //   System.out.println("No valid session or session...");
+    //   return "redirect:/";
+    // }
+    return "/supervisor/PAGE_CREATE_ITEM/create-item-stuff";
+  }
   
+  @GetMapping("/create-items/create-item-wet")
+  public String wet(HttpSession session) {
+    // if (session.getAttribute("username") != null) {
+    //   return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
+    // } else {
+    //   System.out.println("No valid session or session...");
+    //   return "redirect:/";
+    // }
+    return "/supervisor/PAGE_CREATE_ITEM/create-item-wet";
+  }
 }
