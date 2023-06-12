@@ -32,8 +32,6 @@ public class VfimApplication {
     this.dataSource = dataSource;
   }
 
-  
-
   @GetMapping("/")
   public String index(HttpSession session) {
     if (session.getAttribute("username") != null) {
@@ -50,8 +48,13 @@ public class VfimApplication {
     return "redirect:/";
   }
 
+  @GetMapping("/login")
+  public String displayLogin(@RequestParam(value = "error", defaultValue = "false") boolean loginError) {
+    return "index";
+  }
+
   @PostMapping("/login")
-  String homepage(HttpSession session, @ModelAttribute("user") Users user, Model model) {
+  String homepage(HttpSession session, @ModelAttribute("user") Users user) {
     try (Connection connection = dataSource.getConnection()) {
       final var statement = connection.createStatement();
 
@@ -64,7 +67,7 @@ public class VfimApplication {
         String pwd = resultSet.getString("password");
         String roles = resultSet.getString("roles");
         int staffid = resultSet.getInt("staffid");
-        
+
         if (username.equals(user.getUsername()) && bCryptPasswordEncoder().matches(user.getPassword(), pwd)) {
 
           session.setAttribute("username", user.getUsername());
@@ -74,7 +77,7 @@ public class VfimApplication {
           returnPage = "redirect:/dashboard";
           break;
         } else {
-          returnPage = "index";
+          returnPage = "redirect:/login?error=true";
         }
       }
 
@@ -128,6 +131,14 @@ public class VfimApplication {
   public BCryptPasswordEncoder bCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
+
+  // @Bean
+  // public MessageSource messageSource() {
+  //   ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+  //   messageSource.setBasename("classpath:messages");
+  //   messageSource.setDefaultEncoding("UTF-8");
+  //   return messageSource;
+  // }
 
   public static void main(String[] args) {
     SpringApplication.run(VfimApplication.class, args);

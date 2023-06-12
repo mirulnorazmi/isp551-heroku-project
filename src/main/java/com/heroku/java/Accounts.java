@@ -30,7 +30,4 @@ public class Accounts {
   public String getRoles() {
     return roles;
   }
-  
-  
-  
 }

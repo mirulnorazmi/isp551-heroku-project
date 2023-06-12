@@ -40,13 +40,13 @@ public class AccountController {
 
   @GetMapping("/accounts/create-account")
   public String showSignUp(HttpSession session) {
-    if (session.getAttribute("username") != null) {
-      return "supervisor/PAGE_ACCOUNT/create-account";
-    } else {
-      System.out.println("No valid session or session...");
-      return "redirect:/";
-    }
-    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // if (session.getAttribute("username") != null) {
+    //   return "supervisor/PAGE_ACCOUNT/create-account";
+    // } else {
+    //   System.out.println("No valid session or session...");
+    //   return "redirect:/";
+    // }
+    return "/supervisor/PAGE_ACCOUNT/create-account";
   }
 
   @GetMapping("/accounts/update-account")
@@ -54,8 +54,8 @@ public class AccountController {
     // if (session.getAttribute("username") != null) {
     // return "redirect:/dashboard";
     // } else {
-    // System.out.println("No valid session or session...");
-    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    //   System.out.println("No valid session or session...");
+    //   return "/supervisor/PAGE_ACCOUNT/create-account";
     // }
     return "supervisor/PAGE_ACCOUNT/update-account";
   }
