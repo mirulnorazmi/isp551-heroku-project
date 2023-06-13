@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
+>
+  <head th:fragment="header">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">Request Item</title>
+    <link
+      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css}"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/stylesheets/requestitem.css}"
+    />
+    
+  </head>
+  <body>
+    <section
+    class="d-flex justify-content-center align-items-center"
+    style="width: 100%; height: 90vh;"
+  >
+    <form
+      th:action="@{/requestitem}"
+      th:object="${account}"
+      method="post"
+      modelAttribute="account"
+      class="requestitem d-flex flex-column justify-content-center align-items-center col-10"
+      style="padding: 20px 30px;"
+    >
+      <h3>Request Items</h3>
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
+        style="padding: 0 40px; width: 100%"
+      ></div>
+      <div
+        class="container-fluid d-flex flex-row flex-column justify-content-center align-items-start mt-5"
+      >
+      <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="inputEmail3">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="inputPassword3">
+        </div>
+      </div>
+      <fieldset class="row mb-3">
+        <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+            <label class="form-check-label" for="gridRadios1">
+              First radio
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+            <label class="form-check-label" for="gridRadios2">
+              Second radio
+            </label>
+          </div>
+          <div class="form-check disabled">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+            <label class="form-check-label" for="gridRadios3">
+              Third disabled radio
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <div class="row mb-3">
+        <div class="col-sm-10 offset-sm-2">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck1">
+            <label class="form-check-label" for="gridCheck1">
+              Example checkbox
+            </label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+              
+    </form>
+  </section>
+  
+  <script>
+    
+    function toggleForm(formNumber) {
+      var form1Container = document.getElementById("formContainer1");
+      var form2Container = document.getElementById("formContainer2");
+      var form3Container = document.getElementById("formContainer3");
+      var form1Container = document.getElementById("formContainer4");
+      var form2Container = document.getElementById("formContainer5");
+      var form3Container = document.getElementById("formContainer6");
+
+      if (formNumber === 1) {
+        form1Container.classList.remove("hidden");
+        form2Container.classList.add("hidden");
+        form3Container.classList.add("hidden");
+        form4Container.classList.remove("hidden");
+        form5Container.classList.add("hidden");
+        form6Container.classList.add("hidden")
+      } else if (formNumber === 2) {
+        form1Container.classList.add("hidden");
+        form2Container.classList.remove("hidden");
+        form3Container.classList.add("hidden");
+        form4Container.classList.remove("hidden");
+        form5Container.classList.add("hidden");
+        form6Container.classList.add("hidden")
+      } else if (formNumber === 3) {
+        form1Container.classList.add("hidden");
+        form2Container.classList.add("hidden");
+        form3Container.classList.remove("hidden");
+      }
+    }
+ 
+    let previousButton = null;
+
+    function changeButtonColor(button) {
+         if(previousButton !== null){
+            previousButton.classList.remove('active');
+            previousButton.style.backgroundColor = "#ffffff";
+            previousButton.style.color = 'black';}
+    
+    button.classList.add('active');
+    button.style.backgroundColor = "#87A2FD";
+    button.style.color="white";
+    previousButton=button;
+    }
+    </script>
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js}"
+      integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
+>
+  <head th:fragment="header">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">Request Item</title>
+    <link
+      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css}"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/stylesheets/requestitem.css}"
+    />
+    
+  </head>
+  <body>
+    <section
+    class="d-flex justify-content-center align-items-center"
+    style="width: 100%; height: auto;"
+  >
+    <form
+      th:action="@{/requestitem}"
+      th:object="${account}"
+      method="post"
+      modelAttribute="account"
+      class="requestitem d-flex flex-column justify-content-center align-items-center col-10"
+      style="padding: 20px 30px;"
+    >
+      <h3>Request Items</h3>
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
+        style="padding: 0 40px; width: 100%"
+      ></div>
+      <div
+        class="container-fluid d-flex flex-row justify-content-center align-items-start mt-5"
+      >
+      
+      
+      <div class="d-flex flex-column col-3">
+        <label for="fullname" name="fullname" class="form-control mb-3"
+        aria-label="fullname" style="border:none;text-align: right;"
+        placeholder="Full Name">Select Type:</label>
+        
+        <label for="fullname" name="fullname" class="form-control mb-3"
+        aria-label="fullname" style="border:none;text-align: right;"
+        placeholder="Full Name">Name:</label>
+
+        <div id="formContainer1" class="hidden">
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Quantity:</label>
+
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Added Date:</label>
+
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Expired Date:</label>
+
+        </div>
+
+        <div id="formContainer2" class="hidden">
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Quantity:</label>
+
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Added Date:</label>
+
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Item Allocation:</label>
+
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Item Warranty:</label>
+        </div>
+
+        <div id="formContainer3" class="hidden">
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Quantity:</label>
+
+          <label for="fullname" name="fullname" class="form-control mb-3"
+          aria-label="fullname" style="border:none;text-align: right;"
+          placeholder="Full Name">Added Date:</label>
+        </div>
+      
+      </div>
+        
+        <div class="d-flex flex-column col-5">
+          <div class="d-flex flex-row justify-content-between mb-3" >
+            <input type="button" class="btn btn-outline-secondary" id="button1" name="button1" onclick="changeButtonColor(this);toggleForm(1)" value="Dry">
+            <input type="button" class="btn btn-outline-secondary" id="button2" name="button2" onclick="changeButtonColor(this);toggleForm(2)" value="Stuff">
+            <input type="button" class="btn btn-outline-secondary" id="button3" name="button3" onclick="changeButtonColor(this);toggleForm(3)" value="Wet">
+          </div>
+
+          <input
+            type="text"
+            name="fullname"
+            class="form-control mb-3"
+            aria-label="fullname"
+            placeholder="Full Name"
+          />
+
+          
+
+          <div id="formContainer4" class="hidden">
+            <input
+            type="number"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="1-100"
+            
+          />
+          <input
+            type="date"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="date"
+            placeholder="start-date"
+            
+          />
+          <input
+            type="date"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="date"
+            placeholder="end-date"
+            
+          />
+          </div>
+          <div id="formContainer5" class="hidden">
+            <input
+            type="number"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="1-100"
+            
+          />
+          <input
+            type="date"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="start-date"
+            
+          />
+          <input
+            type="number"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="..."
+            
+          />
+          <input
+            type="text"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="..."
+            
+          />
+
+          </div>
+          <div id="formContainer6" class="hidden">
+            <input
+            type="number"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="form3"
+            
+          />
+          <input
+            type="date"
+            name="itemquantity"
+            class="form-control mb-3"
+            aria-label="number"
+            placeholder="date"
+            
+          />
+          </div>
+       
+
+          <div class="d-flex flex-row justify-content-end" style="margin-top: 5.5rem;">
+            <button
+              type="reset"
+              class="btn btn-primary"
+              style="margin: 0 20px"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="requestSubmit"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal"
+            >
+              Request
+            </button>
+<!-- The Modal -->
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Request item ?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The report will be sent to supervisor.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" style="background-color: #D9D9D9; border-color: grey; color: black;" data-bs-dismiss="modal">No, cancel request</button>
+        <button type="button" id="requestConfirmButton" class="btn btn-secondary bg-primary text-white">Yes, send request</button>
+      </div>
+    </div>
+  </div>
+</div>        </div>
+          </div>
+        </div>
+              
+    </form>
+  </section>
+  
+  <script>
+    
+    function toggleForm(formNumber) {
+      var form1Container = document.getElementById("formContainer1");
+      var form2Container = document.getElementById("formContainer2");
+      var form3Container = document.getElementById("formContainer3");
+      var form4Container = document.getElementById("formContainer4");
+      var form5Container = document.getElementById("formContainer5");
+      var form6Container = document.getElementById("formContainer6");
+
+      if (formNumber === 1) {
+        form1Container.classList.remove("hidden");
+        form2Container.classList.add("hidden");
+        form3Container.classList.add("hidden");
+        form4Container.classList.remove("hidden");
+        form5Container.classList.add("hidden");
+        form6Container.classList.add("hidden")
+      } else if (formNumber === 2) {
+        form1Container.classList.add("hidden");
+        form2Container.classList.remove("hidden");
+        form3Container.classList.add("hidden");
+        form4Container.classList.remove("hidden");
+        form5Container.classList.add("hidden");
+        form6Container.classList.add("hidden");
+      } else if (formNumber === 3) {
+        form1Container.classList.add("hidden");
+        form2Container.classList.add("hidden");
+        form3Container.classList.remove("hidden");
+        form4Container.classList.add("hidden");
+        form5Container.classList.add("hidden");
+        form6Container.classList.remove("hidden");
+      }
+    }
+ 
+    let previousButton = null;
+
+    function changeButtonColor(button) {
+         if(previousButton !== null){
+            previousButton.classList.remove('active');
+            previousButton.style.backgroundColor = "#ffffff";
+            previousButton.style.color = 'black';}
+    
+    button.classList.add('active');
+    button.style.backgroundColor = "#87A2FD";
+    button.style.color="white";
+    previousButton=button;
+    }
+    </script>
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js}"
+      integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
