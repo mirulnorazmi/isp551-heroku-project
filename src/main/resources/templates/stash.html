@@ -10,5 +10,60 @@
     <p th:text="'Password :' + ${staff.password}" />
     <a href="/">Submit another message</a><br>
     <a href="/logout">Logout</a>
+    <!-- <script>
+        var userArray = [
+          { Name: "Nora Ain Bte MD Tap", Role: "Supervisor" },
+          { Name: "Satina Binti Salleh", Role: "Supervisor" },
+          { Name: "Amirul Daniel Bin Che Suzami", Role: "Staff" },
+          { Name: "Mio", Role: "Staff" },
+          { Name: "Zaid", Role: "Staff" },
+        ];
+
+        buildTable(userArray);
+
+        function buildTable(data) {
+          var table = document.getElementById("userTable");
+
+          for (var i = 0; i < data.length; i++) {
+            var row = `<div class="accountCon d-flex justify-content-evenly align-items-center col-5">
+                        <div class ="firstletterBox">
+                          <h2>${data[i].Name.charAt(0)}</h2>
+                        </div>
+                        <div class="accountnamebox"> 
+                          <span class="accountnamebox-firstRow p-2 bd-highlight">${
+                            data[i].Name
+                          }</span> <br> <br>
+                          <span class="accountnamebox-secondRow p-2 bd-highlight">${
+                            data[i].Role
+                          }</span>
+                        </div>
+                        <div class="settingsBox dropdown-center">
+                        <button
+                          class="btn"
+                          type="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                              <a class="dropdown-item" href="...">
+                                <i class="bi bi-pencil" style="margin-top: 10px;"></i>
+                                Edit
+                              </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                              <i class="bi bi-trash" style="margin-top: 10px;"></i>
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                        </div>
+                    </div>`;
+            table.innerHTML += row;
+          }
+        }
+      </script> -->
 </body>
 </html>

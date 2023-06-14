@@ -1,7 +1,8 @@
 @import "framework.css";
 
 body {
-  background: #f0f2f5;
+  background-color: #f0f2f5 !important;
+  height: 100%;
 }
 
 @media (min-width: 991.98px) {
@@ -87,7 +88,7 @@ nav {
 }
 
 .main-section {
-  background-color: #f0f2f5;
+  /* background-color: #f0f2f5; */
   /* height: 100vh; */
   padding: 70px 25px 0 !important;
 }
