@@ -55,9 +55,9 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
             placeholder="Full Name">Select Type:</label>
           </div>
           <div class="col-5 d-flex justify-content-between mb-3" >
-            <input type="button" class="btn btn-outline-secondary" id="button1" name="button1" onclick="changeButtonColor(this);toggleForm(1)" value="Dry">
-            <input type="button" class="btn btn-outline-secondary" id="button2" name="button2" onclick="changeButtonColor(this);toggleForm(2)" value="Stuff">
-            <input type="button" class="btn btn-outline-secondary" id="button3" name="button3" onclick="changeButtonColor(this);toggleForm(3)" value="Wet">
+            <input type="button" class="btn btn-outline-secondary btn-custom" name="button1" onclick="changeButtonColor(this);toggleForm(1)" value="Dry">
+            <input type="button" class="btn btn-outline-secondary btn-custom" name="button2" onclick="changeButtonColor(this);toggleForm(2)" value="Stuff">
+            <input type="button" class="btn btn-outline-secondary btn-custom" name="button3" onclick="changeButtonColor(this);toggleForm(3)" value="Wet">
           </div>
         </div>
 
@@ -264,7 +264,7 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" style="background-color: #D9D9D9; border-color: grey; color: black;" data-bs-dismiss="modal">No, keep item</button>
-    <button type="button" id="requestConfirmButton" class="btn btn-secondary bg-primary text-white">Yes, update item</button>
+    <button type="button" id="requestConfirmButton"  class="btn btn-secondary bg-primary text-white">Yes, update item</button>
   </div>
 </div>
 </div>

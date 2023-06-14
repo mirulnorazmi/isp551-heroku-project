@@ -11,18 +11,18 @@
   margin: 10px;
 }
 
-div .btn{
+ .btn-custom{
   font-weight: bold;
   height: auto;
-  width: auto;
+  width: 200px;
   margin: 0 5px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
   
 }
 
-div .btn:hover, 
-div .btn.active{
+.btn-custom:hover, 
+.btn-custom.active{
  background-color: #87A2FD;
  color: white !important;
   
