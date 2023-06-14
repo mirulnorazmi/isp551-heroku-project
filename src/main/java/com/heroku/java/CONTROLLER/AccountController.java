@@ -63,7 +63,7 @@ public class AccountController {
       model.addAttribute("accounts", accounts);
       System.out.println("Account mode : " + model.getAttribute("accounts").toString());
       connection.close();
-      return "/supervisor/PAGE_ACCOUNT/accounts";
+      return "supervisor/PAGE_ACCOUNT/accounts";
       // return returnPage;
 
     } catch (Throwable t) {
