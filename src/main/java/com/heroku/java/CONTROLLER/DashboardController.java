@@ -45,7 +45,7 @@ public class DashboardController {
       try (Connection connection = dataSource.getConnection()) {
         final var statement = connection.createStatement();
   
-        final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, roles FROM staff");
+        final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, password, roles FROM staff");
   
         // String returnPage = "";
   
@@ -56,9 +56,10 @@ public class DashboardController {
           int staffid = resultSet.getInt("staffid");
           String fullname = resultSet.getString("fullname");
           String username = resultSet.getString("username");
+          String password = resultSet.getString("password");
           String roles = resultSet.getString("roles");
   
-          accounts.add(new Accounts(staffid, fullname, username, roles));
+          accounts.add(new Accounts(staffid, fullname, username, password, roles));
           row++;
         }
         // System.out.println("GSON: " + new Gson().toJson(row));

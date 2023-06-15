@@ -12,7 +12,7 @@ import com.heroku.java.MODEL.Accounts;
 import com.heroku.java.MODEL.AccountsRegister;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+// import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,7 +35,7 @@ public class AccountController {
 
   @GetMapping("/accounts")
   public String showAccounts(HttpSession session,
-      @RequestParam(value = "success", defaultValue = "false") boolean loginError, Model model) {
+      @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model) {
     // if (session.getAttribute("username") != null) {
     // return "supervisor/PAGE_ACCOUNT/accounts";
     // } else {
@@ -45,7 +45,7 @@ public class AccountController {
     try (Connection connection = dataSource.getConnection()) {
       final var statement = connection.createStatement();
 
-      final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, roles FROM staff");
+      final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, password, roles FROM staff");
 
       // String returnPage = "";
 
@@ -56,12 +56,15 @@ public class AccountController {
         int staffid = resultSet.getInt("staffid");
         String fullname = resultSet.getString("fullname");
         String username = resultSet.getString("username");
+        String password = resultSet.getString("password");
         String roles = resultSet.getString("roles");
 
-        accounts.add(new Accounts(staffid, fullname, username, roles));
+        accounts.add(new Accounts(staffid, fullname, username,password, roles));
       }
       model.addAttribute("accounts", accounts);
-      System.out.println("Account mode : " + model.getAttribute("accounts").toString());
+      // System.out.println("Account mode : " +
+      //
+      // model.getAttribute("accounts").toString());
       connection.close();
       return "supervisor/PAGE_ACCOUNT/accounts";
       // return returnPage;
@@ -86,14 +89,94 @@ public class AccountController {
   }
 
   @GetMapping("/accounts/update-account")
-  public String showUpdateAccount(HttpSession session) {
+  public String showUpdateAccount(HttpSession session, @RequestParam(name = "staffid") int id, Model model) {
     // if (session.getAttribute("username") != null) {
     // return "redirect:/dashboard";
     // } else {
     // System.out.println("No valid session or session...");
     // return "supervisor/PAGE_ACCOUNT/create-account";
     // }
-    return "supervisor/PAGE_ACCOUNT/update-account";
+    // String query = "SELECT * FROM staff WHERE staffid = ?";
+    System.out.println("Staff id : " + id);
+    try {
+      Connection connection = dataSource.getConnection();
+      String sql = "SELECT * FROM staff WHERE staffid = ?";
+      final var statement = connection.prepareStatement(sql);
+      statement.setInt(1, id);
+
+      final var resultSet = statement.executeQuery();
+      // Process the result set
+      while (resultSet.next()) {
+        // Retrieve the values from the result set
+        int staffId = resultSet.getInt("staffid");
+        String fullname = resultSet.getString("fullname");
+        String username = resultSet.getString("username");
+        String password = resultSet.getString("password");
+        String roles = resultSet.getString("roles");
+        // Retrieve other columns as needed
+        Accounts accounts = new Accounts(staffId, fullname, username, "password", roles);
+       
+      System.out.println("Staff ID: " + staffId);
+      model.addAttribute("accounts", accounts);
+      System.out.println("Model accounts : " + accounts);
+      }
+      return "supervisor/PAGE_ACCOUNT/update-account";
+      // return returnPage;
+
+    } catch (Throwable t) {
+      System.out.println("message : " + t.getMessage());
+      return "index";
+    }
+
+  }
+
+  @PostMapping("/updateAccount")
+  public String updateAccount(HttpSession session, @ModelAttribute("account") Accounts accounts, @RequestParam(name = "staffid") int id, Model model) {
+    try {
+      Connection connection = dataSource.getConnection();
+      String sql = "UPDATE staff SET fullname=?, username=?, password=?, roles=? WHERE staffid=?";
+      String sql_nopass = "UPDATE staff SET fullname=?, username=?, roles=? WHERE staffid=?";
+      final var statement = connection.prepareStatement(sql);
+      final var statement2 = connection.prepareStatement(sql_nopass);
+
+      int staffid = id;
+      String fullname = accounts.getFullname();
+      String username = accounts.getUsername();
+      String password = accounts.getPassword();
+      String roles = accounts.getRoles();
+      System.out.println("roles value : " + roles);
+      // Check if password didnt change === "password"
+      if(password.equals("password")){
+        statement2.setString(1, fullname);
+        statement2.setString(2, username);
+        statement2.setString(3, roles);
+        statement2.setInt(4, staffid);
+        statement2.executeUpdate();
+      }else{
+        statement.setString(1, fullname);
+        statement.setString(2, username);
+        statement.setString(3, passwordEncoder.encode(password));
+        statement.setString(4, roles);
+        statement.setInt(5, staffid);
+        statement.executeUpdate();
+      }
+
+      connection.close();
+
+      return "redirect:/accounts?update_success=true";
+
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
+      return "redirect:/accounts/update-account?success=false";
+    } catch (Exception e) {
+      System.out.println("E message : " + e.getMessage());
+      return "redirect:/accounts/update-account?success=false";
+    }
   }
 
   @PostMapping("/addAccount")
@@ -123,7 +206,7 @@ public class AccountController {
 
         connection.close();
 
-        return "redirect:/accounts?success=true";
+        return "redirect:/accounts?create_success=true";
       }
 
     } catch (SQLException sqe) {

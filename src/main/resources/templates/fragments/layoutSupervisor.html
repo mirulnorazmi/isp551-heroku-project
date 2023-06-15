@@ -9,9 +9,11 @@
     <link rel="icon" href="favicon.ico" />
     <link rel="icon" type="image/png" href="icon-192x192.png" sizes="192x192" />
     <link
-    rel="stylesheet"
-    type="text/css"
-    th:href="@{/stylesheets/dashboard.css}"/>
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/stylesheets/dashboard.css}"
+    />
+    <script th:src="@{/js/dashboard.js}"></script>
   </head>
   <head th:replace=":: header"> </head>
 
@@ -30,11 +32,18 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-          <span th:text="${session.username == null} ? 'dev' : ${session.username}" style="margin-right: 10px;"></span>
-          <div class="avatar-circle">
-            <p th:text="${session.username == null } ? 'D' : ${session.username.substring(0,1).toUpperCase()}" style="margin: 0;"></p>
-          </div>
-        </button>
+            <span
+              id="username_txt"
+              th:text="${session.username == null} ? 'dev' : ${session.username}"
+              style="margin-right: 10px"
+            ></span>
+            <div class="avatar-circle" id="btn-user">
+              <p
+                th:text="${session.username == null } ? 'D' : ${session.username.substring(0,1).toUpperCase()}"
+                style="margin: 0"
+              ></p>
+            </div>
+          </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
@@ -93,14 +102,17 @@
             </a>
           </div>
         </div>
-        <div
-          class="col-9 offset-3 main-section"
-          id="main"
-        >
+        <div class="col-9 offset-3 main-section" id="main">
           <div th:replace="${template}"></div>
         </div>
       </div>
     </div>
+    <script>
+      let text = document.getElementById("username_txt").innerText;
+      document.getElementById("btn-user").style.backgroundColor =
+        getColor(text);
+      console.log("color", getColor(text));
+    </script>
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"

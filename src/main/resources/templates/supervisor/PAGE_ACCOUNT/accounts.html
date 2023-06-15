@@ -50,14 +50,22 @@
           th:each="account : ${accounts}"
         >
           <div class="firstletterBox">
-            <h2 th:text="${account.fullname.charAt(0)}">${data[i].Name.charAt(0)}</h2>
+            <h2 th:text="${account.fullname.charAt(0)}">
+              ${data[i].Name.charAt(0)}
+            </h2>
           </div>
           <div class="accountnamebox">
-            <span class="accountnamebox-firstRow p-2 bd-highlight" th:text="${account.fullname}">${ data[i].Name }</span
+            <span
+              class="accountnamebox-firstRow p-2 bd-highlight"
+              th:text="${account.fullname}"
+              >${ data[i].Name }</span
             >
             <br />
             <br />
-            <span class="accountnamebox-secondRow p-2 bd-highlight" th:text="${account.roles}">${ data[i].Role }</span
+            <span
+              class="accountnamebox-secondRow p-2 bd-highlight"
+              th:text="${account.roles}"
+              >${ data[i].Role }</span
             >
           </div>
           <div class="settingsBox dropdown-center">
@@ -71,7 +79,10 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="...">
+                <a
+                  class="dropdown-item"
+                  th:href="@{/accounts/update-account?staffid=} + ${account.staffid}"
+                >
                   <i class="bi bi-pencil" style="margin-top: 10px"></i>
                   Edit
                 </a>
@@ -159,7 +170,9 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="toast-body">Account successfully created</div>
+        <div class="toast-body" id="display_message">
+          <!-- Account successfully created -->
+        </div>
       </div>
     </div>
     <script
@@ -175,15 +188,27 @@
     <script>
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const error = urlParams.get("success");
+      var create_success = urlParams.get("create_success");
+      var update_success = urlParams.get("update_success");
+      // const message = document.getElementById("display_message").innerHTML;
 
       // const toastTrigger = document.getElementById("liveToastBtn");
       const toastLiveExample = document.getElementById("liveToast");
       const toastBootstrap =
         bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-      if (error.toString() == "true") {
-        toastBootstrap.show();
-        console.log(error.toString());
+      if (create_success != null) {
+        if (create_success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Account successfully created";
+        }
+      }
+      if (update_success != null) {
+        if (update_success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Account successfully updated";
+        }
       }
     </script>
   </body>
