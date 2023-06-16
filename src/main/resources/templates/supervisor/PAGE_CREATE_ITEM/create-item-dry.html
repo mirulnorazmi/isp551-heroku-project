@@ -29,10 +29,10 @@
       style="width: 100%; height: 90vh;"
     >
       <form
-        th:action="@{/createItem}"
+        th:action="@{/createItemDry}"
         th:object="${create}"
         method="post"
-        modelAttribute="create"
+        modelAttribute="createItem"
         class="createItemCon d-flex flex-column justify-content-center align-items-center col-10"
         style="padding: 20px 30px;"
       >
@@ -79,20 +79,20 @@
           <label for="addeddate" class="col-sm-3 col-form-label"><b>Added Date :</b></label>
           <div class="d-flex flex-column col-5">  
             <input 
-            type="date" class="form-control mb-3" id="addeddate" >
+            type="date" class="form-control mb-3" id="addeddate" name="added_date">
           </div>
         </div>
         <div
           class="container-fluid d-flex flex-row justify-content-evenly align-items-start mt-6">  
-          <label for="addeddate" class="col-sm-3 col-form-label"><b>Expiry Date :</b></label>
+          <label for="expirydate" class="col-sm-3 col-form-label"><b>Expiry Date :</b></label>
           <div class="d-flex flex-column col-5">  
             <input 
-            type="date" class="form-control mb-3" id="expirydate" >
+            type="date" class="form-control mb-3" id="expirydate" name="expire_date">
           </div>
         </div>
         <div class="d-flex flex-row justify-content-end" style="margin-top: 4rem;">
           <button type="button" class=" btn_cancel btn btn-primary ">Cancel</button>
-          <button type="button" class="btn_save btn btn-primary ">Save</button>
+          <button type="submit" class="btn_save btn btn-primary ">Save</button>
             </div>       
         </div>     
       </form>
