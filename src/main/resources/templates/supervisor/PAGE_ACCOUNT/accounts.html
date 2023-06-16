@@ -22,78 +22,164 @@
       type="text/css"
       th:href="@{/stylesheets/account.css}"
     />
+    <link
+      rel="stylesheet"
+      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css}"
+    />
   </head>
   <body>
-    <section style="height: 90vh">
+    <section style="height: 100%">
+      <!-- <div th:each="account : ${accounts}">
+        <p th:text="${account.staffid}">dsad</p>
+        <p th:text="${account.fullname}"></p>
+        <p th:text="${account.username}"></p>
+        <p th:text="${account.roles}"></p>
+      </div> -->
       <div
         class="vims-containerTop d-flex justify-content-between align-items-center"
       >
-        <h3>Accounts</h3>
+        <h3><b>Accounts</b></h3>
         <a class="addAccountButton" href="/accounts/create-account">
-          <img src="/img-icon/addButton.png" alt="..." class="img-button" />
-          <span>Add Account</span>
+          <i class="bi bi-plus-circle"></i>
+          <b>Add Account</b>
         </a>
       </div>
+      <div id="userTable" class="d-flex flex-wrap justify-content-evenly">
+        <div
+          class="accountCon d-flex justify-content-evenly align-items-center col-5"
+          th:each="account : ${accounts}"
+        >
+          <div class="firstletterBox">
+            <h2 th:text="${account.fullname.charAt(0)}">
+              ${data[i].Name.charAt(0)}
+            </h2>
+          </div>
+          <div class="accountnamebox">
+            <span
+              class="accountnamebox-firstRow p-2 bd-highlight"
+              th:text="${account.fullname}"
+              >${ data[i].Name }</span
+            >
+            <br />
+            <br />
+            <span
+              class="accountnamebox-secondRow p-2 bd-highlight"
+              th:text="${account.roles}"
+              >${ data[i].Role }</span
+            >
+          </div>
+          <div class="settingsBox dropdown-center">
+            <button
+              class="btn"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/accounts/update-account?staffid=} + ${account.staffid}"
+                >
+                  <i class="bi bi-pencil" style="margin-top: 10px"></i>
+                  Edit
+                </a>
+              </li>
+              <li>
+                <a
+                  id="delete-account-btn"
+                  class="dropdown-item"
+                  data-bs-target="#deleteModal"
+                  th:href="@{/accounts?delete=}+${account.staffid}"
+                >
+                  <i class="bi bi-trash" style="margin-top: 10px"></i>
+                  Delete
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
       <div
-        id="userTable"
-        class="d-flex flex-wrap justify-content-between"
-      ></div>
-      <script>
-        var userArray = [
-          { Name: "Nora Ain Bte MD Tap", Role: "Supervisor" },
-          { Name: "Satina Binti Salleh", Role: "Supervisor" },
-          { Name: "Roszilawati Binti MD Rashid", Role: "Staff" },
-          { Name: "Roszilawati Binti MD Rashid", Role: "Staff" },
-          { Name: "Roszilawati Binti MD Rashid", Role: "Staff" },
-        ];
+        class="modal fade"
+        id="deleteModal"
+        tabindex="-1"
+        aria-labelledby="deleteModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="deleteModalLabel">
+                <b>Delete Account?</b>
+              </h1>
+              <!-- <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                
+              ></button> -->
+            </div>
+            <div class="modal-vims-body modal-body">
+              <span
+                >Deleting a account will permanently remove the user from the
+                database.</span
+              >
+            </div>
+            <div class="modal-footer">
+              <a th:href="@{/accounts}">
+                <button
+                  type="button"
+                  class="modal-vims-Button btn btn-light"
+                  data-bs-dismiss="modal"
+                >
+                  <b>No, Keep Account</b>
+                </button>
+              </a>
 
-        buildTable(userArray);
-
-        function buildTable(data) {
-          var table = document.getElementById("userTable");
-
-          for (var i = 0; i < data.length; i++) {
-            var row = `<div class="addAccountCon d-flex justify-content-evenly align-items-center col-5">
-                        <div class ="firstletterBox">
-                          <h5>${data[i].Name.charAt(0)}</h5>
-                        </div>
-                        <div class="accountnamebox"> 
-                          <span class="accountnamebox-firstRow p-2 bd-highlight">${
-                            data[i].Name
-                          }</span>
-                          <span class="accountnamebox-secondRow p-2 bd-highlight">${
-                            data[i].Role
-                          }</span>
-                        </div>
-                        <div class="dropdown-center">
-                        <button
-                          class="btn"
-                          type="button"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          <img src="/img-icon/settingsButton.png" alt="..." class="..." />
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li>
-                              <a class="dropdown-item" href="...">
-                                <img src="/img-icon/editButton.png" alt="..." class="..." />
-                                Edit
-                              </a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="...">
-                              <img src="/img-icon/trashButton.png" alt="..." class="..." />
-                              Delete
-                            </a>
-                          </li>
-                        </ul>
-                        </div>
-                    </div>`;
-            table.innerHTML += row;
-          }
-        }
-      </script>
+              <button type="button" onclick="redirectDelete()" class="modal-vims-Button btn btn-primary" >
+                <b>Yes, Delete Account</b>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end Modal -->
     </section>
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img
+            src="../icon-192x192.png"
+            class="rounded me-2"
+            alt="..."
+            width="20px"
+          />
+          <strong class="me-auto">VFIMS</strong>
+          <!-- <small>11 mins ago</small> -->
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body" id="display_message">
+          <!-- Account successfully created -->
+        </div>
+      </div>
+    </div>
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
@@ -104,5 +190,67 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var create_success = urlParams.get("create_success");
+      var update_success = urlParams.get("update_success");
+      var error_code = urlParams.get("error_code");
+      var deleteId = urlParams.get("delete");
+      var hasParam = window.location.href.indexOf("delete");
+      // const message = document.getElementById("display_message").innerHTML;
+      var href = document.getElementById("delete-account-btn").href;
+      document.getElementById("delete-account-btn").onClick = function () {
+        // var href = document.querySelector("a").href;
+        console.log("href", href);
+      };
+      function redirectDelete(){
+        location.href='/deleteAccount?staffid=' + deleteId.toString();
+      }
+      // const toastTrigger = document.getElementById("liveToastBtn");
+      const toastLiveExample = document.getElementById("liveToast");
+      const toastBootstrap =
+        bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+      var myModal = new bootstrap.Modal(
+        document.getElementById("deleteModal"),
+        {}
+      );
+
+      if (hasParam) {
+        if (deleteId != null) {
+          myModal.show();
+          console.log("deleteId.toString()", deleteId.toString());
+        }
+      }
+
+      if (create_success != null) {
+        if (create_success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Account successfully created";
+        }
+      }
+      if (update_success != null) {
+        if (update_success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Account successfully updated";
+        }
+      }
+      if(error_code != null){
+        if (error_code.toString() == "101") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Can't delete superadmin account...";
+        }
+      }
+      if(error_code != null){
+        if(error_code.toString() == "102"){
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Can't delete own session account...";
+        }
+      }
+    </script>
   </body>
 </html>

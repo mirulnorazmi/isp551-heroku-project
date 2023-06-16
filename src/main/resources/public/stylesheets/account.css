@@ -2,56 +2,92 @@
 
 .formBox2 {
   padding: 10px;
-  border: 1px solid #F4F4F4;
+  border: 1px solid #f4f4f4;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
 
-.vims-containerTop{
+.vims-containerTop {
   margin: 20px;
 }
 
-.addAccountButton{
+.addAccountButton {
   background: #ffffff;
   border: 1px solid #f4f4f4;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  padding: 8px;
+  padding: 10px;
   text-decoration: none;
   color: black;
 }
 
-.addAccountButton:hover{
+.addAccountButton:hover {
   background: lightgray;
 }
 
-.img-button{
+.img-button {
   width: 20px;
 }
-
-.firstletterBox{
-  padding: 15px 25px;
-  border-radius: 20px;
-  background-color: #3D65E8;
-  color: #ffffff;
-  margin: 10px;
-  font-weight: bold;
-}
-
-.accountnamebox{
-  width: 50%;
-}
-.accountnamebox-firstRow{
-  font-weight: bold;
-}
-.accountnamebox-secondRow{
-  color: #0563C1;
-}
-
-.addAccountCon{
+.accountCreateCon {
   background: #ffffff;
   border: 1px solid #f4f4f4;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: 10px;
+  padding: 15px;
+}
+.accountCon {
+  background: #ffffff;
+  border: 1px solid #f4f4f4;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin: 10px;
+  padding: 15px;
+}
+
+.firstletterBox {
+  border-radius: 20px;
+  background-color: #3d65e8;
+  color: #ffffff;
+  font-weight: bold;
+  height: 100%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  margin-bottom: 0 !important;
+}
+
+.accountnamebox {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.accountnamebox-firstRow {
+  font-weight: bold;
+  padding: 0px;
+}
+.accountnamebox-secondRow {
+  color: #0563c1;
+  padding: 0px;
+}
+
+.settingsBox {
+  height: 100%;
+}
+
+.modal-vims-body {
+  background-color: #f0f2f5;
+  color: #000000e9;
+}
+
+.modal-vims-Button {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 10px 15px;
 }
