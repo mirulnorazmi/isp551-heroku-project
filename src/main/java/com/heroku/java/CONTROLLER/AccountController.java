@@ -59,7 +59,7 @@ public class AccountController {
         String password = resultSet.getString("password");
         String roles = resultSet.getString("roles");
 
-        accounts.add(new Accounts(staffid, fullname, username,password, roles));
+        accounts.add(new Accounts(staffid, fullname, username, password, roles));
       }
       model.addAttribute("accounts", accounts);
       // System.out.println("Account mode : " +
@@ -115,10 +115,10 @@ public class AccountController {
         String roles = resultSet.getString("roles");
         // Retrieve other columns as needed
         Accounts accounts = new Accounts(staffId, fullname, username, "password", roles);
-       
-      System.out.println("Staff ID: " + staffId);
-      model.addAttribute("accounts", accounts);
-      System.out.println("Model accounts : " + accounts);
+
+        System.out.println("Staff ID: " + staffId);
+        model.addAttribute("accounts", accounts);
+        System.out.println("Model accounts : " + accounts);
       }
       return "supervisor/PAGE_ACCOUNT/update-account";
       // return returnPage;
@@ -130,8 +130,47 @@ public class AccountController {
 
   }
 
+  @GetMapping("/deleteAccount")
+  public String deleteAccount(HttpSession session, @ModelAttribute("account") Accounts accounts,
+      @RequestParam(name = "staffid") int id, Model model) {
+    System.out.println("Staff id  (delete): " + id);
+    try {
+      Connection connection = dataSource.getConnection();
+      // Statement stmt = connection.createStatement();
+      String sql = "DELETE FROM staff WHERE staffid=? AND managerid IS NOT NULL";
+      final var statement = connection.prepareStatement(sql);
+      var sessionId = session.getAttribute("staffid").toString();
+      // step4 execute query with logical
+      if (id != 1) {
+        if (id != Integer.parseInt(sessionId)) {
+          statement.setInt(1, id);
+          statement.executeUpdate();
+          connection.close();
+          return "redirect:/accounts?delete_success=true";
+        } else {
+          return "redirect:/accounts?error_code=102";
+        }
+      } else {
+        return "redirect:/accounts?error_code=101";
+      }
+
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
+      return "redirect:/accounts/update-account?success=false";
+    } catch (Exception e) {
+      System.out.println("E message : " + e.getMessage());
+      return "redirect:/accounts/update-account?success=false";
+    }
+  }
+
   @PostMapping("/updateAccount")
-  public String updateAccount(HttpSession session, @ModelAttribute("account") Accounts accounts, @RequestParam(name = "staffid") int id, Model model) {
+  public String updateAccount(HttpSession session, @ModelAttribute("account") Accounts accounts,
+      @RequestParam(name = "staffid") int id, Model model) {
     try {
       Connection connection = dataSource.getConnection();
       String sql = "UPDATE staff SET fullname=?, username=?, password=?, roles=? WHERE staffid=?";
@@ -146,13 +185,13 @@ public class AccountController {
       String roles = accounts.getRoles();
       System.out.println("roles value : " + roles);
       // Check if password didnt change === "password"
-      if(password.equals("password")){
+      if (password.equals("password")) {
         statement2.setString(1, fullname);
         statement2.setString(2, username);
         statement2.setString(3, roles);
         statement2.setInt(4, staffid);
         statement2.executeUpdate();
-      }else{
+      } else {
         statement.setString(1, fullname);
         statement.setString(2, username);
         statement.setString(3, passwordEncoder.encode(password));

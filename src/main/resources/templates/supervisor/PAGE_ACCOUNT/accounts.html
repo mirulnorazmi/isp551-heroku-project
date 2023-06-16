@@ -89,9 +89,10 @@
               </li>
               <li>
                 <a
+                  id="delete-account-btn"
                   class="dropdown-item"
-                  data-bs-toggle="modal"
                   data-bs-target="#deleteModal"
+                  th:href="@{/accounts?delete=}+${account.staffid}"
                 >
                   <i class="bi bi-trash" style="margin-top: 10px"></i>
                   Delete
@@ -115,12 +116,13 @@
               <h1 class="modal-title fs-5" id="deleteModalLabel">
                 <b>Delete Account?</b>
               </h1>
-              <button
+              <!-- <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-              ></button>
+                
+              ></button> -->
             </div>
             <div class="modal-vims-body modal-body">
               <span
@@ -129,14 +131,17 @@
               >
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="modal-vims-Button btn btn-light"
-                data-bs-dismiss="modal"
-              >
-                <b>No, Keep Account</b>
-              </button>
-              <button type="button" class="modal-vims-Button btn btn-primary">
+              <a th:href="@{/accounts}">
+                <button
+                  type="button"
+                  class="modal-vims-Button btn btn-light"
+                  data-bs-dismiss="modal"
+                >
+                  <b>No, Keep Account</b>
+                </button>
+              </a>
+
+              <button type="button" onclick="redirectDelete()" class="modal-vims-Button btn btn-primary" >
                 <b>Yes, Delete Account</b>
               </button>
             </div>
@@ -190,12 +195,34 @@
       const urlParams = new URLSearchParams(queryString);
       var create_success = urlParams.get("create_success");
       var update_success = urlParams.get("update_success");
+      var error_code = urlParams.get("error_code");
+      var deleteId = urlParams.get("delete");
+      var hasParam = window.location.href.indexOf("delete");
       // const message = document.getElementById("display_message").innerHTML;
-
+      var href = document.getElementById("delete-account-btn").href;
+      document.getElementById("delete-account-btn").onClick = function () {
+        // var href = document.querySelector("a").href;
+        console.log("href", href);
+      };
+      function redirectDelete(){
+        location.href='/deleteAccount?staffid=' + deleteId.toString();
+      }
       // const toastTrigger = document.getElementById("liveToastBtn");
       const toastLiveExample = document.getElementById("liveToast");
       const toastBootstrap =
         bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+      var myModal = new bootstrap.Modal(
+        document.getElementById("deleteModal"),
+        {}
+      );
+
+      if (hasParam) {
+        if (deleteId != null) {
+          myModal.show();
+          console.log("deleteId.toString()", deleteId.toString());
+        }
+      }
+
       if (create_success != null) {
         if (create_success.toString() == "true") {
           toastBootstrap.show();
@@ -208,6 +235,20 @@
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =
             "Account successfully updated";
+        }
+      }
+      if(error_code != null){
+        if (error_code.toString() == "101") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Can't delete superadmin account...";
+        }
+      }
+      if(error_code != null){
+        if(error_code.toString() == "102"){
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Can't delete own session account...";
         }
       }
     </script>
