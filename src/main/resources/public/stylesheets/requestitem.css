@@ -21,14 +21,17 @@
   
 }
 
-.btn-custom:hover, 
-.btn-custom.active{
+.btn-custom:hover{
+  background-color: #87A2FD;
+  color: white !important;
+   
+ }
+ 
+.btn-custom:active{
  background-color: #87A2FD;
  color: white !important;
   
 }
-
-
 
 .modal-body {
   background-color: #f0f2f5;

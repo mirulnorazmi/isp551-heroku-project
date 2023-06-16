@@ -311,8 +311,9 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
     function changeButtonColor(button) {
          if(previousButton !== null){
             previousButton.classList.remove('active');
-            previousButton.style.backgroundColor = "#ffffff";
-            previousButton.style.color = 'black';}
+            previousButton.style.backgroundColor = "white";
+            previousButton.style.color = 'black';
+          }
     
     button.classList.add('active');
     button.style.backgroundColor = "#87A2FD";
