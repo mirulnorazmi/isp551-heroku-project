@@ -5,7 +5,7 @@
   lang="en"
 >
   <head>
-    <title th:include=":: #pageTitle">Layout Generic Title</title>
+    <title th:replace="~{:: #pageTitle}">Layout Generic Title</title>
     <link rel="icon" href="favicon.ico" />
     <link rel="icon" type="image/png" href="icon-192x192.png" sizes="192x192" />
     <link
@@ -13,25 +13,38 @@
       type="text/css"
       th:href="@{/stylesheets/dashboard.css}"
     />
-    <script th:src="@{/helpers/getColor.js}"></script>
+    <script src="/js/dashboard.js"></script>
   </head>
-  <head th:replace=":: header"> </head>
+  <head th:replace="~{::header}"> </head>
   <body>
     <nav class="navbar fixed-top bg-body-tertiary nav-vfim">
       <div class="row row-content">
-        <div id="con1">
-          <img src="/img-icon/logo.png" alt="..." class="img_logo" />
-        </div>
+        <a th:href="@{/dashboard}">
+          <button type="button" class="btn" style="margin-left: 20px">
+            <img src="/vfims-logo.png" alt="..." width="100" />
+          </button>
+        </a>
       </div>
       <div class="btn-container-user">
         <div class="dropdown-center">
           <button
-            class="btn dropdown-toggle"
+            class="btn btn-user btn-outline-primary d-flex flex-row align-items-center"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            th:text="'@' + ${session.username}"
-          ></button>
+          >
+            <span
+              id="username_txt"
+              th:text="${session.username == null} ? 'dev' : ${session.username}"
+              style="margin-right: 10px"
+            ></span>
+            <div class="avatar-circle" id="btn-user">
+              <p
+                th:text="${session.username == null } ? 'D' : ${session.username.substring(0,1).toUpperCase()}"
+                style="margin: 0"
+              ></p>
+            </div>
+          </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
@@ -95,6 +108,12 @@
         </div>
       </div>
     </div>
+    <script>
+      let text = document.getElementById("username_txt").innerText;
+      document.getElementById("btn-user").style.backgroundColor =
+        getColor(text);
+      console.log("color", getColor(text));
+    </script>
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"

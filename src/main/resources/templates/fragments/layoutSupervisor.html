@@ -5,7 +5,7 @@
   lang="en"
 >
   <head>
-    <title th:include=":: #pageTitle">Layout Generic Title</title>
+    <title th:replace="~{:: #pageTitle}">Layout Generic Title</title>
     <link rel="icon" href="favicon.ico" />
     <link rel="icon" type="image/png" href="icon-192x192.png" sizes="192x192" />
     <link
@@ -13,16 +13,18 @@
       type="text/css"
       th:href="@{/stylesheets/dashboard.css}"
     />
-    <script th:src="@{/js/dashboard.js}"></script>
+    <script src="/js/dashboard.js"></script>
   </head>
-  <head th:replace=":: header"> </head>
+  <head th:replace="~{::header}"> </head>
 
   <body>
     <nav class="navbar fixed-top nav-vfim">
       <div class="row row-content">
-        <div id="con1">
-          <img src="/img-icon/logo.png" alt="..." class="img_logo" />
-        </div>
+        <a th:href="@{/dashboard}">
+          <button type="button" class="btn" style="margin-left: 20px">
+            <img src="/vfims-logo.png" alt="..." width="100" />
+          </button>
+        </a>
       </div>
       <div class="btn-container-user">
         <div class="dropdown-center">

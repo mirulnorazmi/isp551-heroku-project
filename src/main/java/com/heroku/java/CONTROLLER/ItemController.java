@@ -96,7 +96,7 @@ public class ItemController {
       pstatement2.setInt(1, idStaff);
       pstatement2.setDate(2, itemD.getExpire_date());
       pstatement2.executeUpdate();
-      
+    
 
       return "redirect:/create-items/create-item-dry";
 
