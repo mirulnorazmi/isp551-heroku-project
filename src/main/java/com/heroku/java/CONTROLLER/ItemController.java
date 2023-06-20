@@ -37,7 +37,7 @@ public class ItemController {
     // System.out.println("No valid session or session...");
     // return "redirect:/";
     // }
-    return "/supervisor/PAGE_CREATE_ITEM/create-item-dry";
+    return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
   }
 
   @GetMapping("/create-items/create-item-stuff")
@@ -48,7 +48,7 @@ public class ItemController {
     // System.out.println("No valid session or session...");
     // return "redirect:/";
     // }
-    return "/supervisor/PAGE_CREATE_ITEM/create-item-stuff";
+    return "supervisor/PAGE_CREATE_ITEM/create-item-stuff";
   }
 
   @GetMapping("/create-items/create-item-wet")
@@ -59,7 +59,7 @@ public class ItemController {
     // System.out.println("No valid session or session...");
     // return "redirect:/";
     // }
-    return "/supervisor/PAGE_CREATE_ITEM/create-item-wet";
+    return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
   }
 
   @PostMapping("/createItemDry")
