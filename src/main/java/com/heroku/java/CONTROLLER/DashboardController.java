@@ -50,7 +50,7 @@ public class DashboardController {
         // String returnPage = "";
   
         // int columnCount = resultSet.getMetaData().getColumnCount();
-        int row = 0;
+        int row = 0 , rowSupervisor = 0, rowStaff = 0;
         ArrayList<Accounts> accounts = new ArrayList<>();
         while (resultSet.next()) {
           int staffid = resultSet.getInt("staffid");
@@ -61,11 +61,18 @@ public class DashboardController {
   
           accounts.add(new Accounts(staffid, fullname, username, password, roles));
           row++;
+          if(roles.equals("supervisor")){
+            rowSupervisor++;
+          }else if(roles.equals("staff")){
+            rowStaff++;
+          }
         }
         // System.out.println("GSON: " + new Gson().toJson(row));
         model.addAttribute("accounts", accounts);
         model.addAttribute("rowAccount", row);
-        System.out.println("Account mode : " + model.getAttribute("accounts").toString());
+        model.addAttribute("rowSupervisor", rowSupervisor);
+        model.addAttribute("rowStaff", rowStaff);
+      
         connection.close();
         // return "/supervisor/PAGE_ACCOUNT/accounts";
         // return returnPage;

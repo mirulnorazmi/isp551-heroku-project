@@ -44,6 +44,7 @@ public class LoginController {
 
   @GetMapping("/logout")
   public String logout(HttpSession session) {
+    System.out.println(">>>>(" + session.getAttribute("staffid") + ")["+ session.getAttribute("username") + "] logged out..." );
     session.invalidate();
     return "redirect:/";
   }
@@ -77,11 +78,11 @@ public class LoginController {
         int staffid = resultSet.getInt("staffid");
         if (user.getUsername() != "" && user.getPassword() != "") {
           if (username.equals(user.getUsername()) && passwordEncoder.matches(user.getPassword(), pwd)) {
-
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", roles);
             session.setAttribute("staffid", staffid);
             session.setMaxInactiveInterval(1440 * 60);
+            System.out.println(">>>>  (" + staffid + ")["+ user.getUsername()+ "] logged in..." );
             returnPage = "redirect:/dashboard";
             break;
           } else {
