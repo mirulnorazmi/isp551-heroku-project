@@ -31,13 +31,13 @@ public class ItemController {
 
   @GetMapping("/create-items/create-item-dry")
   public String dry(HttpSession session) {
-    // if (session.getAttribute("username") != null) {
-    // return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
-    // } else {
-    // System.out.println("No valid session or session...");
-    // return "redirect:/";
-    // }
+    if (session.getAttribute("username") != null) {
     return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
+    } else {
+    System.out.println("No valid session or session...");
+    return "redirect:/";
+    }
+    // return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
   }
 
   @GetMapping("/create-items/create-item-stuff")
@@ -63,42 +63,35 @@ public class ItemController {
   }
 
   @PostMapping("/createItemDry")
-  public String createItemDry(@ModelAttribute("createItem") ItemsDry itemD) {
-    System.out.println("Name : " + itemD.getName());
-    System.out.println("Quantity : " + itemD.getQuantity());
-    System.out.println("Added date : " + itemD.getAdded_date());
-    System.out.println("Expired date : " + itemD.getExpire_date());
-    // return "redirect:/create-items/create-item-dry";
+  public String createItemDry(@ModelAttribute("createItem") ItemsDry itemD, HttpSession session) {
     try {
-      // Validation 1 : item name cant be the same as existed
-      // Validation 2 : if fail sql_items then it will not execute
-      // Validation 3 : if fail sql_dry then it will not execute
-      Connection connection = dataSource.getConnection();
-      String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?)";
-      final var pstatement1 = connection.prepareStatement(sql_items);
-      pstatement1.setString(1, itemD.getName());
-      pstatement1.setInt(2, itemD.getQuantity());
-      pstatement1.setDate(3, itemD.getAdded_date());
-      pstatement1.executeUpdate();
+      if (itemD.getName().equals(null) && itemD.getQuantity() == 0 && itemD.getAdded_date().equals(null)
+          && itemD.getExpire_date().equals(null)) {
+        return "redirect:/create-items/create-item-dry?success=false";
+      } else {
+        Connection connection = dataSource.getConnection();
+        String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?) RETURNING itemsid AS itemsid;";
+        final var pstatement1 = connection.prepareStatement(sql_items);
+        pstatement1.setString(1, itemD.getName());
+        pstatement1.setInt(2, itemD.getQuantity());
+        pstatement1.setDate(3, itemD.getAdded_date());
+        pstatement1.execute();
+        ResultSet items_d = pstatement1.getResultSet();
+        int items_id = 0;
+        if (items_d.next()) {
+          items_id = items_d.getInt(1);
+        }
 
-      String sql_check = "SELECT * FROM items WHERE name =?";
-      final var pstmt = connection.prepareStatement(sql_check);
-      pstmt.setString(1, itemD.getName());
-      final var resultSet = pstmt.executeQuery();
-      int idStaff = 0;
-      while(resultSet.next()){
-        idStaff = resultSet.getInt("itemsid");
+        System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] " + session.getAttribute("username"));
+        String sql_dry = "INSERT INTO dry_ingredients(itemsid, expire_date) VALUES (?,?)";
+
+        final var pstatement2 = connection.prepareStatement(sql_dry);
+        pstatement2.setInt(1, items_id);
+        pstatement2.setDate(2, itemD.getExpire_date());
+        pstatement2.executeUpdate();
+
+        return "redirect:/create-items/create-item-dry?success=true";
       }
-      System.out.println("Id staff from db sql_1 : " + idStaff);
-      
-      String sql_dry = "INSERT INTO dry_ingredients(itemsid, expire_date) VALUES (?,?)";
-      final var pstatement2 = connection.prepareStatement(sql_dry);
-      pstatement2.setInt(1, idStaff);
-      pstatement2.setDate(2, itemD.getExpire_date());
-      pstatement2.executeUpdate();
-    
-
-      return "redirect:/create-items/create-item-dry";
 
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
