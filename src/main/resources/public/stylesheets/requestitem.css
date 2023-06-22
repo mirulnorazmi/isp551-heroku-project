@@ -21,12 +21,7 @@
   
 }
 
-.btn-custom:hover{
-  background-color: #87A2FD;
-  color: white !important;
-   
- }
- 
+.btn-custom:hover,
 .btn-custom:active{
  background-color: #87A2FD;
  color: white !important;

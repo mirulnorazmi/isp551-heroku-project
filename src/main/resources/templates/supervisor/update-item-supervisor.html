@@ -52,10 +52,10 @@
           aria-label="fullname" style="border:none;text-align: right;"
           placeholder="Full Name">Select Type:</label>
         </div>
-        <div class="col-5 d-flex justify-content-between mb-3" >
-          <input type="button" class="btn btn-outline-secondary btn-custom" name="button1" onclick="changeButtonColor(this);toggleForm(1)" value="Dry">
-          <input type="button" class="btn btn-outline-secondary btn-custom" name="button2" onclick="changeButtonColor(this);toggleForm(2)" value="Stuff">
-          <input type="button" class="btn btn-outline-secondary btn-custom" name="button3" onclick="changeButtonColor(this);toggleForm(3)" value="Wet">
+        <div class="col-5 d-flex justify-content-between mb-3" id="myDIV" >
+          <input type="button" class="btn btn-custom" name="button1" onclick="toggleForm(1)" value="Dry">
+          <input type="button" class="btn btn-custom" name="button2" onclick="toggleForm(2)" value="Stuff">
+          <input type="button" class="btn btn-custom" name="button3" onclick="toggleForm(3)" value="Wet">
         </div>
       </div>
 
@@ -304,20 +304,17 @@
     }
   }
 
-  let previousButton = null;
 
-  function changeButtonColor(button) {
-       if(previousButton !== null){
-          previousButton.classList.remove('active');
-          previousButton.style.backgroundColor = "white";
-          previousButton.style.color = 'black';
-        }
+  var header = document.getElementById("myDIV");
+var btns = header.getElementsByClassName("btn-custom");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  current[0].className = current[0].className.replace(" active", "");
+  this.className += " active";
+  });
+}
   
-  button.classList.add('active');
-  button.style.backgroundColor = "#87A2FD";
-  button.style.color="white";
-  previousButton=button;
-  }
   </script>
     <script
     th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
