@@ -49,7 +49,7 @@
             <img src="/img-icon/TotalAccount.png" />
           </div>
           <p class="totalAccount">Total Account</p>
-          <p class="totalItem-number">32</p>
+          <p class="totalItem-number" th:text="${rowAccount}">32</p>
         </div>
       </div>
     </section>
@@ -59,7 +59,7 @@
       <div class="itemDetails-box">
         <div class="chart-pie-container">
           <canvas id="pie-chart"></canvas>
-          <script src="/chart.min.js"></script>
+          <script src="/js/chart.min.js"></script>
           <script>
             new Chart(document.getElementById("pie-chart"), {
               type: "pie",
@@ -111,20 +111,7 @@
       <div class="itemDetails-box">
         <div class="chart-pie-container">
           <canvas id="pie-chart2"></canvas>
-          <script src="/chart.min.js"></script>
-          <script>
-            new Chart(document.getElementById("pie-chart2"), {
-              type: "pie",
-              data: {
-                datasets: [
-                  {
-                    backgroundColor: ["#06aae9", "#fbb03b"],
-                    data: [30, 5],
-                  },
-                ],
-              },
-            });
-          </script>
+          <script src="/js/chart.min.js"></script>
         </div>
         <div class="pie-label">
           <h4 style="margin-bottom: 15px">Types</h4>
@@ -138,18 +125,41 @@
           </h5>
 
           <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
-          <h5 class="pLabel">
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--blue"></div>
-            30 account
-          </h5>
-          <h5 class="pLabel">
+            <h5 class="pLabel" id="valStaff" th:text="${rowStaff} + ' account'">
+              {auto_generated}
+            </h5>
+          </div>
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--yel"></div>
-            5 account
-          </h5>
+            <h5
+              class="pLabel"
+              id="valSupervisor"
+              th:text="${rowSupervisor} + ' account'"
+            >
+              {auto_generated}
+            </h5>
+          </div>
         </div>
       </div>
     </section>
+    <script>
+      let valStaff = document.getElementById("valStaff").innerText;
+      let valSupervisor = document.getElementById("valSupervisor").innerText;
 
+      new Chart(document.getElementById("pie-chart2"), {
+        type: "pie",
+        data: {
+          datasets: [
+            {
+              backgroundColor: ["#06aae9", "#fbb03b"],
+              data: [parseInt(valStaff), parseInt(valSupervisor)],
+            },
+          ],
+        },
+      });
+    </script>
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"

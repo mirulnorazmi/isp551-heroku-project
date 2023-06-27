@@ -1,6 +1,6 @@
-package com.heroku.java;
+package com.heroku.java.MODEL;
 
-public class Accounts {
+public class AccountsRegister {
   private String fullname;
   private String username;
   private String password;
