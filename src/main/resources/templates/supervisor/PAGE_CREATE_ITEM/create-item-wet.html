@@ -29,10 +29,10 @@
       style="width: 100%; height: 90vh;"
     >
       <form
-        th:action="@{/createItem}"
+        th:action="@{/createItemWet}"
         th:object="${create}"
         method="post"
-        modelAttribute="create"
+        modelAttribute="createItem"
         class="createItemCon d-flex flex-column justify-content-center align-items-center col-10"
         style="padding: 20px 30px;"
       >
@@ -79,7 +79,7 @@
           <label for="addeddate" class="col-sm-3 col-form-label"><b>Added Date :</b></label>
           <div class="d-flex flex-column col-5">  
             <input 
-            type="date" class="form-control mb-3" id="addeddate" >
+            type="date" class="form-control mb-3" id="addeddate" name="added_date" >
           </div>
         </div>
         

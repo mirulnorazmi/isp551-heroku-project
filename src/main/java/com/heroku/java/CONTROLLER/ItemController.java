@@ -113,4 +113,59 @@ public class ItemController {
       return "redirect:/accounts/create-account?success=false";
     }
   }
+
+ @PostMapping("/createItemWet")
+  public String createItemWet(@ModelAttribute("createItem") ItemsWet itemD) {
+    System.out.println("Name : " + itemD.getName());
+    System.out.println("Quantity : " + itemD.getQuantity());
+    System.out.println("Added date : " + itemD.getAdded_date());
+    // return "redirect:/create-items/create-item-wet";
+    try {
+      // Validation 1 : item name cant be the same as existed
+      // Validation 2 : if fail sql_items then it will not execute
+      // Validation 3 : if fail sql_dry then it will not execute
+      Connection connection = dataSource.getConnection();
+      String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?)";
+      final var pstatement1 = connection.prepareStatement(sql_items);
+      pstatement1.setString(1, itemD.getName());
+      pstatement1.setInt(2, itemD.getQuantity());
+      pstatement1.setDate(3, itemD.getAdded_date());
+      pstatement1.executeUpdate();
+
+      String sql_check = "SELECT * FROM items WHERE name =?";
+      final var pstmt = connection.prepareStatement(sql_check);
+      pstmt.setString(1, itemD.getName());
+      final var resultSet = pstmt.executeQuery();
+      int idStaff = 0;
+      while(resultSet.next()){
+        idStaff = resultSet.getInt("itemsid");
+      }
+      System.out.println("Id staff from db sql_1 : " + idStaff);
+      
+      String sql_dry = "INSERT INTO wet_ingredients(itemsid, expire_date) VALUES (?,?)";
+      final var pstatement2 = connection.prepareStatement(sql_wet);
+      pstatement2.setInt(1, idStaff);
+      pstatement2.setDate(2, itemD.getAdded_date());
+      pstatement2.executeUpdate();
+    
+
+      return "redirect:/create-items/create-item-wet";
+
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
+      return "redirect:/accounts/create-account?success=false";
+    } catch (Exception e) {
+      System.out.println("E message : " + e.getMessage());
+      return "redirect:/accounts/create-account?success=false";
+    }
+  }
+
+
+
+  
 }
