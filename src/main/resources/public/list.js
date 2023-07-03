@@ -18,9 +18,6 @@ var currentData = [...foodData, ...itemData];
 // Get reference to the table body
 var tableBody = document.getElementById('myTable');
 
-// Determine if current page is viewStaff.html
-var isViewStaffPage = document.body.id === 'viewStaffPage';
-
 // Store a reference to the previous button clicked
 let previousButton = null;
 
@@ -65,30 +62,22 @@ function populateTable(data) {
             '<td>' +
             '<ul class="list-inline m-0">' +
             '<li class="list-inline-item">';
+        
+        rowHTML += '</li>' +
+            '<li class="list-inline-item">' +
+            '<button class="btn btn-lg rounded-0" type="button"  data-toggle="tooltip" data-placement="top" title="Edit">' +
+            '<i class="bi bi-dash-circle"></i>' +
+            '</button>' +
+            '</li>' +
+            '</ul>' +
+            '</td>';
 
-        // Add delete button if not on viewStaff.html
-        if (!isReleasePage) {
-            rowHTML += '<button class="btn btn-lg rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-toggle="tooltip" data-placement="top" title="Delete">' +
-                '<i class="bi bi-dash-circle"></i>' +
-                '</button>';
-        }
-
-     
         var row = document.createElement('tr');
         row.innerHTML = rowHTML;
         tableBody.appendChild(row);
-
-        // Add event listener to delete button if it exists
-        if (!isReleasePage) {
-            row.querySelector('.bi-dash-circle').parentElement.addEventListener('click', function() {
-                document.getElementById('confirmDelete').addEventListener('click', function() {
-                    data.splice(i, 1); // Delete the item from the array
-                    populateTable(data); // Repopulate the table
-                }, { once: true }); // Ensure the event listener only fires once
-            });
-        }
+        
     }
 }
 
 // Initial population of the table with default data
-populateTable(currentData);
+populateTable(currentData); 
