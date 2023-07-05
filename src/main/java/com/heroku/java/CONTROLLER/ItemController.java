@@ -83,7 +83,7 @@ public class ItemController {
         if (items_d.next()) {
           items_id = items_d.getInt(1);
         }
-
+ 
         System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] " + session.getAttribute("username"));
         String sql_dry = "INSERT INTO dry_ingredients(itemsid, expire_date) VALUES (?,?)";
 
