@@ -1,7 +1,7 @@
 package com.heroku.java.MODEL;
 
 
-public class ItemsWet extends Items {
+public class ItemsStuff extends Items {
    
 
   private String location;

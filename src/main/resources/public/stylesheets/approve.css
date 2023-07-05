@@ -1,0 +1,43 @@
+@import "framework.css";
+
+.formBox2 {
+  padding: 10px;
+  border: 1px solid #F4F4F4;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.approveCon{
+  background: #ffffff;
+  border: 1px solid #f4f4f4;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 0 15px 20px;
+}
+
+.container-approve { 
+width: 100%;
+height: 100%;
+overflow-y: scroll;
+background: #FFFFFF;
+border: 1px solid #F4F4F4;
+box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    
+}
+  
+.table-container {
+/* max-height: 400px; Adjust the maximum height as needed */
+}
+
+.btn_cancel{
+filter: drop-shadow(0px 5px 65px rgba(0, 0, 0, 0.1));
+border-radius: 25px;
+color: black;
+}
+
+.btn_approve{
+box-shadow: 0px 5px 65px rgba(0, 0, 0, 0.1);
+border-radius: 25px;
+color: white;
+}
+    

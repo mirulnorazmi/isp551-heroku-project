@@ -82,7 +82,7 @@ public class LoginController {
             session.setAttribute("role", roles);
             session.setAttribute("staffid", staffid);
             session.setMaxInactiveInterval(1440 * 60);
-            System.out.println(">>>>(" + staffid + ")["+ user.getUsername()+ "] logged in..." );
+            System.out.println(">>>>  (" + staffid + ")["+ user.getUsername()+ "] logged in..." );
             returnPage = "redirect:/dashboard";
             break;
           } else {

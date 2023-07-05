@@ -40,11 +40,8 @@ public class AccountController {
       try (Connection connection = dataSource.getConnection()) {
         final var statement = connection.createStatement();
 
-        final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, password, roles FROM staff");
+        final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, password, roles FROM staff ORDER BY staffid");
 
-        // String returnPage = "";
-
-        // int columnCount = resultSet.getMetaData().getColumnCount();
         int row = 0;
         ArrayList<Accounts> accounts = new ArrayList<>();
         while (resultSet.next()) {
@@ -59,7 +56,6 @@ public class AccountController {
         model.addAttribute("accounts", accounts);
         connection.close();
         return "supervisor/PAGE_ACCOUNT/accounts";
-        // return returnPage;
 
       } catch (Throwable t) {
         System.out.println("message : " + t.getMessage());
@@ -85,11 +81,10 @@ public class AccountController {
     }
     // return "supervisor/PAGE_ACCOUNT/create-account";
   }
-
+  
   @GetMapping("/accounts/update-account")
   public String showUpdateAccount(HttpSession session, @RequestParam(name = "staffid") int id, Model model) {
     if (session.getAttribute("username") != null) {
-      System.out.println("Staff id : " + id);
       try {
         Connection connection = dataSource.getConnection();
         String sql = "SELECT * FROM staff WHERE staffid = ?";
@@ -108,9 +103,7 @@ public class AccountController {
           // Retrieve other columns as needed
           Accounts accounts = new Accounts(staffId, fullname, username, "password", roles);
 
-          System.out.println("Staff ID: " + staffId);
           model.addAttribute("accounts", accounts);
-          System.out.println("Model accounts : " + accounts);
         }
         return "supervisor/PAGE_ACCOUNT/update-account";
         // return returnPage;
@@ -143,6 +136,7 @@ public class AccountController {
             statement.setInt(1, id);
             statement.executeUpdate();
             connection.close();
+            System.out.println(">>>>>!! Supervisor [" + session.getAttribute("staffid") + "] delete account staff [" + id + "] !! <<<<<");
             return "redirect:/accounts?delete_success=true";
           } else {
             return "redirect:/accounts?error_code=102";
@@ -203,7 +197,7 @@ public class AccountController {
           statement.setInt(5, staffid);
           statement.executeUpdate();
         }
-
+        System.out.println(">>>>> Supervisor [" + session.getAttribute("staffid") + "] update account staff [" + id + "]");
         connection.close();
 
         return "redirect:/accounts?update_success=true";
@@ -252,7 +246,7 @@ public class AccountController {
         statement.setInt(5, (int) session.getAttribute("staffid"));
         // statement.setInt(5, 1);
         statement.executeUpdate();
-
+        System.out.println(">>>>> Supervisor [" + session.getAttribute("staffid") + "] create account staff [" + username + "]");
         connection.close();
 
         return "redirect:/accounts?create_success=true";
