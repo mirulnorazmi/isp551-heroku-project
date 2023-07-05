@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.MODEL.Accounts;
 import com.heroku.java.MODEL.Items;
 import com.heroku.java.MODEL.ItemsDry;
 import com.heroku.java.MODEL.ItemsFurniture;
@@ -22,6 +23,7 @@ import javax.sql.DataSource;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -179,5 +181,58 @@ public class ViewController {
     }
 
     // return "/supervisor/PAGE_ACCOUNT/accounts";
+  }
+
+    @GetMapping("/deleteView")
+  public String deleteView(HttpSession session, @ModelAttribute("viewfood") Items items,
+      @RequestParam(name = "itemsid") int id, Model model) {
+    if (session.getAttribute("username") != null) {
+      System.out.println("Items id  (delete): " + id);
+      try {
+        Connection connection = dataSource.getConnection();
+        // Statement stmt = connection.createStatement();
+        String sql = "DELETE FROM items WHERE itemsid=?";
+        final var statement = connection.prepareStatement(sql);
+        var sessionId = session.getAttribute("itemid").toString();
+        statement.setInt(1, id);
+        statement.executeUpdate();
+        String sql2 = "DELETE FROM items WHERE itemsid=?";
+        final var statement1 = connection.prepareStatement(sql2);
+        statement1.setInt(1, id);
+        statement1.executeUpdate();
+        // step4 execute query with logical
+        // if (id != 1) {
+        //   if (id != Integer.parseInt(sessionId)) {
+        //     statement.setInt(1, id);
+        //     statement.executeUpdate();
+        //     connection.close();
+        //     System.out.println(">>>>>!! Supervisor [" + session.getAttribute("staffid") + "] delete account staff [" + id + "] !! <<<<<");
+        //     return "redirect:/view?delete_success=true";
+        //   } else {
+        //     return "redirect:/view?error_code=102";
+        //   }
+        // } else {
+        //   return "redirect:/view?error_code=101";
+        // }
+        return "redirect:/view?delete_success=true";
+
+      } catch (SQLException sqe) {
+        System.out.println("Error Code = " + sqe.getErrorCode());
+        System.out.println("SQL state = " + sqe.getSQLState());
+        System.out.println("Message = " + sqe.getMessage());
+        System.out.println("printTrace /n");
+        sqe.printStackTrace();
+
+        return "redirect:/accounts/update-account?success=false";
+      } catch (Exception e) {
+        System.out.println("E message : " + e.getMessage());
+        return "redirect:/accounts/update-account?success=false";
+      }
+      // return "supervisor/PAGE_ACCOUNT/create-account";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+
   }
 }
