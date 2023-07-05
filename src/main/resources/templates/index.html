@@ -20,64 +20,70 @@
   </head>
   <body>
     <nav
-      class="navbar fixed-top bg-body-tertiary nav-vfim2"
+      class="navbar fixed-top nav-vfim2"
       style="margin-bottom: 50px"
     >
       <div class="row row-content">
-        <div id="con1">
-          <img src="/img-icon/logo.png" alt="..." class="img_logo" />
-        </div>
+        <button
+          type="button"
+          class="btn"
+          style="margin-left: 20px; padding: 10px 12px;"
+        >
+          <img src="/vfims-logo.png" alt="..." class="img_logo" width="100" />
+        </button>
       </div>
     </nav>
-    <div class="body-login d-flex justify-content-center align-items-center d-100">
-      <div class="col-sm-8">
-        <img src="bg_image.png" class="img-fluid" alt="..." />
+    <div
+      class="body-login d-flex justify-content-center align-items-center"    >
+      <div class="col-sm-8 d-flex justify-content-center align-items-center">
+        <img src="bg_image.png" class="img-fluid" alt="..." width="670" />
       </div>
-      <div class="col-sm-4 formBox">
-        <form
-          action="#"
-          th:action="@{/login}"
-          th:object="${user}"
-          method="post"
-          modelAttribute="user"
-        >
-         
-          <!-- <div th:if="${param.error}">
+      <div class="col-sm-4 d-flex justify-content-start align-items-center">
+        <div class="formBox col-10">
+          <form
+            action="#"
+            th:action="@{/login}"
+            th:object="${user}"
+            method="post"
+            modelAttribute="user"
+          >
+            <!-- <div th:if="${param.error}">
             <div class="alert alert-danger">
               <span th:text="#{login.error}"></span>
             </div>
           </div> -->
-          <h1 class="signinText">Sign In</h1>
-          <div class="mb-3">
-            <label for="inputUsername" class="form-label"
-              ><span class="indexFormtext">Username</span></label
-            >
-            <input
-              type="text"
-              name="username"
-              class="form-control"
-              id="inputUsername"
-              th:value="${username}"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label"
-              ><span class="indexFormtext">Password</span></label
-            >
-            <input
-              type="password"
-              name="password"
-              class="form-control"
-              id="inputPassword1"
-              th:value="${password}"
-            />
-          </div>
-          <div class="subButton">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">
-              Login
-            </button>
-          </div>
-        </form>
+            <h2 class="signinText">Sign In</h2>
+            <div class="mb-3">
+              <label for="inputUsername" class="form-label"
+                ><span class="indexFormtext">Username</span></label
+              >
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                id="inputUsername"
+                th:value="${username}"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                ><span class="indexFormtext">Password</span></label
+              >
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="inputPassword1"
+                th:value="${password}"
+              />
+            </div>
+            <div class="subButton">
+              <button type="submit" class="btn btn-primary btn-lg btn-block">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <!-- Toast -->
@@ -90,7 +96,12 @@
         aria-atomic="true"
       >
         <div class="toast-header">
-          <img src="icon-192x192.png" class="rounded me-2" alt="..." width="20px"/>
+          <img
+            src="icon-192x192.png"
+            class="rounded me-2"
+            alt="..."
+            width="20px"
+          />
           <strong class="me-auto">VFIMS</strong>
           <!-- <small>11 mins ago</small> -->
           <button
@@ -100,7 +111,10 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="toast-body">Username or password is incorrect. Please provide valid username or password</div>
+        <div class="toast-body">
+          Username or password is incorrect. Please provide valid username or
+          password
+        </div>
       </div>
     </div>
     <footer class="footer-vfim">
