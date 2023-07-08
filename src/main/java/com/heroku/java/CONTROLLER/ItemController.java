@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.sql.Date;
 import com.heroku.java.MODEL.ItemsDry;
 import com.heroku.java.MODEL.ItemsStuff;
-<<<<<<< HEAD
-=======
 import com.heroku.java.MODEL.ItemsWet;
->>>>>>> 8b64ff9a206983461729f66350384073b3c9f242
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -65,14 +62,6 @@ public class ItemController {
     return "redirect:/";
     }
     // return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
-<<<<<<< HEAD
-    // } else {
-    // System.out.println("No valid session or session...");
-    // return "redirect:/";
-    // }
-    return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
-=======
->>>>>>> 8b64ff9a206983461729f66350384073b3c9f242
   }
 
   @PostMapping("/createItemDry")
