@@ -61,7 +61,7 @@
                 <td><p th:text="${items.quantity}"></p></td>
                 <td>
                   <!-- <a style="text-decoration:none;" class="link-secondary" th:href="@{/viewfood?delete=}+${items.itemsid}"> -->
-                  <a th:href="@{/deleteView}+${items.itemsid}" style="text-decoration:none;" class="link-secondary">
+                  <a style="text-decoration:none;" class="link-secondary">
                     <button class="btn btn-lg rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-toggle="tooltip" data-placement="top" title="Delete">
                       <i class="bi bi-trash"></i>
                     </button>
