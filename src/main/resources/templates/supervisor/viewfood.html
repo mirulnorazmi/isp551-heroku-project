@@ -53,14 +53,13 @@
               <th></th>
             </tr>
           </thead>
-            <tbody th:each="items, iterStat : ${items}">
+            <tbody th:each="itemsfood, iterStat : ${itemsfood}">
               <tr>
                 <th><p th:text="${iterStat.index + 1}">.</p></th>
-                <td><p th:text="${items.name}"></p></td>
-                <td><p th:text="${items.category}"></p></td>
-                <td><p th:text="${items.quantity}"></p></td>
+                <td><p th:text="${itemsfood.name}"></p></td>
+                <td><p th:text="${itemsfood.category}"></p></td>
+                <td><p th:text="${itemsfood.quantity}"></p></td>
                 <td>
-                  <!-- <a style="text-decoration:none;" class="link-secondary" th:href="@{/viewfood?delete=}+${items.itemsid}"> -->
                   <a style="text-decoration:none;" class="link-secondary">
                     <button class="btn btn-lg rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-toggle="tooltip" data-placement="top" title="Delete">
                       <i class="bi bi-trash"></i>
@@ -92,32 +91,28 @@
       </div> -->
 
     <!-- Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="deleteModalLabel">Delete this item ?</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Delete this item ?</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               Deleting this item will permanently remove it from the database.
             </div>
             <div class="modal-footer">
-              <a th:href="@{/view}">
               <button type="button" class="btn btn-outline-secondary" style="background-color: #D9D9D9; border-color: grey; color: black;" data-bs-dismiss="modal">No, Keep Item</button>
-              </a>
-              <!-- <button type="button" onclick="redirectDelete()" class="btn btn-secondary bg-primary text-white">Yes, Delete Item</button> -->
-              <button type="button" class="btn btn-secondary bg-primary text-white">Yes, Delete Item</button>
+              <button type="button" id="confirmDelete" class="btn btn-secondary bg-primary text-white">Yes, Delete Item</button>
             </div>
           </div>
         </div>
       </div>
+ 
+  
+      
+
     <script src="/view.js"></script>
-    <script>
-      // function redirectDelete(){
-      //   location.href='/deleteView?itemsid=' + deleteId.toString();
-      // }
-    </script>
     <script
     th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
