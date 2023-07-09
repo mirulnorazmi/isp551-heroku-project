@@ -65,7 +65,7 @@ function populateTable(data) {
         
         rowHTML += '</li>' +
             '<li class="list-inline-item">' +
-            '<button class="btn btn-lg rounded-0" type="button"  data-toggle="tooltip" data-placement="top" title="Edit">' +
+            '<button class="btn btn-lg rounded-0" type="button" onclick="Quantity(-1)" data-toggle="tooltip" data-placement="top" title="Edit">' +
             '<i class="bi bi-dash-circle"></i>' +
             '</button>' +
             '</li>' +
@@ -78,6 +78,22 @@ function populateTable(data) {
         
     }
 }
+
+// function click Decrement
+function Quantity(click){
+    const sum = document.getElementById('myTable');
+    const sumvalue = parseInt(Quantity.innerText);
+    console.log(sumvalue + click);
+    Quantity.innerText = sumvalue;
+
+// avoid negative
+if(sumvalue < 0){
+    Quantity.innerText = 0;
+}
+//reset value
+
+}
+
 
 // Initial population of the table with default data
 populateTable(currentData); 
