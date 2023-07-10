@@ -1,57 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif&display=swap');
+
 body {
-    background-color: #ffffff !important;
-  }
-  
-.main-section{
-    padding: 0% !important;
-    background-color: #ffffff !important;
+  background-color: #ffffff !important;
 }
 
+.main-section {
+  padding: 0% !important;
+  background-color: #ffffff !important;
+}
+
+.custom-button {
+  background-color: #ffffff;
+  border-color: lightgrey !important;
+  color: black !important;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  width: 70px;
+}
+
+@media (max-width: 768px) {
   .custom-button {
-    background-color: #ffffff;
-    border-color: lightgrey !important;
-    color: black !important;
-    font-weight: bold;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    width: 70px;
+    width: 60px;
+  }
+}
 
-    @media (max-width: 768px) {
-        width: 60px; /* Adjusted width for smaller screens */
-      }
-    
-      @media (max-width: 576px) {
-        width: 50px; /* Adjusted width for even smaller screens */
-      }
+@media (max-width: 576px) {
+  .custom-button {
+    width: 50px;
   }
-  
-  .custom-button:hover,
-  .custom-button.active {
-    background-color: #87A2FD !important;
-    color: white !important;
-  }
+}
 
-  .modal-backdrop {
-    backdrop-filter: none;
-  }
+.custom-button:hover,
+.custom-button.active {
+  background-color: #87a2fd !important;
+  color: white !important;
+}
 
-  .modal-footer .btn {
-    font-weight: bold;
-  }
-  
-  .modal-body {
-    background-color: #f0f2f5;
-  }
-  
-  .table-striped tbody tr {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow effect to the bottom of each row */
-  }
+.modal-backdrop {
+  backdrop-filter: none !important;
+}
 
-  .custom-mt {
-    margin-top: 7% !important; /* Adjust the value as per your requirement */
-  }
-  
-  
+.modal-footer .btn {
+  font-weight: bold !important;
+}
 
-  
-  
+.modal-body {
+  background-color: #f0f2f5 !important;
+}
+
+.custom-mt {
+  margin-top: 7% !important;
+}
+
+.table tbody td,
+.table thead th {
+  vertical-align:baseline !important;
+}
+
+th p{
+  margin-bottom: 0 !important ;
+}
+
+tr {
+  font-family: 'Roboto Serif', serif !important;
+}

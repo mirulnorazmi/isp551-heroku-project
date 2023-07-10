@@ -30,20 +30,20 @@
           <div class="row">
             <div class="col">
               <div class="d-flex justify-content-start mb-2 custom-mt button-row">
-                <a class="nav-link mb-2" href="/view">
+                <a href="/view">
                   <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">All</div>
                 </a>
-                <a class="nav-link mb-2" href="/view/food">
+                <a href="/view/food">
                   <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">Food</div>
                 </a>
-                <a class="nav-link mb-2" href="/view/furniture">
-                  <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">Furniture</div>
+                <a href="/view/furniture">
+                  <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">Items</div>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <table class="table table-striped mt-5">
+        <table class="table table-hover mt-5">
           <thead>
             <tr>
               <th></th>
@@ -53,43 +53,28 @@
               <th></th>
             </tr>
           </thead>
-            <tbody th:each="items, iterStat : ${items}">
-              <tr>
-                <th><p th:text="${iterStat.index + 1}">.</p></th>
+          <tbody th:each="items, iterStat : ${items}">
+            <tr th:class="${iterStat.odd}? 'odd' : 'even'">
+                <th><p th:text="${iterStat.index + 1}" style="line-height: 2.6;">.</p></th>
                 <td><p th:text="${items.name}"></p></td>
                 <td><p th:text="${items.category}"></p></td>
                 <td><p th:text="${items.quantity}"></p></td>
                 <td>
-                  <!-- <a style="text-decoration:none;" class="link-secondary" th:href="@{/viewfood?delete=}+${items.itemsid}"> -->
-                  <a style="text-decoration:none;" class="link-secondary">
-                    <button class="btn btn-lg rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-toggle="tooltip" data-placement="top" title="Delete">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </a>
-                  <a href="/edittask.html" style="text-decoration:none;" class="link-secondary">
-                    <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
-                      <i class="bi bi-pen"></i>
-                    </button>
-                  </a>
+                    <!-- <a style="text-decoration:none;" class="link-secondary" th:href="@{/viewfood?delete=}+${items.itemsid}"> -->
+                    <a style="text-decoration:none;" class="link-secondary">
+                        <button class="btn btn-lg rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </a>
+                    <a href="/edittask.html" style="text-decoration:none;" class="link-secondary">
+                        <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <i class="bi bi-pen"></i>
+                        </button>
+                    </a>
                 </td>
-              </tr>
-            </tbody>
+            </tr>
+        </tbody>        
         </table>
-
-          <!-- <table class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="myTable"></tbody>
-          </table>
-        </div>
-      </div> -->
 
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -112,7 +97,6 @@
           </div>
         </div>
       </div>
-    <script src="/view.js"></script>
     <script>
       // function redirectDelete(){
       //   location.href='/deleteView?itemsid=' + deleteId.toString();
