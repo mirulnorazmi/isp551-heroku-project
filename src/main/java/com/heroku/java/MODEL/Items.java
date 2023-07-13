@@ -10,6 +10,10 @@ public class Items {
   private Date added_date;
   private String category;
 
+   public Items() {
+     
+  }
+
    public Items(int id, String name, int quantity, String status, String approval, Date added_date) {
      this.id = id;
      this.name = name;
