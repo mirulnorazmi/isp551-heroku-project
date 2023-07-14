@@ -46,9 +46,7 @@ public class ViewController {
       try (Connection connection = dataSource.getConnection()) {
         final var statement = connection.createStatement();
 
-        final var resultSet = statement.executeQuery("SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) " + 
-        "LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) " +
-        "LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) ORDER BY i.itemsid;");
+        final var resultSet = statement.executeQuery("SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) ORDER BY i.itemsid");
         System.out.println("status : " + resultSet.next());
         int row = 0;
         ArrayList<Items> items = new ArrayList<>();

@@ -35,7 +35,7 @@ public class UpdateItemController {
     //System.out.println("No valid session or session...");
     //return "redirect:/";
     //}
-     return "/staff/updateitem";
+     return "staff/updateitem";
   }
 
 

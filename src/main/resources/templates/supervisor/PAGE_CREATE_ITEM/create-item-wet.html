@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html
   xmlns:th="http://www.thymeleaf.org"
   th:replace="~{fragments/layoutSupervisor :: layout (~{::body},'index')}"
@@ -29,17 +29,10 @@
       style="width: 100%; height: 90vh;"
     >
       <form
-<<<<<<< HEAD
-        th:action="@{/createItemWet}"
-        th:object="${create}"
-        method="post"
-        modelAttribute="createItem"
-=======
         th:action="@{/create-item-wet}"
         th:object="${create}"
         method="post"
         modelAttribute="createWet"
->>>>>>> 8b64ff9a206983461729f66350384073b3c9f242
         class="createItemCon d-flex flex-column justify-content-center align-items-center col-10"
         style="padding: 20px 30px;"
       >
@@ -86,22 +79,13 @@
           <label for="addeddate" class="col-sm-3 col-form-label"><b>Added Date :</b></label>
           <div class="d-flex flex-column col-5">  
             <input 
-<<<<<<< HEAD
-            type="date" class="form-control mb-3" id="addeddate" name="added_date" >
-=======
             type="date" class="form-control mb-3" id="addeddate" name="added_date">
->>>>>>> 8b64ff9a206983461729f66350384073b3c9f242
           </div>
         </div>
         
         <div class="d-flex flex-row justify-content-end" style="margin-top: 5.5rem;">
-<<<<<<< HEAD
-          <button type="button" class=" btn_cancel btn btn-primary ">Cancel</button>
-          <button type="submit" class="btn_save btn btn-primary ">Save</button>
-=======
           <button type="button" class=" btn_cancel btn btn-primary " style="margin: 0 20px;">Cancel</button>
           <button type="button" class="btn_save btn btn-primary ">Save</button>
->>>>>>> 40b4346f7348b92595ecc1414471280001c50de2
 
             </div> 
           

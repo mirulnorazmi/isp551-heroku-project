@@ -4,6 +4,10 @@ import java.sql.Date;
 public class ItemsWet extends Items{
   private int id2;
 
+   public ItemsWet() {
+
+  }
+
    public ItemsWet(int id, String name, int quantity, String status, String approval, Date added_date, int id2) {
     super(id, name, quantity, status, approval, added_date); 
     this.id2 = id2;

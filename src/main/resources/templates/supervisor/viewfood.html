@@ -55,7 +55,7 @@
           </thead>
             <tbody th:each="itemsfood, iterStat : ${itemsfood}">
               <tr th:class="${iterStat.odd}? 'odd' : 'even'">
-                <th><p th:text="${iterStat.index + 1}" style="line-height: 2.6;">.</p></th>
+                <th><p th:text="${iterStat.index + 1 + '.'}" style="line-height: 2.6;"></p></th>
                 <td><p th:text="${itemsfood.name}"></p></td>
                 <td><p th:text="${itemsfood.category}"></p></td>
                 <td><p th:text="${itemsfood.quantity}"></p></td>
@@ -65,7 +65,7 @@
                       <i class="bi bi-trash"></i>
                     </button>
                   </a>
-                  <a href="/edittask.html" style="text-decoration:none;" class="link-secondary">
+                  <a th:href="@{/update-item-supervisor?itemsid=}+${itemsfood.id}" style="text-decoration:none;" class="link-secondary">
                     <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
                       <i class="bi bi-pen"></i>
                     </button>

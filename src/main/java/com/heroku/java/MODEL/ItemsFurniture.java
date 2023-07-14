@@ -6,6 +6,10 @@ public class ItemsFurniture extends Items{
   private String location;
   private String warranty;
 
+    public ItemsFurniture() {
+
+  }
+
    public ItemsFurniture(int id, String name, int quantity, String status, String approval, Date added_date, int id2, String location, String warranty) {
     super(id, name, quantity, status, approval, added_date); 
      this.id2 = id2;
