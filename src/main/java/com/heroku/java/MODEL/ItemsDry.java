@@ -5,6 +5,10 @@ public class ItemsDry extends Items {
   private int id2;
   private Date expire_date;
 
+  public ItemsDry() {
+
+  }
+
   public ItemsDry(int id, String name, int quantity, String status, String approval, Date added_date, int id2, Date expire_date) {
     super(id, name, quantity, status, approval, added_date);
     this.id2 = id2;

@@ -41,15 +41,13 @@ public class ViewController {
 
  @GetMapping("/view")
   public String viewAllItems(HttpSession session,
-      @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model) {
+      @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model) throws Exception {
     if (session.getAttribute("username") != null) {
       try (Connection connection = dataSource.getConnection()) {
         final var statement = connection.createStatement();
 
-        final var resultSet = statement.executeQuery("SELECT * FROM items i LEFT JOIN dry_ingredients di ON (i.itemsid = di.itemsid) " + 
-        "LEFT JOIN wet_ingredients wi ON (i.itemsid = wi.itemsid) " +
-        "LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) ORDER BY i.itemsid");
-
+        final var resultSet = statement.executeQuery("SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) ORDER BY i.itemsid");
+        System.out.println("status : " + resultSet.next());
         int row = 0;
         ArrayList<Items> items = new ArrayList<>();
         while (resultSet.next()) {
@@ -78,11 +76,15 @@ public class ViewController {
         connection.close();
         return "supervisor/view";
 
-      } catch (Throwable t) {
-        System.out.println("message : " + t.getMessage());
+      }catch(SQLException sqlex){
+        System.out.println("Error : " + sqlex.getSQLState());
+        System.out.println("message : " + sqlex.getMessage());
+        return "index";
+      } 
+      catch (Throwable t) {
+        System.out.println("message t : " + t.getMessage());
         return "index";
       }
-      // return "supervisor/PAGE_ACCOUNT/accounts";
     } else {
       System.out.println("No valid session or session...");
       return "redirect:/";

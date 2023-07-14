@@ -30,20 +30,20 @@
           <div class="row">
             <div class="col">
               <div class="d-flex justify-content-start mb-2 custom-mt button-row">
-                <a class="nav-link mb-2" href="/view">
+                <a href="/view">
                   <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">All</div>
                 </a>
-                <a class="nav-link mb-2" href="/view/food">
+                <a href="/view/food">
                   <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">Food</div>
                 </a>
-                <a class="nav-link mb-2" href="/view/furniture">
-                  <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">Furniture</div>
+                <a href="/view/furniture">
+                  <div class="btn btn-secondary mx-1 custom-button" onclick="changeButtonColor(this)">Items</div>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <table class="table table-striped mt-5">
+        <table class="table table-hover mt-5">
           <thead>
             <tr>
               <th></th>
@@ -54,8 +54,8 @@
             </tr>
           </thead>
             <tbody th:each="itemsfurniture, iterStat : ${itemsfurniture}">
-              <tr>
-                <th><p th:text="${iterStat.index + 1}">.</p></th>
+              <tr th:class="${iterStat.odd}? 'odd' : 'even'">
+                <th><p th:text="${iterStat.index + 1 + '.'}" style="line-height: 2.6;"></p></th>
                 <td><p th:text="${itemsfurniture.name}"></p></td>
                 <td><p th:text="${itemsfurniture.category}"></p></td>
                 <td><p th:text="${itemsfurniture.quantity}"></p></td>
@@ -65,7 +65,7 @@
                       <i class="bi bi-trash"></i>
                     </button>
                   </a>
-                  <a href="/edittask.html" style="text-decoration:none;" class="link-secondary">
+                  <a th:href="@{/update-item-supervisor?itemsid=}+${itemsfurniture.id}" style="text-decoration:none;" class="link-secondary">
                     <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
                       <i class="bi bi-pen"></i>
                     </button>
@@ -74,21 +74,6 @@
               </tr>
             </tbody>
         </table>
-
-          <!-- <table class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="myTable"></tbody>
-          </table>
-        </div>
-      </div> -->
 
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -109,10 +94,7 @@
         </div>
       </div>
  
-  
-      
 
-    <script src="/view.js"></script>
     <script
     th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"

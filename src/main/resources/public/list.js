@@ -18,9 +18,6 @@ var currentData = [...foodData, ...itemData];
 // Get reference to the table body
 var tableBody = document.getElementById('myTable');
 
-// Determine if current page is viewStaff.html
-var isViewStaffPage = document.body.id === 'viewStaffPage';
-
 // Store a reference to the previous button clicked
 let previousButton = null;
 
@@ -65,18 +62,11 @@ function populateTable(data) {
             '<td>' +
             '<ul class="list-inline m-0">' +
             '<li class="list-inline-item">';
-
-        // Add delete button if not on viewStaff.html
-        if (!isViewStaffPage) {
-            rowHTML += '<button class="btn btn-lg rounded-0" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-toggle="tooltip" data-placement="top" title="Delete">' +
-                '<i class="bi bi-trash"></i>' +
-                '</button>';
-        }
-
+        
         rowHTML += '</li>' +
             '<li class="list-inline-item">' +
-            '<button class="btn btn-lg rounded-0" type="button" onclick="location.href=\'edittask.html\'" data-toggle="tooltip" data-placement="top" title="Edit">' +
-            '<i class="bi bi-pen"></i>' +
+            '<button class="btn btn-lg rounded-0" type="button" onclick="Quantity(-1)" data-toggle="tooltip" data-placement="top" title="Edit">' +
+            '<i class="bi bi-plus-circle"></i>' +
             '</button>' +
             '</li>' +
             '</ul>' +
@@ -85,18 +75,25 @@ function populateTable(data) {
         var row = document.createElement('tr');
         row.innerHTML = rowHTML;
         tableBody.appendChild(row);
-
-        // Add event listener to delete button if it exists
-        if (!isViewStaffPage) {
-            row.querySelector('.bi-trash').parentElement.addEventListener('click', function() {
-                document.getElementById('confirmDelete').addEventListener('click', function() {
-                    data.splice(i, 1); // Delete the item from the array
-                    populateTable(data); // Repopulate the table
-                }, { once: true }); // Ensure the event listener only fires once
-            });
-        }
+        
     }
 }
+
+// function click Decrement
+function Quantity(click){
+    const sum = document.getElementById('myTable');
+    const sumvalue = parseInt(Quantity.innerText);
+    console.log(sumvalue + click);
+    Quantity.innerText = sumvalue;
+
+// avoid negative
+if(sumvalue < 0){
+    Quantity.innerText = 0;
+}
+//reset value
+
+}
+
 
 // Initial population of the table with default data
 populateTable(currentData); 

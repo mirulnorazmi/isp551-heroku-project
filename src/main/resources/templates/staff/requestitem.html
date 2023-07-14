@@ -21,6 +21,7 @@
       class="requestitem d-flex flex-column justify-content-center align-items-center col-10"
       style="padding: 20px 30px;">
       <h3>Request Items</h3>
+
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
         style="padding: 0 40px; width: 100%"></div>
       <div class="container-fluid d-flex flex-row flex-column justify-content-center align-items-start mt-5">
@@ -37,11 +38,13 @@
                 onclick="changeButtonColor(this);toggleForm(2)" value="Stuff">
               <input type="button" class="btn btn-outline-secondary" id="button3" name="category"
                 onclick="changeButtonColor(this);toggleForm(3)" value="Wet">
+
             </div>
           </div>
 
           <div class="row">
             <div class="col-5 d-flex justify-content-center align-items-center">
+
               <label for="fullname" name="fullname" class="form-control mb-3" aria-label="fullname"
                 style="border:none;text-align: right;" placeholder="Full Name">Name:</label>
             </div>
@@ -181,6 +184,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           <!---stops here-->
@@ -190,6 +194,140 @@
 
       </div>
 
+
+      <div id="formContainer1" class="hidden">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-center align-items-center">
+            <label for="quantity" name="quantity" class="form-control mb-3"
+            aria-label="quantity" style="border:none;text-align: right;"
+            placeholder="quantity">Quantity:</label>
+          </div>
+          <div class="col-5 d-flex justify-content-center align-items-center" >
+            <input
+            type="number"
+            name="quantity"
+            class="form-control mb-3"
+            aria-label="quantity"
+            placeholder="Quantity"
+          />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5 d-flex justify-content-center align-items-center">
+            <label for="AddedDate" name="AddedDate" class="form-control mb-3"
+            aria-label="date" style="border:none;text-align: right;">
+            Added Date:</label>
+          </div>
+          <div class="col-5 d-flex justify-content-center align-items-center" >
+            <input
+            type="date"
+            name="AddedDate"
+            class="form-control mb-3"
+            aria-label="Date"
+
+          />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5 d-flex justify-content-center align-items-center">
+            <label for="ExpiredDate" name="ExpiredDate" class="form-control mb-3"
+            aria-label="ExpiredDate" style="border:none;text-align: right;">
+            Expired Date:</label>
+          </div>
+          <div class="col-5 d-flex justify-content-center align-items-center" >
+            <input
+            type="date"
+            name="ExpiredDate"
+            class="form-control mb-3"
+            aria-label="ExpiredDate"
+            placeholder="date"
+          />
+          </div>
+        </div>
+
+    </div>
+    <div id="formContainer3" class="hidden">
+      <div class="row">
+        <div class="col-5 d-flex justify-content-center align-items-center">
+          <label for="quantity" name="quantity" class="form-control mb-3"
+          aria-label="quantity" style="border:none;text-align: right;"
+          placeholder="quantity">Quantity:</label>
+        </div>
+        <div class="col-5 d-flex justify-content-center align-items-center" >
+          <input
+          type="number"
+          name="quantity"
+          class="form-control mb-3"
+          aria-label="quantity"
+          placeholder="Quantity"
+        />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 d-flex justify-content-center align-items-center">
+          <label for="AddedDate" name="AddedDate" class="form-control mb-3"
+          aria-label="date" style="border:none;text-align: right;">
+          Added Date:</label>
+        </div>
+        <div class="col-5 d-flex justify-content-center align-items-center" >
+          <input
+          type="date"
+          name="AddedDate"
+          class="form-control mb-3"
+          aria-label="Date"
+
+        />
+        </div>
+      </div>
+     
+
+  </div>
+       <!--starts here-->
+       <div class="d-flex flex-row justify-content-center" style="margin-top: 5.5rem;">
+        <button
+          type="reset"
+          class="btn btn-primary"
+          style="margin: 0 20px"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="requestSubmit"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+        >
+          Request
+        </button>
+<!-- The Modal -->
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Request item ?</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    The report will be sent to supervisor.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" style="background-color: #D9D9D9; border-color: grey; color: black;" data-bs-dismiss="modal">No, cancel request</button>
+    <button type="button" id="requestConfirmButton" class="btn btn-secondary bg-primary text-white">Yes, send request</button>
+  </div>
+</div>
+</div>
+</div>        
+</div>
+<!---stops here-->
+    
+      </div>
+     
+
+</div>
+
+>>>>>>> 44dfb9b2b5272f2c9eb693a5e05f93e85ca49fce
 
     </form>
   </section>
