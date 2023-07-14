@@ -8,15 +8,30 @@ public class Items {
   private String status;
   private String approval;
   private Date added_date;
+  private String category;
 
-  // public Items(int id, String name, String quantity, String status, String approval, String added_date) {
-  //   this.id = id;
-  //   this.name = name;
-  //   this.quantity = quantity;
-  //   this.status = status;
-  //   this.approval = approval;
-  //   this.added_date = added_date;
-  // }
+   public Items() {
+     
+  }
+
+   public Items(int id, String name, int quantity, String status, String approval, Date added_date) {
+     this.id = id;
+     this.name = name;
+     this.quantity = quantity;
+     this.status = status;
+     this.approval = approval;
+     this.added_date = added_date;
+  }
+
+     public Items(int id, String name, int quantity, String status, String approval, Date added_date, String category) {
+     this.id = id;
+     this.name = name;
+     this.quantity = quantity;
+     this.status = status;
+     this.approval = approval;
+     this.added_date = added_date;
+     this.category = category;
+  }
 
   public int getId() {
     return id;
@@ -55,5 +70,10 @@ public class Items {
     this.added_date = added_date;
   }
 
-  
+  public String getCategory() {
+    return category;
+  }
+  public void setCategory(String category) {
+    this.category = category;
+  }
 }
