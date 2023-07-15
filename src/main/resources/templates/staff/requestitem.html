@@ -55,9 +55,15 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
             placeholder="Full Name">Select Type:</label>
           </div>
           <div class="col-5 d-flex justify-content-between mb-3" >
+            <a href="/requestitem">
             <input type="button" class="btn btn-outline-secondary" id="button1" name="button1" onclick="changeButtonColor(this);toggleForm(1)" value="Dry">
+            </a>
+            <a href="/requestitemstuff">
             <input type="button" class="btn btn-outline-secondary" id="button2" name="button2" onclick="changeButtonColor(this);toggleForm(2)" value="Stuff">
+            </a>
+            <a href="/requestitemwet">
             <input type="button" class="btn btn-outline-secondary" id="button3" name="button3" onclick="changeButtonColor(this);toggleForm(3)" value="Wet">
+            </a>
           </div>
         </div>
 

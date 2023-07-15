@@ -11,7 +11,15 @@ public class Items {
   private String category;
 
    public Items() {
+  }
 
+  public Items(String name, int quantity, String status, String approval, Date added_date) {
+ 
+     this.name = name;
+     this.quantity = quantity;
+     this.status = status;
+     this.approval = approval;
+     this.added_date = added_date;
   }
 
    public Items(int id, String name, int quantity, String status, String approval, Date added_date) {

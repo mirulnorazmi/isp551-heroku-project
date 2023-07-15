@@ -17,12 +17,13 @@ public class ItemsFurniture extends Items{
      this.warranty = warranty;
   }
 
-     public ItemsFurniture(int id, String name, int quantity, String status, String approval, Date added_date, String category, int id2, String location, String warranty) {
-    super(id, name, quantity, status, approval, added_date, category); 
-     this.id2 = id2;
+  public ItemsFurniture( String name, int quantity, String status, String approval, Date added_date, String location, String warranty) {
+    super( name, quantity, status, approval, added_date); 
      this.location = location;
      this.warranty = warranty;
   }
+
+   
 
     public int getId2() {
       return id2;

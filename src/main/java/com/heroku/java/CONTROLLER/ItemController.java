@@ -110,13 +110,13 @@ public class ItemController {
   }
 
   @PostMapping("/create-item-stuff")
-  public String createItemDry(@ModelAttribute("createStuff") ItemsStuff stuff, HttpSession session) {
+  public String createItemFurniture(@ModelAttribute("createStuff") ItemsStuff stuff, HttpSession session) {
     try {
       if (stuff.getName().equals(null) && stuff.getQuantity() == 0 && stuff.getAdded_date().equals(null)) {
         return "redirect:/create-items/create-item-stuff?success=false";
       } else {
         Connection connection = dataSource.getConnection();
-        String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?)RETURNING itemsid AS itemsid;";
+        String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?) RETURNING itemsid AS itemsid;";
         final var pstatement1 = connection.prepareStatement(sql_items);
         pstatement1.setString(1, stuff.getName());
         pstatement1.setInt(2, stuff.getQuantity());
@@ -133,7 +133,7 @@ public class ItemController {
 
         final var pstatement2 = connection.prepareStatement(sql_stuff);
         pstatement2.setInt(1, items_id);
-        pstatement2.setString(2, stuff.getlocation());
+        pstatement2.setString(2, stuff.getLocation());
         pstatement2.setString(3, stuff.getWarranty());
         pstatement2.executeUpdate();
 
