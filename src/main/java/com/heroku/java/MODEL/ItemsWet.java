@@ -1,4 +1,5 @@
 package com.heroku.java.MODEL;
+
 import java.sql.Date;
 
 public class ItemsWet extends Items{
@@ -24,4 +25,5 @@ public class ItemsWet extends Items{
   public void setId2(int id2) {
     this.id2 = id2;
   }
+
 }

@@ -20,6 +20,9 @@ public class ItemsDry extends Items {
     this.id2 = id2;
     this.expire_date = expire_date;
   }
+   
+     
+ 
 
     public int getId2() {
     return id2;

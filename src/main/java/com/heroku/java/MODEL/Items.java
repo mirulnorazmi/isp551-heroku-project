@@ -13,7 +13,9 @@ public class Items {
    public Items() {
   }
 
+
   public Items( String name, int quantity, String status, String approval, Date added_date) {
+
      this.name = name;
      this.quantity = quantity;
      this.status = status;

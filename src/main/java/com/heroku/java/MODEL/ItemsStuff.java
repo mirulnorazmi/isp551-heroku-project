@@ -25,12 +25,12 @@ public class ItemsStuff extends Items {
         this.warranty = warranty;
     }
 
-    public String getlocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setAllocation(String allocation) {
-        this.location = allocation;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getWarranty() {

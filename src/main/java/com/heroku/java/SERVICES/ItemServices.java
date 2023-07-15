@@ -212,8 +212,7 @@ public class ItemServices {
               itemsid_i, expire_date);
         } else if (location != null) {
           category = "Furniture";
-          return new ItemsFurniture(itemsid_i, name, quantity, status, approval, added_date,
-              category, itemsid_i, location, warranty);
+          return new ItemsFurniture(itemsid_i, name, quantity, status, approval, added_date,category, itemsid_i, location, warranty);
         } else {
           category = "Wet Ingredient";
           return new Items(itemsid_i, name, quantity, status, approval, added_date, category);
@@ -358,7 +357,7 @@ public class ItemServices {
 
       final var pstatement2 = connection.prepareStatement(sql_stuff);
       pstatement2.setInt(1, items_id);
-      pstatement2.setString(2, stuff.getlocation());
+      pstatement2.setString(2, stuff.getLocation());
       pstatement2.setString(3, stuff.getWarranty());
       pstatement2.executeUpdate();
 
@@ -397,5 +396,122 @@ public class ItemServices {
       statement2.setInt(1, itemsId);
       statement2.executeUpdate();
     }
+  }
+   public boolean requestItemDry(ItemsDry reqD, Accounts account) {
+    try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement1 = connection.prepareStatement(
+            "INSERT INTO items(name, quantity, added_date, approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;");
+        PreparedStatement statement2 = connection
+            .prepareStatement("INSERT INTO dry_ingredients(itemsid, expire_date) VALUES (?,?)")) {
+
+      statement1.setString(1, reqD.getName());
+      statement1.setInt(2, reqD.getQuantity());
+      statement1.setDate(3, reqD.getAdded_date());
+      statement1.setString(4, "pending");
+      ResultSet items_d = statement1.executeQuery();
+
+      int items_id = 0;
+      if (items_d.next()) {
+        items_id = items_d.getInt(1);
+      }
+
+      statement2.setInt(1, items_id);
+      statement2.setDate(2, reqD.getExpire_date());
+      statement2.executeUpdate();
+
+      System.out
+          .println(
+              ">>>>Item [" + items_id + "] created by staff[" + account.getStaffid() + "] " + account.getUsername());
+
+      return true;
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      sqe.printStackTrace();
+      return false;
+    } catch (Exception e) {
+      System.out.println("E message : " + e.getMessage());
+      return false;
+    }
+  }
+  public boolean requestItemStuff(ItemsStuff reqS) throws SQLException {
+    boolean success = false;
+
+    try (Connection connection = dataSource.getConnection()) {
+      String sql_items = "INSERT INTO items(name, quantity, added_date,approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;";
+      final var pstatement1 = connection.prepareStatement(sql_items);
+      pstatement1.setString(1, reqS.getName());
+      pstatement1.setInt(2, reqS.getQuantity());
+      pstatement1.setDate(3, reqS.getAdded_date());
+      pstatement1.setString(4, "pending");
+      pstatement1.execute();
+      ResultSet items_d = pstatement1.getResultSet();
+      int items_id = 0;
+      if (items_d.next()) {
+        items_id = items_d.getInt(1);
+      }
+
+      System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] "
+          + session.getAttribute("username"));
+      String sql_stuff = "INSERT INTO furniture(itemsid, location, warranty) VALUES (?,?,?)";
+
+      final var pstatement2 = connection.prepareStatement(sql_stuff);
+      pstatement2.setInt(1, items_id);
+      pstatement2.setString(2, reqS.getLocation());
+      pstatement2.setString(3, reqS.getWarranty());
+      pstatement2.executeUpdate();
+
+      success = true;
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("E message : " + e.getMessage());
+    }
+
+    return success;
+  }
+
+  public boolean requestItemWet(ItemsWet reqW) throws SQLException {
+    boolean success = false;
+
+    try (Connection connection = dataSource.getConnection()) {
+      String sql_items = "INSERT INTO items(name, quantity, added_date,approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;";
+      final var pstatement1 = connection.prepareStatement(sql_items);
+      pstatement1.setString(1, reqW.getName());
+      pstatement1.setInt(2, reqW.getQuantity());
+      pstatement1.setDate(3, reqW.getAdded_date());
+      pstatement1.setString(4, "pending");
+      pstatement1.execute();
+      ResultSet items_d = pstatement1.getResultSet();
+      int items_id = 0;
+      if (items_d.next()) {
+        items_id = items_d.getInt(1);
+      }
+
+      System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] "
+          + session.getAttribute("username"));
+      String sql_stuff = "INSERT INTO wet_ingredients(itemsid) VALUES (?)";
+
+      final var pstatement2 = connection.prepareStatement(sql_stuff);
+      pstatement2.setInt(1, items_id);
+      pstatement2.executeUpdate();
+
+      success = true;
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("E message : " + e.getMessage());
+    }
+
+    return success;
   }
 }
