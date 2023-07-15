@@ -13,6 +13,18 @@ public class Accounts {
   //   this.username = username;
   //   this.roles = roles;
   // }
+
+  public Accounts() {
+
+  }
+
+  public Accounts(String fullname, String username, String password, String roles) {
+    this.fullname = fullname;
+    this.username = username;
+    this.password = password;
+    this.roles = roles;
+  }
+
   public Accounts(int staffid, String fullname, String username, String password, String roles) {
     this.staffid = staffid;
     this.fullname = fullname;
