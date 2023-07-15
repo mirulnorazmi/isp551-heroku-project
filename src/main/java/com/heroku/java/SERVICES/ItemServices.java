@@ -212,8 +212,7 @@ public class ItemServices {
               itemsid_i, expire_date);
         } else if (location != null) {
           category = "Furniture";
-          return new ItemsFurniture(itemsid_i, name, quantity, status, approval, added_date,
-              category, itemsid_i, location, warranty);
+          return new ItemsFurniture(itemsid_i, name, quantity, status, approval, added_date,category, itemsid_i, location, warranty);
         } else {
           category = "Wet Ingredient";
           return new Items(itemsid_i, name, quantity, status, approval, added_date, category);
@@ -358,7 +357,7 @@ public class ItemServices {
 
       final var pstatement2 = connection.prepareStatement(sql_stuff);
       pstatement2.setInt(1, items_id);
-      pstatement2.setString(2, stuff.getlocation());
+      pstatement2.setString(2, stuff.getLocation());
       pstatement2.setString(3, stuff.getWarranty());
       pstatement2.executeUpdate();
 
