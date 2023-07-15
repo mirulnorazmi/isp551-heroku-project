@@ -28,9 +28,11 @@ import java.util.Map;
 @Controller
 public class ReleaseController {
   private ItemServices itemServices;
+  private final DataSource dataSource;
 
   @Autowired
-  public ReleaseController(ItemServices itemServices) {
+  public ReleaseController(DataSource dataSource, ItemServices itemServices) {
+    this.dataSource = dataSource;
     this.itemServices = itemServices;
   }
 

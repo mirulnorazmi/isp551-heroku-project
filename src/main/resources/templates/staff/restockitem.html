@@ -38,22 +38,46 @@
         <div class="d-flex justify-content-center mt-5 ">
           <h3>Restock Item</h3>
         </div>
-        
+
         <div class="container-fluid">
-          <table class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>ID/Category</th>
-                <th class="ml-auto p-2">Quantity</th>
-              </tr>
-            </thead>
-            <tbody id="myTable"></tbody>
-          </table>
+          <form th:action="@{/release-item/confirm}" method="post" modelAttribute="items">
+              <table class="table table-striped mt-5">
+                  <thead>
+                      <tr>
+                          <th></th>
+                          <th>Name</th>
+                          <th>ID/Category</th>
+                          <th>Quantity</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr th:each="item, iterStat : ${items}">
+                          <th>
+                              <p th:text="${iterStat.index + 1 + '.'}" style="line-height: 2.6; text-align: center"></p>
+                          </th>
+                          <td><p th:text="${item.name}"></p></td>
+                          <td>
+                              <p th:text="${item.id + ' : ' + item.category}"></p>
+                          </td>
+                          <td>
+                              <input type="text" name="itemsid" th:value="${item.id}" hidden>
+                              <input type="text" name="itemquantity" class="form-control mb-3" th:value="${item.quantity}" style="width: 60px;">
+                          </td>
+                          <td>
+                              <ul class="list-inline m-0">
+                                  <li class="list-inline-item">
+                                    <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" onclick="incrementQuantity(this, /*[[${iterStat.index}]]*/)">
+                                      <i class="bi bi-plus-circle"></i>
+                                    </button>
+                                  </li>
+                              </ul>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
         </div>
       
-
       <div class="container">
         <div class="col-md-offset-5 col-md-11 check-row d-flex justify-content-end">
      <form role="form">
@@ -95,18 +119,25 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" style="background-color: #D9D9D9; border-color: grey; color: black;" data-bs-dismiss="modal">No, don't restock</button>
-              <button type="button" id="confirmDelete" class="btn btn-secondary bg-primary text-white">Yes, restock item</button>
+              <button type="submit" id="confirmDelete" class="btn btn-secondary bg-primary text-white">Yes, restock item</button>
             </div>
           </div>
         </div>
       </div>
+    </form>
  
    <script src="/list.js"></script>
-  
- 
-  
-      
+   <script>
+    function incrementQuantity(button, rowIndex) {
+        var row = button.closest('tr'); // Find the closest parent <tr> element
+        var input = row.querySelector('input[name="itemquantity"]'); // Find the corresponding input element
 
+        if (input) {
+            var currentValue = parseInt(input.value); // Get the current value
+            input.value = currentValue + 1; // Increment the value and update the input
+        }
+    }
+</script>
     <script
     th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"

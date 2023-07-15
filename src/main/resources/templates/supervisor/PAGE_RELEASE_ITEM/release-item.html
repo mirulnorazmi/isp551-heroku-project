@@ -54,7 +54,7 @@
                             <td>
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                      <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" onclick="incrementQuantity(this, /*[[${iterStat.index}]]*/)">
+                                      <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" onclick="decrementQuantity(this, /*[[${iterStat.index}]]*/)">
                                         <i class="bi bi-dash-circle"></i>
                                       </button>
                                     </li>
@@ -115,7 +115,7 @@
                         </form>
     <script src="/list.js"></script>
     <script>
-      function incrementQuantity(button, rowIndex) {
+      function decrementQuantity(button, rowIndex) {
           var row = button.closest('tr'); // Find the closest parent <tr> element
           var input = row.querySelector('input[name="itemquantity"]'); // Find the corresponding input element
   
