@@ -49,13 +49,13 @@
                             </td>
                             <td>
                                 <input type="text" name="itemsid" th:value="${item.id}" hidden>
-                                <input type="text" name="itemquantity" class="form-control mb-3" th:value="${item.quantity}" style="width: 60px;">
+                                <input type="text" name="itemquantity" class="form-control mb-3" value="0" style="width: 60px;">
                             </td>
                             <td>
                                 <ul class="list-inline m-0">
                                     <li class="list-inline-item">
-                                      <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" onclick="decrementQuantity(this, /*[[${iterStat.index}]]*/)">
-                                        <i class="bi bi-dash-circle"></i>
+                                      <button class="btn btn-lg rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit" onclick="incrementQuantity(this, /*[[${iterStat.index}]]*/)">
+                                        <i class="bi bi-plus-circle"></i>
                                       </button>
                                     </li>
                                 </ul>
@@ -115,13 +115,13 @@
                         </form>
     <script src="/list.js"></script>
     <script>
-      function decrementQuantity(button, rowIndex) {
+      function incrementQuantity(button, rowIndex) {
           var row = button.closest('tr'); // Find the closest parent <tr> element
           var input = row.querySelector('input[name="itemquantity"]'); // Find the corresponding input element
   
           if (input) {
               var currentValue = parseInt(input.value); // Get the current value
-              input.value = currentValue - 1; // Decrement the value and update the input
+              input.value = currentValue + 1; // IncrementQuantity the value and update the input
           }
       }
   </script>

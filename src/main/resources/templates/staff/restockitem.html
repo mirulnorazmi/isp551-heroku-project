@@ -40,7 +40,7 @@
         </div>
 
         <div class="container-fluid">
-          <form th:action="@{/release-item/confirm}" method="post" modelAttribute="items">
+          <form th:action="@{/restockitem/confirm}" method="post" modelAttribute="items">
               <table class="table table-striped mt-5">
                   <thead>
                       <tr>
@@ -62,7 +62,7 @@
                           </td>
                           <td>
                               <input type="text" name="itemsid" th:value="${item.id}" hidden>
-                              <input type="text" name="itemquantity" class="form-control mb-3" th:value="${item.quantity}" style="width: 60px;">
+                              <input type="text" name="itemquantity" class="form-control mb-3" value="0" style="width: 60px;">
                           </td>
                           <td>
                               <ul class="list-inline m-0">
