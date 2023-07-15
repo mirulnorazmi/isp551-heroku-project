@@ -239,7 +239,7 @@ public class ItemController {
         System.out.println("Message = " + sqe.getMessage());
         sqe.printStackTrace();
         return "redirect:/supervisor/items?update_success=false";
-      } 
+      }
 
     } else {
       System.out.println("No valid session or session...");
@@ -280,11 +280,54 @@ public class ItemController {
         System.out.println("Message = " + sqe.getMessage());
         sqe.printStackTrace();
         return "redirect:/supervisor/items?update_success=false";
-      } 
+      }
     } else {
       System.out.println("No valid session or session...");
       return "redirect:/";
     }
+  }
+
+  @GetMapping("/staff/items")
+  public String showItemStaff(HttpSession session, Model model) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+    ArrayList<Items> itemList = itemServices.getAllItems();
+    model.addAttribute("items", itemList);
+    return "staff/PAGE_VIEW_ITEM/view";
+
+  }
+
+  @GetMapping("/staff/items/food")
+  public String showItemFoodStaff(HttpSession session, Model model) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+    ArrayList<ItemsDry> itemsfood = itemServices.getAllFood();
+    model.addAttribute("itemsfood", itemsfood);
+
+    return "staff/PAGE_VIEW_ITEM/viewfood";
+
+  }
+
+  @GetMapping("/staff/items/furniture")
+  public String showItemFurnitureStaff(HttpSession session, Model model) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+      ArrayList<ItemsFurniture> itemsfurniture = itemServices.getAllFurniture();
+      model.addAttribute("itemsfurniture", itemsfurniture);
+      return "staff/PAGE_VIEW_ITEM/viewfurniture";
+
   }
 
 }
