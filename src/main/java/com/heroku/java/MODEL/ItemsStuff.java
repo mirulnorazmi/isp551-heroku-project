@@ -9,7 +9,18 @@ public class ItemsStuff extends Items {
 
     public ItemsStuff(int id, String name, int quantity, String status, String approval, Date added_date,
             String location, String warranty) {
-        super(id, name, quantity, status, approval, added_date, warranty);
+        super(id, name, quantity, status, approval, added_date);
+        this.location = location;
+        this.warranty = warranty;
+    }
+
+    public ItemsStuff() {
+      
+    }
+
+    public ItemsStuff( String name, int quantity, String status, String approval, Date added_date,
+            String location, String warranty) {
+        super(name, quantity, status, approval, added_date);
         this.location = location;
         this.warranty = warranty;
     }

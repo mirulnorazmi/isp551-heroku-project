@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.heroku.java.MODEL.Users;
+import com.heroku.java.SERVICES.AccountServices;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -21,16 +22,15 @@ import java.sql.Connection;
 
 @Controller
 public class LoginController {
-  
+
   private final DataSource dataSource;
+  private AccountServices accountServices;
 
   @Autowired
-  public LoginController(DataSource dataSource) {
+  public LoginController(DataSource dataSource, AccountServices accountServices) {
     this.dataSource = dataSource;
+    this.accountServices = accountServices;
   }
-
-  @Autowired
-  private BCryptPasswordEncoder passwordEncoder;
 
   @GetMapping("/")
   public String index(HttpSession session) {
@@ -44,7 +44,8 @@ public class LoginController {
 
   @GetMapping("/logout")
   public String logout(HttpSession session) {
-    System.out.println(">>>>(" + session.getAttribute("staffid") + ")["+ session.getAttribute("username") + "] logged out..." );
+    System.out.println(
+        ">>>>(" + session.getAttribute("staffid") + ")[" + session.getAttribute("username") + "] logged out...");
     session.invalidate();
     return "redirect:/";
   }
@@ -64,42 +65,7 @@ public class LoginController {
   String homepage(HttpSession session, @ModelAttribute("user") Users user,
       @RequestParam(value = "error", defaultValue = "false") boolean loginError, Model model) {
     System.out.println("Login Error PAram : " + loginError);
-    try (Connection connection = dataSource.getConnection()) {
-      final var statement = connection.createStatement();
-
-      final var resultSet = statement.executeQuery("SELECT staffid, username, password,roles FROM staff");
-
-      String returnPage = "";
-
-      while (resultSet.next()) {
-        String username = resultSet.getString("username");
-        String pwd = resultSet.getString("password");
-        String roles = resultSet.getString("roles");
-        int staffid = resultSet.getInt("staffid");
-        if (user.getUsername() != "" && user.getPassword() != "") {
-          if (username.equals(user.getUsername()) && passwordEncoder.matches(user.getPassword(), pwd)) {
-            session.setAttribute("username", user.getUsername());
-            session.setAttribute("role", roles);
-            session.setAttribute("staffid", staffid);
-            session.setMaxInactiveInterval(1440 * 60);
-            System.out.println(">>>>  (" + staffid + ")["+ user.getUsername()+ "] logged in..." );
-            returnPage = "redirect:/dashboard";
-            break;
-          } else {
-            returnPage = "redirect:/login?error=true";
-          }
-
-        } else {
-          returnPage = "redirect:/login?error=true";
-
-        }
-      }
-      connection.close();
-      return returnPage;
-
-    } catch (Throwable t) {
-      System.out.println("message : " + t.getMessage());
-      return "index";
-    }
+    String url = accountServices.loginHandler(user);
+    return url;
   }
 }

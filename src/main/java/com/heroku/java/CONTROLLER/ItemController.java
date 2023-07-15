@@ -5,10 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.sql.Date;
+
+import com.heroku.java.MODEL.Accounts;
+import com.heroku.java.MODEL.Items;
 import com.heroku.java.MODEL.ItemsDry;
+import com.heroku.java.MODEL.ItemsFurniture;
 import com.heroku.java.MODEL.ItemsStuff;
 import com.heroku.java.MODEL.ItemsWet;
+import com.heroku.java.SERVICES.ItemServices;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -22,10 +29,12 @@ import java.util.*;
 @Controller
 public class ItemController {
   private final DataSource dataSource;
+  private ItemServices itemServices;
 
   @Autowired
-  public ItemController(DataSource dataSource) {
+  public ItemController(DataSource dataSource, ItemServices itemServices) {
     this.dataSource = dataSource;
+    this.itemServices = itemServices;
   }
 
   @Autowired
@@ -34,10 +43,10 @@ public class ItemController {
   @GetMapping("/create-items/create-item-dry")
   public String dry(HttpSession session) {
     if (session.getAttribute("username") != null) {
-    return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
+      return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
     } else {
-    System.out.println("No valid session or session...");
-    return "redirect:/";
+      System.out.println("No valid session or session...");
+      return "redirect:/";
     }
     // return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
   }
@@ -45,10 +54,10 @@ public class ItemController {
   @GetMapping("/create-items/create-item-stuff")
   public String stuff(HttpSession session) {
     if (session.getAttribute("username") != null) {
-    return "supervisor/PAGE_CREATE_ITEM/create-item-stuff";
+      return "supervisor/PAGE_CREATE_ITEM/create-item-stuff";
     } else {
-    System.out.println("No valid session or session...");
-    return "redirect:/";
+      System.out.println("No valid session or session...");
+      return "redirect:/";
     }
     // return "supervisor/PAGE_CREATE_ITEM/create-item-stuff";
   }
@@ -56,10 +65,10 @@ public class ItemController {
   @GetMapping("/create-items/create-item-wet")
   public String wet(HttpSession session) {
     if (session.getAttribute("username") != null) {
-    return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
+      return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
     } else {
-    System.out.println("No valid session or session...");
-    return "redirect:/";
+      System.out.println("No valid session or session...");
+      return "redirect:/";
     }
     // return "supervisor/PAGE_CREATE_ITEM/create-item-wet";
   }
@@ -67,119 +76,56 @@ public class ItemController {
   @PostMapping("/createItemDry")
   public String createItemDry(@ModelAttribute("createItem") ItemsDry itemD, HttpSession session) {
     try {
-      if (itemD.getName().equals(null) && itemD.getQuantity() == 0 && itemD.getAdded_date().equals(null)
-          && itemD.getExpire_date().equals(null)) {
+      if (itemD.getName() == null && itemD.getQuantity() == 0 && itemD.getAdded_date() == null
+          && itemD.getExpire_date() == null) {
         return "redirect:/create-items/create-item-dry?success=false";
       } else {
-        Connection connection = dataSource.getConnection();
-        String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?) RETURNING itemsid AS itemsid;";
-        final var pstatement1 = connection.prepareStatement(sql_items);
-        pstatement1.setString(1, itemD.getName());
-        pstatement1.setInt(2, itemD.getQuantity());
-        pstatement1.setDate(3, itemD.getAdded_date());
-        pstatement1.execute();
-        ResultSet items_d = pstatement1.getResultSet();
-        int items_id = 0;
-        if (items_d.next()) {
-          items_id = items_d.getInt(1);
+        Accounts account = new Accounts();
+        account.setStaffid((int) session.getAttribute("staffid"));
+        account.setUsername((String) session.getAttribute("username"));
+
+        boolean success = itemServices.createItemDry(itemD, account);
+        if (success) {
+          return "redirect:/create-items/create-item-dry?success=true";
+        } else {
+          return "redirect:/create-items/create-item-dry?success=false";
         }
- 
-        System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] " + session.getAttribute("username"));
-        String sql_dry = "INSERT INTO dry_ingredients(itemsid, expire_date) VALUES (?,?)";
-
-        final var pstatement2 = connection.prepareStatement(sql_dry);
-        pstatement2.setInt(1, items_id);
-        pstatement2.setDate(2, itemD.getExpire_date());
-        pstatement2.executeUpdate();
-
-        return "redirect:/create-items/create-item-dry?success=true";
       }
-
-    } catch (SQLException sqe) {
-      System.out.println("Error Code = " + sqe.getErrorCode());
-      System.out.println("SQL state = " + sqe.getSQLState());
-      System.out.println("Message = " + sqe.getMessage());
-      System.out.println("printTrace /n");
-      sqe.printStackTrace();
-
-      return "redirect:/accounts/create-account?success=false";
     } catch (Exception e) {
-      System.out.println("E message : " + e.getMessage());
-      return "redirect:/accounts/create-account?success=false";
+      System.out.println("Exception: " + e.getMessage());
+      return "redirect:/create-items/create-item-dry?success=false";
     }
   }
 
   @PostMapping("/create-item-stuff")
-  public String createItemFurniture(@ModelAttribute("createStuff") ItemsStuff stuff, HttpSession session) {
+  public String createItemStuff(@ModelAttribute("createStuff") ItemsStuff stuff) {
     try {
-      if (stuff.getName().equals(null) && stuff.getQuantity() == 0 && stuff.getAdded_date().equals(null)) {
+      if (stuff.getName() == null && stuff.getQuantity() == 0 && stuff.getAdded_date() == null) {
         return "redirect:/create-items/create-item-stuff?success=false";
       } else {
-        Connection connection = dataSource.getConnection();
-        String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?) RETURNING itemsid AS itemsid;";
-        final var pstatement1 = connection.prepareStatement(sql_items);
-        pstatement1.setString(1, stuff.getName());
-        pstatement1.setInt(2, stuff.getQuantity());
-        pstatement1.setDate(3, stuff.getAdded_date());
-        pstatement1.execute();
-        ResultSet items_d = pstatement1.getResultSet();
-        int items_id = 0;
-        if (items_d.next()) {
-          items_id = items_d.getInt(1);
+        boolean success = itemServices.createItemStuff(stuff);
+        if (success) {
+          return "redirect:/create-items/create-item-stuff?success=true";
+        } else {
+          return "redirect:/create-items/create-item-stuff?success=false";
         }
-
-        System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] " + session.getAttribute("username"));
-        String sql_stuff = "INSERT INTO furniture(itemsid, location, warranty) VALUES (?,?,?)";
-
-        final var pstatement2 = connection.prepareStatement(sql_stuff);
-        pstatement2.setInt(1, items_id);
-        pstatement2.setString(2, stuff.getLocation());
-        pstatement2.setString(3, stuff.getWarranty());
-        pstatement2.executeUpdate();
-
-        return "redirect:/create-items/create-item-stuff?success=true";
       }
-
-    } catch (SQLException sqe) {
-      System.out.println("Error Code = " + sqe.getErrorCode());
-      System.out.println("SQL state = " + sqe.getSQLState());
-      System.out.println("Message = " + sqe.getMessage());
-      System.out.println("printTrace /n");
-      sqe.printStackTrace();
-
-      return "redirect:/";
-    } catch (Exception e) {
-      System.out.println("E message : " + e.getMessage());
-      return "redirect:/";
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return "redirect:/create-items/create-item-stuff?success=false";
     }
   }
 
-  
   @PostMapping("/create-item-wet")
   public String createItemWet(@ModelAttribute("createWet") ItemsWet wet, HttpSession session) {
     try {
-      if (wet.getName().equals(null) && wet.getQuantity() == 0 && wet.getAdded_date().equals(null)) {
+      if (wet.getName() == null && wet.getQuantity() == 0 && wet.getAdded_date() == null) {
         return "redirect:/create-items/create-item-stuff?success=false";
       } else {
-        Connection connection = dataSource.getConnection();
-        String sql_items = "INSERT INTO items(name, quantity, added_date) VALUES (?,?,?)RETURNING itemsid AS itemsid;";
-        final var pstatement1 = connection.prepareStatement(sql_items);
-        pstatement1.setString(1, wet.getName());
-        pstatement1.setInt(2, wet.getQuantity());
-        pstatement1.setDate(3, wet.getAdded_date());
-        pstatement1.execute();
-        ResultSet items_d = pstatement1.getResultSet();
-        int items_id = 0;
-        if (items_d.next()) {
-          items_id = items_d.getInt(1);
-        }
+        itemServices.insertItemsWet(wet);
 
-        System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] " + session.getAttribute("username"));
-        String sql_stuff = "INSERT INTO wet_ingredients(itemsid) VALUES (?)";
-
-        final var pstatement2 = connection.prepareStatement(sql_stuff);
-        pstatement2.setInt(1, items_id);
-        pstatement2.executeUpdate();
+        System.out.println(">>>>Item [" + wet.getId() + "] created by staff[" + session.getAttribute("staffid") + "] "
+            + session.getAttribute("username"));
 
         return "redirect:/create-items/create-item-wet?success=true";
       }
@@ -191,14 +137,197 @@ public class ItemController {
       System.out.println("printTrace /n");
       sqe.printStackTrace();
 
-      return "redirect:/";
-    } catch (Exception e) {
-      System.out.println("E message : " + e.getMessage());
+      return "redirect:/create-items/create-item-stuff?success=false";
+    }
+
+  }
+
+  @GetMapping("/supervisor/items")
+  public String viewAllItems(HttpSession session,
+      @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model)
+      throws Exception {
+    if (session.getAttribute("username") != null) {
+      ArrayList<Items> itemList = itemServices.getAllItems();
+      model.addAttribute("items", itemList);
+      return "supervisor/PAGE_VIEW_ITEM/view";
+    } else {
+      System.out.println("No valid session or session...");
       return "redirect:/";
     }
   }
 
+  @GetMapping("/supervisor/items/food")
+  public String viewFood(HttpSession session,
+      @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model) {
+    if (session.getAttribute("username") != null) {
 
+      ArrayList<ItemsDry> itemsfood = itemServices.getAllFood();
+      model.addAttribute("itemsfood", itemsfood);
 
+      return "supervisor/PAGE_VIEW_ITEM/viewfood";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+  }
+
+  @GetMapping("/supervisor/items/furniture")
+  public String viewFurniture(HttpSession session,
+      @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model) {
+    if (session.getAttribute("username") != null) {
+
+      ArrayList<ItemsFurniture> itemsfurniture = itemServices.getAllFurniture();
+      model.addAttribute("itemsfurniture", itemsfurniture);
+      return "supervisor/PAGE_VIEW_ITEM/viewfurniture";
+      // return "supervisor/PAGE_ACCOUNT/accounts";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+  }
+
+  @GetMapping("/deleteItems")
+  public String deleteView(HttpSession session, @ModelAttribute("viewfood") Items items,
+      @RequestParam(name = "itemsid") int id, Model model) {
+
+    if (session.getAttribute("username") != null) {
+
+      System.out.println("Items id  (delete): " + id);
+      boolean status = itemServices.deleteItem(id);
+      if (status) {
+        return "redirect:/view?delete_success=true";
+      } else {
+        return "redirect:/view?delete_success=false";
+      }
+
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+
+  }
+
+  @GetMapping("/update-item-supervisor")
+  public String showuUpdateItem(HttpSession session, @RequestParam(name = "itemsid") int id, Model model) {
+    if (session.getAttribute("username") != null) {
+      Items item = itemServices.getItemById(id);
+      if (item != null) {
+        model.addAttribute("items", item);
+        return "supervisor/update-item-supervisor";
+      } else {
+        return "supervisor/update-item-supervisor?success=false";
+      }
+      // return "supervisor/PAGE_ACCOUNT/create-account";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+  }
+
+  @PostMapping("/updateitemsdry")
+  public String updateItemsDry(HttpSession session, @ModelAttribute("items") ItemsDry items,
+      @RequestParam(name = "itemsid") int id, Model model) {
+    if (session.getAttribute("username") != null) {
+
+      try {
+        System.out.println("Expired date : " + items.getExpire_date());
+        itemServices.updateItemsDry(items, id);
+        return "redirect:/supervisor/items?update_success=true";
+      } catch (SQLException sqe) {
+        System.out.println("Error Code = " + sqe.getErrorCode());
+        System.out.println("SQL state = " + sqe.getSQLState());
+        System.out.println("Message = " + sqe.getMessage());
+        sqe.printStackTrace();
+        return "redirect:/supervisor/items?update_success=false";
+      }
+
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+  }
+
+  @PostMapping("/updateitemsfurniture")
+  public String updateItemsDry(HttpSession session, @ModelAttribute("items") ItemsFurniture items,
+      @RequestParam(name = "itemsid") int id, Model model) {
+    if (session.getAttribute("username") != null) {
+      try {
+        itemServices.updateItemsFurniture(items, id);
+        return "redirect:/supervisor/items?update_success=true";
+      } catch (SQLException sqe) {
+        System.out.println("Error Code = " + sqe.getErrorCode());
+        System.out.println("SQL state = " + sqe.getSQLState());
+        System.out.println("Message = " + sqe.getMessage());
+        sqe.printStackTrace();
+        return "redirect:/supervisor/items?update_success=false";
+      }
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+  }
+
+  @PostMapping("/updateitemswet")
+  public String updateItemsDry(HttpSession session, @ModelAttribute("items") ItemsWet items,
+      @RequestParam(name = "itemsid") int id, Model model) {
+    if (session.getAttribute("username") != null) {
+      try {
+        itemServices.updateItemsWet(items, id);
+        return "redirect:/supervisor/items?update_success=true";
+      } catch (SQLException sqe) {
+        System.out.println("Error Code = " + sqe.getErrorCode());
+        System.out.println("SQL state = " + sqe.getSQLState());
+        System.out.println("Message = " + sqe.getMessage());
+        sqe.printStackTrace();
+        return "redirect:/supervisor/items?update_success=false";
+      }
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+  }
+
+  @GetMapping("/staff/items")
+  public String showItemStaff(HttpSession session, Model model) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+    ArrayList<Items> itemList = itemServices.getAllItems();
+    model.addAttribute("items", itemList);
+    return "staff/PAGE_VIEW_ITEM/view";
+
+  }
+
+  @GetMapping("/staff/items/food")
+  public String showItemFoodStaff(HttpSession session, Model model) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+    ArrayList<ItemsDry> itemsfood = itemServices.getAllFood();
+    model.addAttribute("itemsfood", itemsfood);
+
+    return "staff/PAGE_VIEW_ITEM/viewfood";
+
+  }
+
+  @GetMapping("/staff/items/furniture")
+  public String showItemFurnitureStaff(HttpSession session, Model model) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+      ArrayList<ItemsFurniture> itemsfurniture = itemServices.getAllFurniture();
+      model.addAttribute("itemsfurniture", itemsfurniture);
+      return "staff/PAGE_VIEW_ITEM/viewfurniture";
+
+  }
 
 }

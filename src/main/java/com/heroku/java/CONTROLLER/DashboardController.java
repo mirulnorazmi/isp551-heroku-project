@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.google.gson.Gson;
 import com.heroku.java.MODEL.Accounts;
+import com.heroku.java.SERVICES.DashboardServices;
 
 // import com.heroku.java.MODEL.Users;
 
@@ -25,12 +26,14 @@ import java.util.ArrayList;
 
 @Controller
 public class DashboardController {
-  
+
   private final DataSource dataSource;
+  private DashboardServices dashboardServices;
 
   @Autowired
-  public DashboardController(DataSource dataSource) {
+  public DashboardController(DataSource dataSource, DashboardServices dashboardServices) {
     this.dataSource = dataSource;
+    this.dashboardServices = dashboardServices;
   }
 
   // @Autowired
@@ -41,46 +44,14 @@ public class DashboardController {
     // Check if user is logged in
 
     if (session.getAttribute("username") != null) {
-
-      try (Connection connection = dataSource.getConnection()) {
-        final var statement = connection.createStatement();
-  
-        final var resultSet = statement.executeQuery("SELECT staffid, fullname, username, password, roles FROM staff");
-  
-        // String returnPage = "";
-  
-        // int columnCount = resultSet.getMetaData().getColumnCount();
-        int row = 0 , rowSupervisor = 0, rowStaff = 0;
-        ArrayList<Accounts> accounts = new ArrayList<>();
-        while (resultSet.next()) {
-          int staffid = resultSet.getInt("staffid");
-          String fullname = resultSet.getString("fullname");
-          String username = resultSet.getString("username");
-          String password = resultSet.getString("password");
-          String roles = resultSet.getString("roles");
-  
-          accounts.add(new Accounts(staffid, fullname, username, password, roles));
-          row++;
-          if(roles.equals("supervisor")){
-            rowSupervisor++;
-          }else if(roles.equals("staff")){
-            rowStaff++;
-          }
-        }
-        // System.out.println("GSON: " + new Gson().toJson(row));
-        model.addAttribute("accounts", accounts);
-        model.addAttribute("rowAccount", row);
-        model.addAttribute("rowSupervisor", rowSupervisor);
-        model.addAttribute("rowStaff", rowStaff);
       
-        connection.close();
-        // return "/supervisor/PAGE_ACCOUNT/accounts";
-        // return returnPage;
-  
-      } catch (Throwable t) {
-        System.out.println("message : " + t.getMessage());
-        // return "index";
-      }
+      int row = dashboardServices.getAllRowUser();
+      int rowSupervisor = dashboardServices.getRowSupervisor();
+      int rowStaff = dashboardServices.getRowStaff();
+      // model.addAttribute("accounts", accounts);
+      model.addAttribute("rowAccount", row);
+      model.addAttribute("rowSupervisor", rowSupervisor);
+      model.addAttribute("rowStaff", rowStaff);
 
       if (session.getAttribute("role").equals("supervisor")) {
         return "supervisor/dashboard";
@@ -91,7 +62,8 @@ public class DashboardController {
       System.out.println("Session expired or invalid...");
       return "redirect:/";
     }
+
     // return "supervisor/dashboard";
   }
-  
+
 }
