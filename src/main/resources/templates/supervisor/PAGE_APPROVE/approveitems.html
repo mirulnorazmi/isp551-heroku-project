@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layoutSupervisor :: layout (~{::body},'index')}"
+>
+  <head th:fragment="header">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">Supervisor | Approve Items</title>
+    <link
+      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css}"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/stylesheets/approve.css}"
+    />
+
+    
+  </head>
+
+<body>
+  <section class="d-flex align-items-center justify-content-center flex-column" >
+  <div class="approveCon d-flex flex-column justify-content-center align-items-center col-9">
+    
+      <h2 class="d-flex align-items-start justify-content-start">Approval Items</h2>
+      <hr />
+    
+
+        <div class="table-container col-12">
+          <table class="table">
+            <thead>
+              <tr class="sticky-top">
+                <th></th>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active "></td>
+                <td>Tuna</td>
+                <td>24/12/2022</td>
+                <td>#120:Wet ingredients</td>
+                <td>Pending</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>Salmon</td>
+                <td>24/12/2022</td>
+                <td>#121:Wet ingredients</td>
+                <td>Approved</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>Chilli</td>
+                <td>28/12/2022</td>
+                <td>#220:Dry ingredients</td>
+                <td>Rejected</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="avtive"></td>
+                <td>Jintan Putih</td>
+                <td>24/12/2022</td>
+                <td>#221:Dry ingredients</td>
+                <td>Pending</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>wheelchair</td>
+                <td>24/12/2022</td>
+                <td>#320: Stuff</td>
+                <td>Approved</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>Chair</td>
+                <td>24/12/2022</td>
+                <td>#321:Stuff</td>
+                <td>Rejected</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>Jintan Putih</td>
+                <td>24/12/2022</td>
+                <td>#120:Drr ingredients</td>
+                <td>Pending</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>wheelchair</td>
+                <td>24/12/2022</td>
+                <td>#120:Stuff</td>
+                <td>Approved</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>Chair</td>
+                <td>24/12/2022</td>
+                <td>#120:Stuff</td>
+                <td>Rejected</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="chk" class="active"></td>
+                <td>Chair</td>
+                <td>24/12/2022</td>
+                <td>#120:Stuff</td>
+                <td>Rejected</td>
+              </tr>
+              <!-- Add more rows if needed -->
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+    <!-- select all--> 
+    <div class="checkbox col-8">
+      <label class="d-flex grid gap-3">
+        <input type="checkbox" onclick="selects()"> Select all 
+      </label>
+    </div>
+  
+
+    <div class="container">
+      <div class="col-md-offset-5 col-md-11 check-row d-flex justify-content-end">
+   <form role="form">
+     <div class="form-group">
+    <div class="d-flex flex-row justify-content-end grid gap-3 col-9  align-items-center ">
+      <button type="button" class=" btn_cancel btn btn-outline-info " data-bs-toggle="modal" data-bs-target="#modalCancel">Decline</button>
+    <button type="button" id="buttonapprove" class="btn_approve btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Approve</button>
+    </div>
+
+     <!-- Modal cancel -->
+<div class="modal fade" id="modalCancel" tabindex="-1" aria-labelledby="modalCancelLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalCancelLabel">Decline item</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to decline this item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, cancel decline</button>
+        <button type="button" class="btn btn-primary">Yes, decline item</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal approve -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Approve item</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to approve this item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, cancel approve</button>
+        <button type="button" class="btn btn-primary">Yes, approve item</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </section>
+  
+
+
+
+
+
+  <script type="text/javascript">  
+    function selects(){  
+        var ele=document.getElementsByName('chk');  
+        for(var i=0; i<ele.length; i++){  
+            if(ele[i].type=='checkbox')  
+                ele[i].checked=true;  
+        }  
+    }  
+    function deSelect(){  
+        var ele=document.getElementsByName('chk');  
+        for(var i=0; i<ele.length; i++){  
+            if(ele[i].type=='checkbox')  
+                ele[i].checked=false;  
+              
+        }  
+    }             
+</script> 
+  
+  <script>
+    document.getElementById("buttonapprove").addEventListener("click", function() {
+      var checkboxes = document.getElementsByClassName("check");
+      var selectedItems = [];
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          var itemName = checkboxes[i].parentNode.nextElementSibling.innerText;
+          var itemStatus = checkboxes[i].parentNode.nextElementSibling.nextElementSibling.innerText;
+          selectedItems.push({ name: itemName, status: itemStatus });
+        }
+      }
+      console.log(selectedItems);
+      // Perform further processing or submit the selected items as needed
+    });
+  </script>
+
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js}"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  </html>

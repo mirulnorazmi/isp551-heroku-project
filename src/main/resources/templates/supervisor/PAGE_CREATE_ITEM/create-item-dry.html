@@ -60,7 +60,7 @@
                 type="button"
                 class="btn btn-light"
                 id="button2"
-                onclick="changeColor2()"
+                onclick="changeColor()"
                 value="Stuff"
                 style="margin: 0 15px"
             /></a>
@@ -69,7 +69,7 @@
                 type="button"
                 class="btn btn-light"
                 id="button3"
-                onclick="changeColor3()"
+                onclick="changeColor2()"
                 value="Wet"
                 style="margin: 0 15px"
             /></a>
@@ -88,6 +88,7 @@
               name="name"
               class="form-control mb-3"
               aria-label="name"
+              required
             />
           </div>
         </div>
@@ -103,6 +104,7 @@
               name="quantity"
               class="form-control mb-3"
               aria-label="quantity"
+              required
             />
           </div>
         </div>
@@ -118,32 +120,39 @@
               class="form-control mb-3"
               id="addeddate"
               name="added_date"
+              required
             />
           </div>
         </div>
         <div
           class="container-fluid d-flex flex-row justify-content-evenly align-items-start mt-6"
         >
-          <label for="expirydate" class="col-sm-3 col-form-label"
-            ><b>Expiry Date :</b></label
+          <label for="addeddate" class="col-sm-3 col-form-label"
+            ><b>Expired Date :</b></label
           >
           <div class="d-flex flex-column col-5">
             <input
               type="date"
               class="form-control mb-3"
-              id="expirydate"
+              id="expiredate"
               name="expire_date"
+              required
             />
           </div>
         </div>
+
         <div
           class="d-flex flex-row justify-content-end"
           style="margin-top: 4rem"
         >
-          <button type="button" class="btn_cancel btn btn-primary">
+          <button
+            type="button"
+            class="btn_cancel btn btn-primary"
+            style="margin: 0 20px"
+          >
             Cancel
           </button>
-          <button type="submit" class="btn_save btn btn-primary">Save</button>
+          <button type="submit" class="btn_save btn btn-primary">Create</button>
         </div>
       </form>
     </section>
@@ -220,7 +229,7 @@
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =
             "Items dry successfully created";
-        }else{
+        } else {
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =
             "Items dry failed to create...";

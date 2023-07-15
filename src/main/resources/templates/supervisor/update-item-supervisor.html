@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layoutSupervisor :: layout (~{::body},'index')}"
+>
+  <head th:fragment="header">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">Supervisor | View Items</title>
+    <link
+      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css}"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/stylesheets/requestitem.css}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section
+      class="d-flex justify-content-center align-items-center"
+      style="width: 100%; height: 90vh"
+    >
+    <span th:if="${items.category == 'Dry Ingredient'}" class="col-12 d-flex justify-content-center align-items-center">
+      <form
+        th:action="@{/updateitemsdry?itemsid=}+${items.id}"
+        th:object="${items}"
+        method="post"
+        modelAttribute="items"
+        class="requestitem d-flex flex-column justify-content-center align-items-center col-10"
+        style="padding: 20px 30px"
+      >
+    </span>
+    <span th:if="${items.category == 'Furniture'}" class="col-12 d-flex justify-content-center align-items-center">
+      <form
+        th:action="@{/updateitemsfurniture?itemsid=}+${items.id}"
+        th:object="${items}"
+        method="post"
+        modelAttribute="items"
+        class="requestitem d-flex flex-column justify-content-center align-items-center col-10"
+        style="padding: 20px 30px"
+      >
+    </span>
+  </span>
+  <span th:if="${items.category == 'Wet Ingredient'}" class="col-12 d-flex justify-content-center align-items-center">
+    <form
+      th:action="@{/updateitemswet?itemsid=}+${items.id}"
+      th:object="${items}"
+      method="post"
+      modelAttribute="items"
+      class="requestitem d-flex flex-column justify-content-center align-items-center col-10"
+      style="padding: 20px 30px"
+    >
+  </span>
+        <h3>Update Items</h3>
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-3 mb-3 border-bottom"
+          style="padding: 0 40px; width: 100%"
+        ></div>
+        <div
+          class="container-fluid d-flex flex-row flex-column justify-content-center align-items-start mt-5"
+        >
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <label
+                  style="border: none; text-align: right"
+                  >Type:</label
+                >
+              </div>
+              <div class="col-5 d-flex justify-content-between mb-3" id="myDIV">
+                <h5>
+                  <span th:if="${items.category == 'Wet Ingredient'}">
+                    Wet Ingredient
+                  </span>
+
+                  <span th:if="${items.category == 'Dry Ingredient'}">
+                    Dry Ingredient
+                  </span>
+                  <span th:if="${items.category == 'Furniture'}">
+                    Furniture
+                  </span>
+                </h5>
+              </div>
+            </div>
+
+            <div class="row">
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <label
+                  style="border: none; text-align: right"
+                  >Name:</label
+                >
+              </div>
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control mb-3"
+                  aria-label="name"
+                  placeholder="Item Name"
+                  th:value="${items.name}"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <label
+                  style="border: none; text-align: right"
+                  >Quantity:</label
+                >
+              </div>
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <input
+                  type="number"
+                  name="quantity"
+                  class="form-control mb-3"
+                  aria-label="quantity"
+                  placeholder="Quantity"
+                  th:value="${items.quantity}"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <label
+                  style="border: none; text-align: right"
+                >
+                  Added Date:</label
+                >
+              </div>
+              <div
+                class="col-5 d-flex justify-content-center align-items-center"
+              >
+                <input
+                  type="date"
+                  name="added_date"
+                  class="form-control mb-3"
+                  aria-label="added_date"
+                  th:value="${items.added_date}"
+                />
+              </div>
+            </div>
+            <div th:if="${items.category == 'Dry Ingredient'}">
+              <div class="row">
+                <div
+                  class="col-5 d-flex justify-content-center align-items-center"
+                >
+                  <label
+                    style="border: none; text-align: right"
+                  >
+                    Expired Date:</label
+                  >
+                </div>
+                <div
+                  class="col-5 d-flex justify-content-center align-items-center"
+                >
+                  <input
+                    type="date"
+                    name="expire_date"
+                    class="form-control mb-3"
+                    aria-label="expire_date"
+                    th:value="${items.expire_date}"
+                  />
+                </div>
+              </div>
+            </div>
+            <div th:if="${items.category == 'Furniture'}">
+              <div class="row">
+                <div
+                  class="col-5 d-flex justify-content-center align-items-center"
+                >
+                  <label
+                    style="border: none; text-align: right"
+                    >Item Allocation:</label
+                  >
+                </div>
+                <div
+                  class="col-5 d-flex justify-content-center align-items-center"
+                >
+                  <input
+                    type="text"
+                    name="location"
+                    class="form-control mb-3"
+                    aria-label="location"
+                    placeholder="Enter item Allocation"
+                    th:value="${items.location}"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-5 d-flex justify-content-center align-items-center"
+                >
+                  <label
+                    style="border: none; text-align: right"
+                  >
+                    Item Warranty:</label
+                  >
+                </div>
+                <div
+                  class="col-5 d-flex justify-content-center align-items-center"
+                >
+                  <input
+                    type="text"
+                    name="warranty"
+                    class="form-control mb-3"
+                    aria-label="warranty"
+                    placeholder="Enter item warranty"
+                    th:value="${items.warranty}"
+                  />
+                </div>
+              </div>
+            </div>
+            <!--starts here-->
+            <div
+              class="d-flex flex-row justify-content-center"
+              style="margin-top: 5.5rem"
+            >
+              <button
+                type="reset"
+                class="btn btn-primary"
+                style="margin: 0 20px"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="requestSubmit"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              >
+                Update
+              </button>
+              <!-- The Modal -->
+
+              <div
+                class="modal fade"
+                id="myModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Update item ?
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      Update this item will be changed in the database.
+                    </div>
+                    <div class="modal-footer">
+                      <a th:href="@{/view}"><button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        style="
+                          background-color: #d9d9d9;
+                          border-color: grey;
+                          color: black;
+                        "
+                        data-bs-dismiss="modal"
+                      >
+                        No, keep item
+                      </button>
+                    </a>
+                      <input
+                        type="submit"
+                        id="requestConfirmButton"
+                        class="btn btn-secondary bg-primary text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!---stops here-->
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <script>
+      function toggleForm(formNumber) {
+        var form1Container = document.getElementById("formContainer1");
+        var form2Container = document.getElementById("formContainer2");
+        var form3Container = document.getElementById("formContainer3");
+
+        if (formNumber === 1) {
+          form1Container.classList.remove("hidden");
+          form2Container.classList.add("hidden");
+          form3Container.classList.add("hidden");
+        } else if (formNumber === 2) {
+          form1Container.classList.add("hidden");
+          form2Container.classList.remove("hidden");
+          form3Container.classList.add("hidden");
+        } else if (formNumber === 3) {
+          form1Container.classList.add("hidden");
+          form2Container.classList.add("hidden");
+          form3Container.classList.remove("hidden");
+        }
+      }
+
+      var header = document.getElementById("myDIV");
+      var btns = header.getElementsByClassName("btn-custom");
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+          var current = document.getElementsByClassName("active");
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+        });
+      }
+    </script>
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js}"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

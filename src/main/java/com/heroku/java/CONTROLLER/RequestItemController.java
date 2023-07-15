@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.CONTROLLER;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

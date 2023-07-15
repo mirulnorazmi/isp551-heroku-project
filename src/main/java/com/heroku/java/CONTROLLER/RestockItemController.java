@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.CONTROLLER;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,28 +16,27 @@ import java.sql.Connection;
 import java.util.*;
 
 @Controller
-public class UpdateItemController {
-      private final DataSource dataSource;
+public class RestockItemController {
+  private final DataSource dataSource;
 
   @Autowired
-  public UpdateItemController(DataSource dataSource) {
+  public RestockItemController(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
-  @GetMapping("/updateitem")
-  public String updatetitem(HttpSession session) {
+  @GetMapping("/restockitem")
+  public String requestitem(HttpSession session) {
     //if (session.getAttribute("username") != null) {
     //return "supervisor/PAGE_ACCOUNT/accounts";
     //} else {
     //System.out.println("No valid session or session...");
     //return "redirect:/";
     //}
-     return "/staff/updateitem";
+     return "/staff/restockitem";
   }
-
 
 
 }

@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.CONTROLLER;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -19,17 +19,17 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
-public class ViewStaffController {
+public class ReleaseController {
 
-  @GetMapping("/staff/items")
-  public String showViewStaff(HttpSession session) {
+  @GetMapping("/release-item")
+  public String release(HttpSession session) {
     // if (session.getAttribute("username") != null) {
     //   return "redirect:/dashboard";
     // } else {
     //   System.out.println("No valid session or session...");
     //   return "/supervisor/PAGE_ACCOUNT/create-account";
     // }
-    return "staff/viewStaff";
+    return "/supervisor/PAGE_RELEASE_ITEM/release-item";
   }
  
 }
