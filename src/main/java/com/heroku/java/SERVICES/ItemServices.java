@@ -476,7 +476,7 @@ public class ItemServices {
     return success;
   }
 
-  public boolean requestItemWet(ItemsStuff reqW) throws SQLException {
+  public boolean requestItemWet(ItemsWet reqW) throws SQLException {
     boolean success = false;
 
     try (Connection connection = dataSource.getConnection()) {
@@ -499,7 +499,6 @@ public class ItemServices {
 
       final var pstatement2 = connection.prepareStatement(sql_stuff);
       pstatement2.setInt(1, items_id);
-     
       pstatement2.executeUpdate();
 
       success = true;

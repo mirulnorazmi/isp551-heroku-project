@@ -82,7 +82,7 @@ public class RequestItemController {
         account.setStaffid((int) session.getAttribute("staffid"));
         account.setUsername((String) session.getAttribute("username"));
 
-        boolean success = itemServices.createItemDry(reqD, account);
+        boolean success = itemServices.requestItemDry(reqD, account);
         if (success) {
           return "redirect:/request-items/request-item-dry?success=true";
         } else {
@@ -114,13 +114,12 @@ public class RequestItemController {
     }
   }
   @PostMapping("/request-item-wet")
-  public String createItemWet(@ModelAttribute("requestWet") ItemsWet reqW, HttpSession session) {
+  public String requestItemWet(@ModelAttribute("requestWet") ItemsWet reqW, HttpSession session) {
     try {
       if (reqW.getName() == null && reqW.getQuantity() == 0 && reqW.getAdded_date() == null) {
-        return "redirect:/create-items/create-item-stuff?success=false";
+        return "redirect:/request-items/request-item-wet?success=false";
       } else {
-        itemServices.insertItemsWet(reqW);
-
+       boolean success = itemServices.requestItemWet(reqW);
         System.out.println(">>>>Item [" + reqW.getId() + "] created by staff[" + session.getAttribute("staffid") + "] "
             + session.getAttribute("username"));
 
@@ -134,7 +133,7 @@ public class RequestItemController {
       System.out.println("printTrace /n");
       sqe.printStackTrace();
 
-      return "redirect:/request-items/request-item-stuff?success=false";
+      return "redirect:/request-items/request-item-wet?success=false";
     }
 
   }
