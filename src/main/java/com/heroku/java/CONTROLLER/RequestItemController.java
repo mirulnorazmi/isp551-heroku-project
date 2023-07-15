@@ -5,8 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.MODEL.Accounts;
+import com.heroku.java.MODEL.Items;
 import com.heroku.java.MODEL.ItemsDry;
+import com.heroku.java.MODEL.ItemsStuff;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -29,62 +33,39 @@ public class RequestItemController {
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
-  @GetMapping("/requestitem")
-  public String requestitem(HttpSession session) {
+  @GetMapping("/request-items/request-item-dry")
+  public String dry(HttpSession session) {
     if (session.getAttribute("username") != null) {
-      return "staff/requestitem";
-      } else {
+      return "staff/PAGE_REQUEST_ITEM/request-item-dry";
+    } else {
       System.out.println("No valid session or session...");
       return "redirect:/";
-      }
-      // return "supervisor/PAGE_CREATE_ITEM/create-item-dry";
     }
-
-     @PostMapping("/requestitem")
-  public String requestitem(@ModelAttribute("requestitem") ItemsDry itemDry, HttpSession session) {
-    try {
-      if (itemDry.getName().equals(null) && itemDry.getQuantity() == 0 && itemDry.getAdded_date().equals(null)
-          && itemDry.getExpire_date().equals(null)) {
-        return "redirect:/requestitem?success=false";
-      } else {
-        Connection connection = dataSource.getConnection();
-        String sql_items = "INSERT INTO items(name, quantity, added_date, approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;";
-        final var pstatement1 = connection.prepareStatement(sql_items);
-        pstatement1.setString(1, itemDry.getName());
-        pstatement1.setInt(2, itemDry.getQuantity());
-        pstatement1.setDate(3, itemDry.getAdded_date());
-         pstatement1.setString(4, itemDry.getApproval());
-        pstatement1.execute();
-        ResultSet items_d = pstatement1.getResultSet();
-        int items_id = 0;
-        if (items_d.next()) {
-          items_id = items_d.getInt(1);
-        }
- 
-        System.out.println(">>>>Item [" + items_id + "] created by staff[" + session.getAttribute("staffid") + "] " + session.getAttribute("username"));
-        String sql_dry = "INSERT INTO dry_ingredients(itemsid, expire_date) VALUES (?,?)";
-
-        final var pstatement2 = connection.prepareStatement(sql_dry);
-        pstatement2.setInt(1, items_id);
-        pstatement2.setDate(2, itemDry.getExpire_date());
-        pstatement2.executeUpdate();
-
-        return "redirect:/requestitem?success=true";
-      }
-
-    } catch (SQLException sqe) {
-      System.out.println("Error Code = " + sqe.getErrorCode());
-      System.out.println("SQL state = " + sqe.getSQLState());
-      System.out.println("Message = " + sqe.getMessage());
-      System.out.println("printTrace /n");
-      sqe.printStackTrace();
-
-      return "redirect:/requestitem?success=false";
-    } catch (Exception e) {
-      System.out.println("E message : " + e.getMessage());
-      return "redirect:/requestitem?success=false";
-    }
+    // return "staff/PAGE_REQUEST_ITEM/request-item-dry";
   }
 
+  @GetMapping("/request-items/request-item-stuff")
+  public String stuff(HttpSession session) {
+    if (session.getAttribute("username") != null) {
+      return "staff/PAGE_REQUEST_ITEM/request-item-stuff";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+    // return "staff/PAGE_REQUEST_ITEM/request-item-stuff";
+  }
+
+  @GetMapping("/request-items/request-item-wet")
+  public String wet(HttpSession session) {
+    if (session.getAttribute("username") != null) {
+      return "staff/PAGE_REQUEST_ITEM/request-item-wet";
+    } else {
+      System.out.println("No valid session or session...");
+      return "redirect:/";
+    }
+    // return "staff/PAGE_REQUEST_ITEM/request-item-wet";
+  }
+
+  
 
 }
