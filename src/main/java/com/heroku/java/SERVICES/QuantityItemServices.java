@@ -43,7 +43,7 @@ public class QuantityItemServices {
       "WHERE stock_movement.staffid = ? AND stock_movement.itemsid = ?;";
 
     private final String UPDATE_RESTOCK_QUANTITY = "UPDATE items SET quantity = quantity + ? WHERE itemsid=?;";
-    private final String UPDATE_RELEASE_QUANTITY = "UPDATE items SET quantity = quantity - ?WHERE itemsid=?";
+    private final String UPDATE_RELEASE_QUANTITY = "UPDATE items SET quantity = quantity - ? WHERE itemsid=?";
 
   public boolean insertStockMovement(Stock stock) {
     boolean status = false;
