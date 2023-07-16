@@ -161,7 +161,24 @@
         document.getElementById("button3").style.background = "#F8F9F9";
         document.getElementById("button3").style.color = "black";
       }
-      
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var success = urlParams.get("success");
+
+      const toastLiveExample = document.getElementById("liveToast");
+      const toastBootstrap =
+        bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+      if (success != null) {
+        if (success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Items wet successfully created";
+        } else {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Items wet failed to create...";
+        }
+      }
     </script>
 
     <script
