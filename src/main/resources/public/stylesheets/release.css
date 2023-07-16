@@ -54,7 +54,7 @@ body {
   .btn_cancel{
     filter: drop-shadow(0px 5px 65px rgba(0, 0, 0, 0.1));
     border-radius: 25px;
-    color: black;
+    color: white;
     }
     
     .btn_confirm{

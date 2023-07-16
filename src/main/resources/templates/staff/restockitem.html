@@ -24,9 +24,9 @@
     />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
   </head>
-  <body id="viewStaffPage">
-    <div class="main-section" style="width: 100%; height: 90vh;">
-        <div class="container">
+  <body id="viewStaffPage" style="background-color: #f0f2f5 !important;">
+    <div class="main-section" style="width: 100%; height: 90vh; background-color: #f0f2f5 !important;">
+        <!-- <div class="container">
           <div class="row">
             <div class="col">
               <div class="d-flex justify-content-start mt-5 ">
@@ -34,7 +34,15 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+        <section
+        class="d-flex align-items-center justify-content-center flex-column"
+        style="padding-top:75px ;"
+      >
+        <div
+          class="approveCon d-flex flex-column justify-content-start align-items-center col-10"
+        >
+        
         <div class="d-flex justify-content-center mt-5 ">
           <h3>Restock Item</h3>
         </div>
@@ -62,7 +70,7 @@
                           </td>
                           <td>
                               <input type="text" name="itemsid" th:value="${item.id}" hidden>
-                              <input type="text" name="itemquantity" class="form-control mb-3" value="0" style="width: 60px;">
+                              <input type="number" name="itemquantity" class="form-control mb-3" value="0" style="width: 60px;">
                           </td>
                           <td>
                               <ul class="list-inline m-0">
@@ -74,20 +82,24 @@
                               </ul>
                           </td>
                       </tr>
+                      
                   </tbody>
               </table>
         </div>
+        </div>
+        </section>
+        
       
-      <div class="container">
+      <div class="container mt-3" >
         <div class="col-md-offset-5 col-md-11 check-row d-flex justify-content-end">
      <form role="form">
        <div class="form-group">
       <div class="d-flex flex-row justify-content-end grid gap-3 col-9  align-items-center ">
-        <button type="button" class=" btn_cancel btn btn-danger " data-bs-toggle="modal" data-bs-target="#modalCancel">Cancel</button>
+        <button type="reset" class=" btn_cancel btn btn-danger ">Reset</button>
       <button type="button" id="buttonconfirm" class="btn_confirm btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConfirm" >Confirm</button>
       </div><br></div>
 
-<!-- Cancel Modal -->
+<!-- Cancel Modal
 <div class="modal fade" id="modalCancel" tabindex="-1" aria-labelledby="modalCancelLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -104,7 +116,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
     <!-- Confirm Modal -->
     <div class="modal fade" id="modalConfirm" tabindex="-1" aria-labelledby="modalConfirmLabel" aria-hidden="true">
@@ -115,7 +127,16 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              Restock these item will be added into the database.
+             <p>Restock these item will be added into the database.</p> 
+              <div class="d-flex justify-content-start flex-row">
+                <p class="col-4" style="margin-bottom: 0px;">Condition status : </p>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Good</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+             </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" style="background-color: #D9D9D9; border-color: grey; color: black;" data-bs-dismiss="modal">No, don't restock</button>

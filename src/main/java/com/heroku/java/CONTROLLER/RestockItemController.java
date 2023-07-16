@@ -50,14 +50,14 @@ public class RestockItemController {
   public String requestitem(HttpSession session,
       @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model)
       throws Exception {
-    if (session.getAttribute("username") != null) {
+    // if (session.getAttribute("username") != null) {
       ArrayList<Items> itemList = itemServices.getAllItems();
       model.addAttribute("items", itemList);
       return "staff/restockitem";
-    } else {
-      System.out.println("No valid session or session...");
-      return "redirect:/";
-    }
+    // } else {
+    //   System.out.println("No valid session or session...");
+    //   return "redirect:/";
+    // }
   }
 
   @PostMapping("/restockitem/confirm")
