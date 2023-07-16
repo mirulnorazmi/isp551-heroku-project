@@ -38,6 +38,101 @@ public class DashboardServices {
   private final String COUNT_STAFF = "SELECT COUNT(staffid) FROM staff WHERE roles = 'staff';";
   private final String COUNT_SUPERVISOR = "SELECT COUNT(staffid) FROM staff WHERE roles = 'supervisor';";
   private final String COUNT_ALL_USER = "SELECT COUNT(staffid) FROM staff;";
+  private final String COUNT_ALL_DRY = "SELECT COUNT(itemsid) FROM dry_ingredients;";
+  private final String COUNT_ALL_WET = "SELECT COUNT(itemsid) FROM wet_ingredients;";
+  private final String COUNT_ALL_FURNITURE = "SELECT COUNT(itemsid) FROM furniture;";
+  private final String COUNT_ALL_ITEMS = "SELECT COUNT(itemsid) FROM items WHERE approval = 'approved';";
+  private final String COUNT_ALL_PENDINGITEMS = "SELECT COUNT(itemsid) FROM items WHERE approval = 'pending';";
+
+ public int getRowAllPending() {
+    int count = 0;
+    try {
+      Connection connection = dataSource.getConnection();
+
+      final var statement = connection.prepareStatement(COUNT_ALL_PENDINGITEMS);
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt("count");
+      }
+      connection.close();
+    } catch (Throwable t) {
+      System.out.println("message : " + t.getMessage());
+    }
+    return count;
+  }
+
+ public int getRowAllItems() {
+    int count = 0;
+    try {
+      Connection connection = dataSource.getConnection();
+
+      final var statement = connection.prepareStatement(COUNT_ALL_ITEMS);
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt("count");
+      }
+      connection.close();
+    } catch (Throwable t) {
+      System.out.println("message : " + t.getMessage());
+    }
+    return count;
+  }
+  
+ public int getRowDry() {
+    int count = 0;
+    try {
+      Connection connection = dataSource.getConnection();
+
+      final var statement = connection.prepareStatement(COUNT_ALL_DRY);
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt("count");
+      }
+      connection.close();
+    } catch (Throwable t) {
+      System.out.println("message : " + t.getMessage());
+    }
+    return count;
+  }
+
+   public int getRowWet() {
+    int count = 0;
+    try {
+      Connection connection = dataSource.getConnection();
+
+      final var statement = connection.prepareStatement(COUNT_ALL_WET);
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt("count");
+      }
+      connection.close();
+    } catch (Throwable t) {
+      System.out.println("message : " + t.getMessage());
+    }
+    return count;
+  }
+
+   public int getRowFurniture() {
+    int count = 0;
+    try {
+      Connection connection = dataSource.getConnection();
+
+      final var statement = connection.prepareStatement(COUNT_ALL_FURNITURE);
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+        count = resultSet.getInt("count");
+      }
+      connection.close();
+    } catch (Throwable t) {
+      System.out.println("message : " + t.getMessage());
+    }
+    return count;
+  }
 
   public int getRowStaff() {
     int count = 0;

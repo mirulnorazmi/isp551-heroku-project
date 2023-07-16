@@ -33,7 +33,7 @@
             />
           </div>
           <p class="totalitem">Total item</p>
-          <p class="totalitem-number">120</p>
+          <p class="totalitem-number" th:text="${rowAllItems}"></p>
         </div>
 
         <div class="column">
@@ -41,7 +41,7 @@
             <img src="/img-icon/RequestInventory.png" />
           </div>
           <p class="requestItem">Request item</p>
-          <p class="requestItem-number">2</p>
+          <p class="requestItem-number" th:text="${rowAllPending}"></p>
         </div>
 
         <div class="column">
@@ -49,7 +49,7 @@
             <img src="/img-icon/TotalAccount.png" />
           </div>
           <p class="totalAccount">Total Account</p>
-          <p class="totalItem-number" th:text="${rowAccount}">32</p>
+          <p class="totalItem-number" th:text="${rowAccount}"></p>
         </div>
       </div>
     </section>
@@ -60,20 +60,8 @@
         <div class="chart-pie-container">
           <canvas id="pie-chart"></canvas>
           <script src="/js/chart.min.js"></script>
-          <script>
-            new Chart(document.getElementById("pie-chart"), {
-              type: "pie",
-              data: {
-                datasets: [
-                  {
-                    backgroundColor: ["#009698", "#ab2300", "#ffcd00"],
-                    data: [60, 20, 40],
-                  },
-                ],
-              },
-            });
-          </script>
         </div>
+
         <div class="pie-label">
           <h4 style="margin-bottom: 15px">Types</h4>
           <h5 class="pLabel">
@@ -90,18 +78,27 @@
           </h5>
 
           <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
-          <h5 class="pLabel">
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--black"></div>
-            20 ingredients
-          </h5>
-          <h5 class="pLabel">
+            <h5 class="pLabel"
+            id="valDry"
+            th:text="${rowDry} + ' Dry ingredients'">
+            </h5>
+          </div>
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--red"></div>
-            40 ingredients
-          </h5>
-          <h5 class="pLabel">
+            <h5 class="pLabel"
+            id="valWet"
+            th:text="${rowWet} + ' Wet ingredients'">
+            </h5>
+          </div>
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--yellow"></div>
-            60 Furnitre
-          </h5>
+            <h5 class="pLabel"
+            id="valFurniture"
+            th:text="${rowFurniture} + ' Furniture'">
+            </h5>
+          </div>
         </div>
       </div>
     </section>
@@ -127,7 +124,7 @@
           <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
           <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--blue"></div>
-            <h5 class="pLabel" id="valStaff" th:text="${rowStaff} + ' account'">
+            <h5 class="pLabel" id="valStaff" th:text="${rowStaff} + ' Staff account'">
               {auto_generated}
             </h5>
           </div>
@@ -136,7 +133,7 @@
             <h5
               class="pLabel"
               id="valSupervisor"
-              th:text="${rowSupervisor} + ' account'"
+              th:text="${rowSupervisor} + ' Supervisor account'"
             >
               {auto_generated}
             </h5>
@@ -144,6 +141,22 @@
         </div>
       </div>
     </section>
+    <script>
+      let valFurniture = document.getElementById("valFurniture").innerText;
+      let valWet = document.getElementById("valWet").innerText;
+      let valDry = document.getElementById("valDry").innerText;
+      new Chart(document.getElementById("pie-chart"), {
+        type: "pie",
+        data: {
+          datasets: [
+            {
+              backgroundColor: ["#009698", "#ab2300", "#ffcd00"],
+              data: [parseInt(valFurniture), parseInt(valDry), parseInt(valWet)],
+            },
+          ],
+        },
+      });
+    </script>
     <script>
       let valStaff = document.getElementById("valStaff").innerText;
       let valSupervisor = document.getElementById("valSupervisor").innerText;
