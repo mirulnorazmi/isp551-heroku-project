@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.MODEL.Items;
 import com.heroku.java.SERVICES.ItemServices;
+import com.heroku.java.SERVICES.QuantityItemServices;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.apache.logging.log4j.*;
@@ -29,11 +30,13 @@ import java.util.Map;
 public class ReleaseController {
   private ItemServices itemServices;
   private final DataSource dataSource;
+  private QuantityItemServices quantityItemServices;
 
   @Autowired
-  public ReleaseController(DataSource dataSource, ItemServices itemServices) {
+  public ReleaseController(DataSource dataSource, ItemServices itemServices, QuantityItemServices quantityItemServices) {
     this.dataSource = dataSource;
     this.itemServices = itemServices;
+    this.quantityItemServices = quantityItemServices;
   }
 
   @GetMapping("/release-item")
@@ -52,11 +55,12 @@ public class ReleaseController {
 
   @PostMapping("/release-item/confirm")
   public String confirmRelease(@RequestParam(name = "itemsid") int[] itemIds,
-  @RequestParam(name = "itemquantity") int[] itemQuantities,
-   Model model) {
+      @RequestParam(name = "itemquantity") int[] itemQuantities,
+      Model model) {
     for (int i = 0; i < itemIds.length; i++) {
       System.out.println("ID: " + itemIds[i] + " Quantity: " + itemQuantities[i]);
-  }
+      boolean status = quantityItemServices.updateReleaseQuantityItem(itemIds[i],itemQuantities[i] );
+    }
     return "redirect:/release-item";
   }
 }

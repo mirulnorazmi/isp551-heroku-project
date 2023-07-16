@@ -37,6 +37,7 @@ public class ItemServices {
   }
 
   private final String SELECT_ALL_ITEMS = "SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.approval = 'approved' ORDER BY i.itemsid";
+  private final String SELECT_ALL_ITEMS_PENDING = "SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.approval = 'pending' OR i.approval ='rejected' ORDER BY i.itemsid";
   private final String SELECT_ALL_FOOD = "SELECT * FROM items i LEFT JOIN dry_ingredients di ON (i.itemsid = di.itemsid) LEFT JOIN wet_ingredients wi ON (i.itemsid = wi.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.itemsid NOT IN (SELECT itemsid FROM furniture) AND i.approval = 'approved' ORDER BY i.itemsid";
   private final String SELECT_ALL_FURNITURE = "SELECT * FROM items i JOIN furniture fi ON (i.itemsid = fi.itemsid) AND i.approval = 'approved' ORDER BY i.itemsid";
   private final String SELECT_ITEMS = "SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) "
@@ -51,6 +52,46 @@ public class ItemServices {
       final var statement = connection.createStatement();
 
       final var resultSet = statement.executeQuery(SELECT_ALL_ITEMS);
+
+      while (resultSet.next()) {
+
+        String category = "";
+        int itemsid_i = resultSet.getInt("itemsid");
+        String name = resultSet.getString("name");
+        int quantity = resultSet.getInt("quantity");
+        String status = resultSet.getString("status");
+        String approval = resultSet.getString("approval");
+        Date added_date = resultSet.getDate("added_date");
+        Date expire_date = resultSet.getDate("expire_date");
+        String location = resultSet.getString("location");
+
+        if (expire_date != null) {
+          category = "Dry Ingredient";
+        } else if (location != null) {
+          category = "Furniture";
+        } else {
+          category = "Wet Ingredient";
+        }
+
+        items.add(new Items(itemsid_i, name, quantity, status, approval, added_date, category));
+      }
+      connection.close();
+
+    } catch (SQLException sqlex) {
+      System.out.println("Error : " + sqlex.getSQLState());
+      System.out.println("message : " + sqlex.getMessage());
+    }
+
+    return items;
+  }
+
+  public ArrayList<Items> getAllItemsPending() {
+    ArrayList<Items> items = new ArrayList<>();
+    try (Connection connection = dataSource.getConnection()) {
+
+      final var statement = connection.createStatement();
+
+      final var resultSet = statement.executeQuery(SELECT_ALL_ITEMS_PENDING);
 
       while (resultSet.next()) {
 
@@ -212,7 +253,8 @@ public class ItemServices {
               itemsid_i, expire_date);
         } else if (location != null) {
           category = "Furniture";
-          return new ItemsFurniture(itemsid_i, name, quantity, status, approval, added_date,category, itemsid_i, location, warranty);
+          return new ItemsFurniture(itemsid_i, name, quantity, status, approval, added_date, category, itemsid_i,
+              location, warranty);
         } else {
           category = "Wet Ingredient";
           return new Items(itemsid_i, name, quantity, status, approval, added_date, category);
@@ -222,6 +264,50 @@ public class ItemServices {
       System.out.println("message : " + t.getMessage());
     }
     return null;
+  }
+
+  public boolean approveItemsStatus(int itemsid) throws SQLException {
+    boolean status = false;
+    try (Connection connection = dataSource.getConnection()) {
+      String sqlupdate1 = "UPDATE items SET approval='approved' WHERE itemsid=?;";
+
+      PreparedStatement statement = connection.prepareStatement(sqlupdate1);
+
+      statement.setInt(1, itemsid);
+      int rowUpdate = statement.executeUpdate();
+      status = rowUpdate > 0;
+
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
+    }
+    return status;
+  }
+
+  public boolean rejectItemsStatus(int itemsid) throws SQLException {
+    boolean status = false;
+    try (Connection connection = dataSource.getConnection()) {
+      String sqlupdate1 = "UPDATE items SET approval='rejected' WHERE itemsid=?;";
+
+      PreparedStatement statement = connection.prepareStatement(sqlupdate1);
+
+      statement.setInt(1, itemsid);
+      int rowUpdate = statement.executeUpdate();
+      status = rowUpdate > 0;
+
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
+    }
+    return status;
   }
 
   public void updateItemsDry(ItemsDry items, int id) throws SQLException {
@@ -247,6 +333,13 @@ public class ItemServices {
       statement1.setDate(3, added_date);
       statement1.setInt(4, id);
       statement1.executeUpdate();
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
     }
   }
 
@@ -274,6 +367,13 @@ public class ItemServices {
       statement1.setDate(3, added_date);
       statement1.setInt(4, id);
       statement1.executeUpdate();
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
     }
   }
 
@@ -292,6 +392,13 @@ public class ItemServices {
       statement1.setDate(3, added_date);
       statement1.setInt(4, id);
       statement1.executeUpdate();
+    } catch (SQLException sqe) {
+      System.out.println("Error Code = " + sqe.getErrorCode());
+      System.out.println("SQL state = " + sqe.getSQLState());
+      System.out.println("Message = " + sqe.getMessage());
+      System.out.println("printTrace /n");
+      sqe.printStackTrace();
+
     }
   }
 
@@ -397,7 +504,8 @@ public class ItemServices {
       statement2.executeUpdate();
     }
   }
-   public boolean requestItemDry(ItemsDry reqD, Accounts account) {
+
+  public boolean requestItemDry(ItemsDry reqD, Accounts account) {
     try (Connection connection = dataSource.getConnection();
         PreparedStatement statement1 = connection.prepareStatement(
             "INSERT INTO items(name, quantity, added_date, approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;");
@@ -435,6 +543,7 @@ public class ItemServices {
       return false;
     }
   }
+
   public boolean requestItemStuff(ItemsStuff reqS) throws SQLException {
     boolean success = false;
 
