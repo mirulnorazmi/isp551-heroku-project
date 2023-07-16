@@ -32,7 +32,7 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
             />
           </div>
           <p class="totalitem">Total item</p>
-          <p class="totalitem-number">120</p>
+          <p class="totalitem-number" th:text="${rowAllItems}"></p>
         </div>
 
         <div class="column">
@@ -40,7 +40,7 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
             <img src="/img-icon/RequestInventory.png" />
           </div>
           <p class="requestItem">Request item</p>
-          <p class="requestItem-number">2</p>
+          <p class="requestItem-number" th:text="${rowAllPending}"></p>
         </div>
       </div>
     </section>
@@ -51,19 +51,6 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
         <div class="chart-pie-container">
           <canvas id="pie-chart"></canvas>
           <script src="/js/chart.min.js"></script>
-          <script>
-            new Chart(document.getElementById("pie-chart"), {
-              type: "pie",
-              data: {
-                datasets: [
-                  {
-                    backgroundColor: ["#009698", "#ab2300", "#ffcd00"],
-                    data: [60, 20, 40],
-                  },
-                ],
-              },
-            });
-          </script>
         </div>
         <div class="pie-label">
           <h4 style="margin-bottom: 15px">Types</h4>
@@ -77,26 +64,50 @@ th:replace="~{fragments/layoutStaff :: layout (~{::body},'index')}"
           </h5>
           <h5 class="pLabel">
             <div class="colorselection colorselection--yellow"></div>
-            Stuff
+            Furniture
           </h5>
 
           <h4 style="margin-top: 35px; margin-bottom: 15px">Quantity</h4>
-          <h5 class="pLabel">
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--black"></div>
-            20 ingredients
-          </h5>
-          <h5 class="pLabel">
+            <h5 class="pLabel"
+            id="valDry"
+            th:text="${rowDry} + ' Dry ingredients'">
+            </h5>
+          </div>
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--red"></div>
-            40 ingredients
-          </h5>
-          <h5 class="pLabel">
+            <h5 class="pLabel"
+            id="valWet"
+            th:text="${rowWet} + ' Wet ingredients'">
+            </h5>
+          </div>
+          <div class="d-flex flex-row col-12">
             <div class="colorselection colorselection--yellow"></div>
-            60 stuff
-          </h5>
+            <h5 class="pLabel"
+            id="valFurniture"
+            th:text="${rowFurniture} + ' Furniture'">
+            </h5>
+          </div>
         </div>
       </div>
     </section>
-
+    <script>
+      let valFurniture = document.getElementById("valFurniture").innerText;
+      let valWet = document.getElementById("valWet").innerText;
+      let valDry = document.getElementById("valDry").innerText;
+      new Chart(document.getElementById("pie-chart"), {
+        type: "pie",
+        data: {
+          datasets: [
+            {
+              backgroundColor: ["#009698", "#ab2300", "#ffcd00"],
+              data: [parseInt(valFurniture), parseInt(valDry), parseInt(valWet)],
+            },
+          ],
+        },
+      });
+    </script>
     <script
       th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"

@@ -48,10 +48,20 @@ public class DashboardController {
       int row = dashboardServices.getAllRowUser();
       int rowSupervisor = dashboardServices.getRowSupervisor();
       int rowStaff = dashboardServices.getRowStaff();
+      int rowFurniture = dashboardServices.getRowFurniture();
+      int rowWet = dashboardServices.getRowWet();
+      int rowDry = dashboardServices.getRowDry();
+      int rowAllItems = dashboardServices.getRowAllItems();
+      int rowAllPending = dashboardServices.getRowAllPending();
       // model.addAttribute("accounts", accounts);
       model.addAttribute("rowAccount", row);
       model.addAttribute("rowSupervisor", rowSupervisor);
       model.addAttribute("rowStaff", rowStaff);
+      model.addAttribute("rowFurniture", rowFurniture);
+      model.addAttribute("rowWet", rowWet);
+      model.addAttribute("rowDry", rowDry);
+      model.addAttribute("rowAllItems", rowAllItems);
+      model.addAttribute("rowAllPending", rowAllPending);
 
       if (session.getAttribute("role").equals("supervisor")) {
         return "supervisor/dashboard";

@@ -64,7 +64,7 @@ public class QuantityItemServices {
       if(status){
         updateRestockQuantityItem(stock.getItemsid(), stock.getQuantity());
       }
-
+      connection.close();
     } catch (SQLException ex) {
       // return status;
       database.printSQLException(ex);
@@ -83,6 +83,7 @@ public class QuantityItemServices {
       status = rowUpdate > 0;
       System.out.println("Update restock quantity : " + status);
 
+      connection.close();
     } catch (SQLException ex) {
       // return status;
       database.printSQLException(ex);
@@ -101,6 +102,7 @@ public class QuantityItemServices {
       status = rowUpdate > 0;
       System.out.println("Update release quantity : " + status);
 
+      connection.close();
     } catch (SQLException ex) {
       // return status;
       database.printSQLException(ex);
