@@ -85,7 +85,7 @@ public class AccountServices {
         // Retrieve other columns as needed
         account = new Accounts(staffId, fullname, username, "password", roles);
       }
-
+      connection.close();
     } catch (Throwable t) {
       System.out.println("message : " + t.getMessage());
     }
@@ -115,7 +115,7 @@ public class AccountServices {
       } else {
         url = "redirect:/accounts?error_code=101";
       }
-
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -163,10 +163,9 @@ public class AccountServices {
       }
       System.out
           .println(">>>>> Supervisor [" + session.getAttribute("staffid") + "] update account staff [" + id + "]");
-      connection.close();
 
       url = "redirect:/accounts?update_success=true";
-
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
