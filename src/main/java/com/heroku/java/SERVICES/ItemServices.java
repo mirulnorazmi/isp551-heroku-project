@@ -453,6 +453,7 @@ public class ItemServices {
     try (Connection connection = dataSource.getConnection()) {
       String sql_items = "INSERT INTO items(name, quantity, added_date,approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;";
       final var pstatement1 = connection.prepareStatement(sql_items);
+      System.out.println("Added date : " + stuff.getAdded_date());
       pstatement1.setString(1, stuff.getName());
       pstatement1.setInt(2, stuff.getQuantity());
       pstatement1.setDate(3, stuff.getAdded_date());
