@@ -50,7 +50,7 @@ public class DashboardServices {
       while (resultSet.next()) {
         count = resultSet.getInt("count");
       }
-
+      connection.close();
     } catch (Throwable t) {
       System.out.println("message : " + t.getMessage());
     }
@@ -68,7 +68,7 @@ public class DashboardServices {
       while (resultSet.next()) {
         count = resultSet.getInt("count");
       }
-
+      connection.close();
     } catch (Throwable t) {
       System.out.println("message : " + t.getMessage());
     }
@@ -86,7 +86,7 @@ public class DashboardServices {
       while (resultSet.next()) {
         count = resultSet.getInt("count");
       }
-
+      connection.close();
     } catch (Throwable t) {
       System.out.println("message : " + t.getMessage());
     }

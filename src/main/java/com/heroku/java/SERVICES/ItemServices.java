@@ -260,6 +260,7 @@ public class ItemServices {
           return new Items(itemsid_i, name, quantity, status, approval, added_date, category);
         }
       }
+      connection.close();
     } catch (Throwable t) {
       System.out.println("message : " + t.getMessage());
     }
@@ -277,6 +278,7 @@ public class ItemServices {
       int rowUpdate = statement.executeUpdate();
       status = rowUpdate > 0;
 
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -299,6 +301,7 @@ public class ItemServices {
       int rowUpdate = statement.executeUpdate();
       status = rowUpdate > 0;
 
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -333,6 +336,7 @@ public class ItemServices {
       statement1.setDate(3, added_date);
       statement1.setInt(4, id);
       statement1.executeUpdate();
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -367,6 +371,7 @@ public class ItemServices {
       statement1.setDate(3, added_date);
       statement1.setInt(4, id);
       statement1.executeUpdate();
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -392,6 +397,7 @@ public class ItemServices {
       statement1.setDate(3, added_date);
       statement1.setInt(4, id);
       statement1.executeUpdate();
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -427,7 +433,7 @@ public class ItemServices {
       System.out
           .println(
               ">>>>Item [" + items_id + "] created by staff[" + account.getStaffid() + "] " + account.getUsername());
-
+      connection.close();
       return true;
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
@@ -469,6 +475,7 @@ public class ItemServices {
       pstatement2.executeUpdate();
 
       success = true;
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -502,6 +509,7 @@ public class ItemServices {
       PreparedStatement statement2 = connection.prepareStatement(sqlWet);
       statement2.setInt(1, itemsId);
       statement2.executeUpdate();
+      connection.close();
     }
   }
 
@@ -530,7 +538,7 @@ public class ItemServices {
       System.out
           .println(
               ">>>>Item [" + items_id + "] created by staff[" + account.getStaffid() + "] " + account.getUsername());
-
+      connection.close();
       return true;
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
@@ -572,6 +580,7 @@ public class ItemServices {
       pstatement2.executeUpdate();
 
       success = true;
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
@@ -611,6 +620,7 @@ public class ItemServices {
       pstatement2.executeUpdate();
 
       success = true;
+      connection.close();
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
       System.out.println("SQL state = " + sqe.getSQLState());
