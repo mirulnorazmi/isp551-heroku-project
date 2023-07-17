@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.heroku.java.HELPER.PdfGenerator;
+// import com.heroku.java.HELPER.PdfGenerator;
 import com.heroku.java.MODEL.Items;
 import com.heroku.java.SERVICES.ItemServices;
 import com.lowagie.text.DocumentException;
@@ -31,7 +31,7 @@ public class GenerateController {
     this.itemServices = itemServices;
   }
 
-  @GetMapping("/generate-item")
+  @GetMapping("/generate-item-report")
   public String showGenerateItem() {
     return "staff/generate-item";
   }

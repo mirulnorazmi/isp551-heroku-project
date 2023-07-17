@@ -324,10 +324,27 @@ public class ItemController {
     // System.out.println("No valid session or session...");
     // return "/supervisor/PAGE_ACCOUNT/create-account";
     // }
-      ArrayList<ItemsFurniture> itemsfurniture = itemServices.getAllFurniture();
-      model.addAttribute("itemsfurniture", itemsfurniture);
-      return "staff/PAGE_VIEW_ITEM/viewfurniture";
+    ArrayList<ItemsFurniture> itemsfurniture = itemServices.getAllFurniture();
+    model.addAttribute("itemsfurniture", itemsfurniture);
+    return "staff/PAGE_VIEW_ITEM/viewfurniture";
 
   }
 
+  @PostMapping("/deleteItem")
+  public String deleteItem(HttpSession session, Model model, @ModelAttribute("Item") Items items) {
+    // if (session.getAttribute("username") != null) {
+    // return "redirect:/dashboard";
+    // } else {
+    // System.out.println("No valid session or session...");
+    // return "/supervisor/PAGE_ACCOUNT/create-account";
+    // }
+    boolean status = itemServices.deleteItem(items.getId());
+    // model.addAttribute("itemsfurniture", itemsfurniture);
+    if (status) {
+      return "redirect:/supervisor/items?delete_success=true";
+    } else {
+      return "redirect:/supervisor/items?delete_success=true";
+    }
+
+  }
 }

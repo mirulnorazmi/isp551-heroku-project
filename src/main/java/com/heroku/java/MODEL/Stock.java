@@ -7,6 +7,7 @@ public class Stock {
   private int itemsid;
   private int quantity;
   private Date invdate;
+  private String status;
 
   public Stock() {
     // default constructor
@@ -17,6 +18,14 @@ public class Stock {
     this.itemsid = itemsid;
     this.quantity = quantity;
     this.invdate = invdate;
+  }
+
+  public Stock(int staffid, int itemsid, int quantity, Date invdate, String status) {
+    this.staffid = staffid;
+    this.itemsid = itemsid;
+    this.quantity = quantity;
+    this.invdate = invdate;
+    this.status = status;
   }
 
   public int getStaffid() {
@@ -42,6 +51,14 @@ public class Stock {
   }
   public void setInvdate(Date invdate) {
     this.invdate = invdate;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   

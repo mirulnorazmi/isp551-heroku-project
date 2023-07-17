@@ -39,7 +39,7 @@ public class QuantityItemServices {
   private final String INSERT_STOCK = "INSERT INTO stock_movement (staffid, itemsid, quantity, status, invdate) " +
       "VALUES (?, ?, ?, 'good', ?) " +
       "ON CONFLICT (staffid, itemsid) " +
-      "DO UPDATE SET quantity = ?, status = 'good', invdate = ? " +
+      "DO UPDATE SET quantity = ?, status = ?, invdate = ? " +
       "WHERE stock_movement.staffid = ? AND stock_movement.itemsid = ?;";
 
     private final String UPDATE_RESTOCK_QUANTITY = "UPDATE items SET quantity = quantity + ? WHERE itemsid=?;";
@@ -54,9 +54,10 @@ public class QuantityItemServices {
       statement.setInt(3, stock.getQuantity());
       statement.setDate(4, stock.getInvdate());
       statement.setInt(5, stock.getQuantity());
-      statement.setDate(6, stock.getInvdate());
-      statement.setInt(7, stock.getStaffid());
-      statement.setInt(8, stock.getItemsid());
+       statement.setString(6, stock.getStatus());
+      statement.setDate(7, stock.getInvdate());
+      statement.setInt(8, stock.getStaffid());
+      statement.setInt(9, stock.getItemsid());
 
       int rowUpdate = statement.executeUpdate();
       status = rowUpdate > 0;
