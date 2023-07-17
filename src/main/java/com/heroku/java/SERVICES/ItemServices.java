@@ -2,8 +2,12 @@ package com.heroku.java.SERVICES;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
+import java.io.IOException;
 import java.sql.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,17 @@ import com.heroku.java.MODEL.ItemsDry;
 import com.heroku.java.MODEL.ItemsFurniture;
 import com.heroku.java.MODEL.ItemsStuff;
 import com.heroku.java.MODEL.ItemsWet;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.CMYKColor;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -44,6 +59,26 @@ public class ItemServices {
       +
       "LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) " +
       "LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.itemsid = ?;";
+
+  private final String SELECT_ALL_DATE = "SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid = d.itemsid) LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.approval = 'approved' AND ? <= added_date AND ? >= added_date ORDER BY i.itemsid";
+  private final String SELECT_ALL_FOOD_DATE = "SELECT * FROM items i LEFT JOIN dry_ingredients di ON (i.itemsid = di.itemsid) LEFT JOIN wet_ingredients wi ON (i.itemsid = wi.itemsid) LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.itemsid NOT IN (SELECT itemsid FROM furniture) AND i.approval = 'approved' AND ? <= added_date AND ? >= added_date ORDER BY i.itemsid";
+  // private final String SELECT_ALL_FOOD_DATE = "SELECT * FROM items i " +
+  //       "LEFT JOIN dry_ingredients di ON (i.itemsid = di.itemsid) " +
+  //       "LEFT JOIN wet_ingredients wi ON (i.itemsid = wi.itemsid) " +
+  //       "LEFT JOIN furniture fi ON (i.itemsid = fi.itemsid) " +
+  //       "WHERE i.itemsid NOT IN (SELECT itemsid FROM furniture) " +
+  //       "AND i.approval = 'approved' " +
+  //       "AND i.added_date >= '2023-07-15' AND i.added_date <= '2023-07-16' " +
+  //       "ORDER BY i.itemsid";
+  private final String SELECT_ALL_FURNITURE_DATE = "SELECT * FROM items i JOIN furniture fi ON (i.itemsid = fi.itemsid) WHERE i.approval = 'approved' AND ? <= added_date AND ? >= added_date ORDER BY i.itemsid";
+
+  // private final String SELECT_ITEMS_WET_DATE = "SELECT * FROM items JOIN wet_ingredients USING (itemsid) WHERE ? <= added_date AND ? >= added_date";
+  // private final String SELECT_ITEMS_FURNITURE_DATE = "SELECT * FROM items JOIN wet_ingredients USING (itemsid) WHERE ? > added_date && ? < added_date";
+
+  // "SELECT * FROM items i LEFT OUTER JOIN dry_ingredients d ON (i.itemsid =
+  // d.itemsid) LEFT JOIN wet_ingredients w ON (i.itemsid = w.itemsid) LEFT JOIN
+  // furniture fi ON (i.itemsid = fi.itemsid) WHERE i.approval = 'approved' ORDER
+  // BY i.itemsid";
 
   public ArrayList<Items> getAllItems() {
     ArrayList<Items> items = new ArrayList<>();
@@ -453,6 +488,7 @@ public class ItemServices {
     try (Connection connection = dataSource.getConnection()) {
       String sql_items = "INSERT INTO items(name, quantity, added_date,approval) VALUES (?,?,?,?) RETURNING itemsid AS itemsid;";
       final var pstatement1 = connection.prepareStatement(sql_items);
+      System.out.println("Added date : " + stuff.getAdded_date());
       pstatement1.setString(1, stuff.getName());
       pstatement1.setInt(2, stuff.getQuantity());
       pstatement1.setDate(3, stuff.getAdded_date());
@@ -632,5 +668,193 @@ public class ItemServices {
     }
 
     return success;
+  }
+
+  public void generate(List<Items> itemsList, jakarta.servlet.http.HttpServletResponse response)
+      throws DocumentException, IOException {
+    // Creating the Object of Document
+    Document document = new Document(PageSize.A4);
+    // Getting instance of PdfWriter
+    PdfWriter.getInstance(document, response.getOutputStream());
+    // Opening the created document to change it
+    document.open();
+    // Creating font
+    // Setting font style and size
+    Font fontTiltle = FontFactory.getFont(FontFactory.COURIER_BOLD);
+    fontTiltle.setSize(20);
+    // Creating paragraph
+    Paragraph paragraph1 = new Paragraph("VFIM Report", fontTiltle);
+    // Aligning the paragraph in the document
+    paragraph1.setAlignment(Paragraph.ALIGN_CENTER);
+    // Adding the created paragraph in the document
+    document.add(paragraph1);
+    // Creating a table of the 4 columns
+    PdfPTable table = new PdfPTable(4);
+    // Setting width of the table, its columns and spacing
+    table.setWidthPercentage(100);
+    table.setWidths(new int[] { 3, 3, 3, 3 });
+    table.setSpacingBefore(5);
+    // Create Table Cells for the table header
+    PdfPCell cell = new PdfPCell();
+    // Setting the background color and padding of the table cell
+    cell.setBackgroundColor(CMYKColor.BLUE);
+    cell.setPadding(5);
+    // Creating font
+    // Setting font style and size
+    Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
+    font.setColor(CMYKColor.WHITE);
+    // Adding headings in the created table cell or header
+    // Adding Cell to table
+    cell.setPhrase(new Phrase("ID", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("Items Name", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("Quantity", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("Category", font));
+    table.addCell(cell);
+    // cell.setPhrase(new Phrase("Mobile No", font));
+    // table.addCell(cell);
+    // Iterating the list of students
+    for (Items items : itemsList) {
+      // Adding student id
+      table.addCell(String.valueOf(items.getId()));
+      // Adding student name
+      table.addCell(items.getName());
+      // Adding student email
+      table.addCell(String.valueOf(items.getQuantity()));
+      // Adding student mobile
+      table.addCell(String.valueOf(items.getCategory()));
+      // table.addCell(student.getMobileNo());
+    }
+    // Adding the created table to the document
+    document.add(table);
+    // Closing the document
+    document.close();
+  }
+
+  public ArrayList<Items> getAllDate(Date date_from, Date date_to) {
+    ArrayList<Items> items = new ArrayList<>();
+    try (Connection connection = dataSource.getConnection()) {
+
+      var statement = connection.prepareStatement(SELECT_ALL_DATE);
+      statement.setDate(1, date_from);
+      statement.setDate(2, date_to);
+
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+
+        String category = "";
+        int itemsid_i = resultSet.getInt("itemsid");
+        String name = resultSet.getString("name");
+        int quantity = resultSet.getInt("quantity");
+        String status = resultSet.getString("status");
+        String approval = resultSet.getString("approval");
+        Date added_date = resultSet.getDate("added_date");
+        Date expire_date = resultSet.getDate("expire_date");
+        String location = resultSet.getString("location");
+
+        if (expire_date != null) {
+          category = "Dry Ingredient";
+        } else if (location != null) {
+          category = "Furniture";
+        } else {
+          category = "Wet Ingredient";
+        }
+
+        items.add(new Items(itemsid_i, name, quantity, status, approval, added_date, category));
+      }
+      connection.close();
+
+    } catch (SQLException sqlex) {
+      System.out.println("Error : " + sqlex.getSQLState());
+      System.out.println("message : " + sqlex.getMessage());
+    }
+    return items;
+  }
+
+  public ArrayList<Items> getAllFoodDate(Date date_from, Date date_to) {
+    ArrayList<Items> items = new ArrayList<>();
+    try (Connection connection = dataSource.getConnection()) {
+      System.out.println("date from dao : " + date_from);
+      System.out.println("date to dao : " + date_to);
+      var statement = connection.prepareStatement(SELECT_ALL_FOOD_DATE);
+      statement.setDate(1, date_from);
+      statement.setDate(2, date_to);
+
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+
+        String category = "";
+        int itemsid_i = resultSet.getInt("itemsid");
+        String name = resultSet.getString("name");
+        int quantity = resultSet.getInt("quantity");
+        String status = resultSet.getString("status");
+        String approval = resultSet.getString("approval");
+        Date added_date = resultSet.getDate("added_date");
+        Date expire_date = resultSet.getDate("expire_date");
+        String location = resultSet.getString("location");
+
+        if (expire_date != null) {
+          category = "Dry Ingredient";
+        } else if (location != null) {
+          category = "Furniture";
+        } else {
+          category = "Wet Ingredient";
+        }
+
+        items.add(new Items(itemsid_i, name, quantity, status, approval, added_date, category));
+        System.out.println("--->>> Data found....");
+      }
+      connection.close();
+
+    } catch (SQLException sqlex) {
+      System.out.println("Error : " + sqlex.getSQLState());
+      System.out.println("message : " + sqlex.getMessage());
+    }
+    return items;
+  }
+
+  public ArrayList<Items> getAllFurnitureDate(Date date_from, Date date_to) {
+    ArrayList<Items> items = new ArrayList<>();
+    try (Connection connection = dataSource.getConnection()) {
+
+      var statement = connection.prepareStatement(SELECT_ALL_FURNITURE_DATE);
+      statement.setDate(1, date_from);
+      statement.setDate(2, date_to);
+
+      final var resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+
+        String category = "";
+        int itemsid_i = resultSet.getInt("itemsid");
+        String name = resultSet.getString("name");
+        int quantity = resultSet.getInt("quantity");
+        String status = resultSet.getString("status");
+        String approval = resultSet.getString("approval");
+        Date added_date = resultSet.getDate("added_date");
+        Date expire_date = resultSet.getDate("expire_date");
+        String location = resultSet.getString("location");
+
+        if (expire_date != null) {
+          category = "Dry Ingredient";
+        } else if (location != null) {
+          category = "Furniture";
+        } else {
+          category = "Wet Ingredient";
+        }
+
+        items.add(new Items(itemsid_i, name, quantity, status, approval, added_date, category));
+      }
+      connection.close();
+
+    } catch (SQLException sqlex) {
+      System.out.println("Error : " + sqlex.getSQLState());
+      System.out.println("message : " + sqlex.getMessage());
+    }
+    return items;
   }
 }
