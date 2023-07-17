@@ -38,9 +38,9 @@ public class DashboardServices {
   private final String COUNT_STAFF = "SELECT COUNT(staffid) FROM staff WHERE roles = 'staff';";
   private final String COUNT_SUPERVISOR = "SELECT COUNT(staffid) FROM staff WHERE roles = 'supervisor';";
   private final String COUNT_ALL_USER = "SELECT COUNT(staffid) FROM staff;";
-  private final String COUNT_ALL_DRY = "SELECT COUNT(itemsid) FROM dry_ingredients;";
-  private final String COUNT_ALL_WET = "SELECT COUNT(itemsid) FROM wet_ingredients;";
-  private final String COUNT_ALL_FURNITURE = "SELECT COUNT(itemsid) FROM furniture;";
+  private final String COUNT_ALL_DRY = "SELECT COUNT(itemsid) FROM items JOIN dry_ingredients using (itemsid) WHERE items.approval= 'approved';";
+  private final String COUNT_ALL_WET = "SELECT COUNT(itemsid) FROM items JOIN wet_ingredients using (itemsid) WHERE items.approval= 'approved';";
+  private final String COUNT_ALL_FURNITURE = "SELECT COUNT(itemsid) FROM items JOIN furniture using (itemsid) WHERE items.approval= 'approved';";
   private final String COUNT_ALL_ITEMS = "SELECT COUNT(itemsid) FROM items WHERE approval = 'approved';";
   private final String COUNT_ALL_PENDINGITEMS = "SELECT COUNT(itemsid) FROM items WHERE approval = 'pending';";
 

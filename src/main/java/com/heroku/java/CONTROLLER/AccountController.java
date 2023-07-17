@@ -98,12 +98,20 @@ public class AccountController {
 
   @PostMapping("/addAccount")
   public String addAccount(HttpSession session, @ModelAttribute("account") Accounts acc, Model model) {
-    boolean status = accountServices.insertAccount(acc);
-    if(status){
-      return "redirect:/accounts?create_success=true";
-    }else{
-      return "redirect:/accounts/create-account?success=false";
+
+    boolean usernameExists = accountServices.checkUsernameExists(acc.getUsername());
+    if (usernameExists) {
+      // model.addAttribute("usernameExists", true);
+      return "redirect:/accounts/create-account?usernameExists=true";
+    } else {
+      boolean status = accountServices.insertAccount(acc);
+      if (status) {
+        return "redirect:/accounts?create_success=true";
+      } else {
+        return "redirect:/accounts/create-account?success=false";
+      }
     }
+
   }
-  
+
 }

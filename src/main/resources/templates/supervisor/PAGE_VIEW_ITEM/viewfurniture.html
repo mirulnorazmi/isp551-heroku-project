@@ -23,9 +23,12 @@
       rel="stylesheet"
     />
   </head>
-  <body id="viewPage" style="background-color: #f0f2f5 !important;">
+  <body id="viewPage" style="background-color: #f0f2f5 !important">
     <div class="main-section" style="width: 100%; height: 90vh">
-      <div class="container" style="background-color: #f0f2f5 !important; height: 100vh;">
+      <div
+        class="container"
+        style="background-color: #f0f2f5 !important; height: 100vh"
+      >
         <div class="row">
           <div class="col">
             <div class="d-flex justify-content-center mb-2 custom-mt col-12">
@@ -72,98 +75,105 @@
               </thead>
               <tbody th:each="itemsfurniture, iterStat : ${itemsfurniture}">
                 <tr th:class="${iterStat.odd}? 'odd' : 'even'">
-                  <th>
-                    <p
-                      th:text="${iterStat.index + 1 + '.'}"
-                      style="line-height: 2.6; text-align: center;"
-                    ></p>
-                  </th>
-                  <td><p th:text="${itemsfurniture.name}"></p></td>
-                  <td><p th:text="${itemsfurniture.category}"></p></td>
-                  <td><p th:text="${itemsfurniture.quantity}"></p></td>
-                  <td>
-                    <a style="text-decoration: none" class="link-secondary">
-                      <button
-                        class="btn btn-lg rounded-0"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Delete"
+                  <form
+                    action="/deleteItem"
+                    method="post"
+                    modelAttribute="Item"
+                  >
+                    <th>
+                      <p
+                        th:text="${iterStat.index + 1 + '.'}"
+                        style="line-height: 2.6; text-align: center"
+                      ></p>
+                      <input name="id" th:value="${itemsfurniture.id}" hidden />
+                    </th>
+                    <td><p th:text="${itemsfurniture.name}"></p></td>
+                    <td><p th:text="${itemsfurniture.category}"></p></td>
+                    <td><p th:text="${itemsfurniture.quantity}"></p></td>
+                    <td>
+                      <a style="text-decoration: none" class="link-secondary">
+                        <button
+                          class="btn btn-lg rounded-0"
+                          type="button"
+                          data-bs-toggle="modal"
+                          th:data-bs-target="'#deleteModal-' + ${itemsfurniture.id}"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Delete"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </a>
+                      <a
+                        th:href="@{/update-item-supervisor?itemsid=}+${itemsfurniture.id}"
+                        style="text-decoration: none"
+                        class="link-secondary"
                       >
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </a>
-                    <a
-                      th:href="@{/update-item-supervisor?itemsid=}+${itemsfurniture.id}"
-                      style="text-decoration: none"
-                      class="link-secondary"
+                        <button
+                          class="btn btn-lg rounded-0"
+                          type="button"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Edit"
+                        >
+                          <i class="bi bi-pen"></i>
+                        </button>
+                      </a>
+                    </td>
+                    <!-- Delete Modal -->
+                    <div
+                      class="modal fade"
+                      th:id="'deleteModal-' + ${itemsfurniture.id}"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
                     >
-                      <button
-                        class="btn btn-lg rounded-0"
-                        type="button"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Edit"
-                      >
-                        <i class="bi bi-pen"></i>
-                      </button>
-                    </a>
-                  </td>
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                              Delete this item ?
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            Deleting this item will permanently remove it from
+                            the database.
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary"
+                              style="
+                                background-color: #d9d9d9;
+                                border-color: grey;
+                                color: black;
+                              "
+                              data-bs-dismiss="modal"
+                            >
+                              No, Keep Item
+                            </button>
+                            <button
+                              type="submit"
+                              id="confirmDelete"
+                              class="btn btn-secondary bg-primary text-white"
+                            >
+                              Yes, Delete Item
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </tr>
               </tbody>
             </table>
           </section>
-        </div>
-      </div>
-    </div>
-
-    <!-- Delete Modal -->
-    <div
-      class="modal fade"
-      id="deleteModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Delete this item ?
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            Deleting this item will permanently remove it from the database.
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              style="
-                background-color: #d9d9d9;
-                border-color: grey;
-                color: black;
-              "
-              data-bs-dismiss="modal"
-            >
-              No, Keep Item
-            </button>
-            <button
-              type="button"
-              id="confirmDelete"
-              class="btn btn-secondary bg-primary text-white"
-            >
-              Yes, Delete Item
-            </button>
-          </div>
         </div>
       </div>
     </div>
