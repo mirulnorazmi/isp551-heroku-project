@@ -88,6 +88,8 @@
               name="name"
               class="form-control mb-3"
               aria-label="name"
+              pattern="^[a-zA-Z ]*$"
+              title="Please enter alphabet only, no numbers or symbol!"
               required
             />
           </div>
@@ -104,6 +106,8 @@
               name="quantity"
               class="form-control mb-3"
               aria-label="quantity"
+              pattern="^[0-9]*$"
+              title="Please enter numbers only, no alphabets or symbols!"
               required
             />
           </div>
@@ -136,6 +140,8 @@
               name="location"
               class="form-control mb-3"
               aria-label="allocation"
+              pattern="^[a-zA-Z ]*$"
+              title="Please enter alphabet only, no numbers or symbol!"
               required
             />
           </div>
@@ -147,14 +153,18 @@
             ><b>Item Warranty :</b></label
           >
           <div class="d-flex flex-column col-5">
-            <input
-              type="text"
-              name="warranty"
-              class="form-control mb-3"
-              aria-label="warranty"
-              required
-            />
+            <select
+            class="form-select"
+            name="warranty"
+            aria-label="warranty"
+            aria-placeholder="Warranty Status"
+          >
+            <option selected disabled hidden>Warranty Status</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
           </div>
+
         </div>
         <div
           class="d-flex flex-row justify-content-end"
