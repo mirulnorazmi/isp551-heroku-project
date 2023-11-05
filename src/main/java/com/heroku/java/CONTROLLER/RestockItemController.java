@@ -63,11 +63,13 @@ public class RestockItemController {
   @PostMapping("/restockitem/confirm")
   public String confirmRelease(HttpSession session, @RequestParam(name = "itemsid") int[] itemIds,
       @RequestParam(name = "itemquantity") int[] itemQuantities,
-      Model model) {
+      Model model, @RequestParam(name="status") String statusS) {
         
     Stock stocks = new Stock();
-    stocks.setStaffid(1);    // dummy staff data
+    stocks.setStaffid((int) session.getAttribute("staffid"));    // dummy staff data
     stocks.setInvdate(utilDate);
+    stocks.setStatus(statusS);
+    System.out.println(stocks.getStatus());
 
     boolean status = false;
 

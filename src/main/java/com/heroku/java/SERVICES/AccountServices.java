@@ -182,6 +182,26 @@ public class AccountServices {
     return url;
   }
 
+  public boolean checkUsernameExists(String username) {
+    boolean exists = false;
+    try {
+      Connection connection = dataSource.getConnection();
+      String sql = "SELECT COUNT(*) FROM staff WHERE username = ?";
+      PreparedStatement statement = connection.prepareStatement(sql);
+      statement.setString(1, username);
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next()) {
+        int count = resultSet.getInt(1);
+        exists = count > 0;
+      }
+      connection.close();
+    } catch (SQLException sqe) {
+      // Handle the exception
+      sqe.printStackTrace();
+    }
+    return exists;
+  }
+
   public boolean insertAccount(Accounts acc) {
     boolean status = false;
     try {

@@ -111,7 +111,7 @@
             <div class="row g-3 align-items-center mt-2">
               <div class="col-5">
                 <label for="inputPassword6" class="col-form-label"
-                  >Date form :
+                  >Date from :
                 </label>
               </div>
               <div class="col-auto">
@@ -120,6 +120,8 @@
                   name="date_from"
                   class="form-control mb-3"
                   aria-label="dateFrom"
+                  id="currentDateInput"
+                  required
                 />
               </div>
             </div>
@@ -135,7 +137,9 @@
                   type="date"
                   name="date_to"
                   class="form-control mb-3"
+                  id="currentDateInput2"
                   aria-label="dateTo"
+                  required
                 />
               </div>
             </div>
@@ -172,11 +176,11 @@
             >
               <a th:href="@{/accounts}" style="text-decoration: none">
                 <button
-                  type="button"
-                  class="btn btn-primary"
+                  type="reset"
+                  class="btn btn-danger"
                   style="margin: 0 20px"
                 >
-                  Cancel
+                  Reset
                 </button>
               </a>
               <button type="submit" class="btn btn-primary">Create</button>
@@ -224,6 +228,13 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      var currentDate = new Date().toISOString().split("T")[0];
+      document.getElementById("currentDateInput").value = currentDate;
+      document.getElementById("currentDateInput2").value = currentDate;
+
+      // Set the minimum date to the current date
+      document.getElementById("minDateInput").setAttribute("min", currentDate);
+
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const error = urlParams.get("success");
