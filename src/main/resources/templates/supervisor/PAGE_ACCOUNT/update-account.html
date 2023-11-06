@@ -62,6 +62,9 @@
               aria-label="fullname"
               placeholder="Full Name"
               th:value="${accounts.fullname}"
+              pattern="^[a-zA-Z ]*$"
+              title="Please enter alphabet only, no numbers or symbol!"
+              required
             />
             <input
               type="text"
@@ -70,6 +73,7 @@
               aria-label="username"
               placeholder="Username"
               th:value="${accounts.username}"
+              required
             />
             <input
               type="password"
@@ -78,6 +82,7 @@
               aria-label="password"
               placeholder="Password"
               th:value="${accounts.password}"
+              required
             />
             <select
               class="form-select"

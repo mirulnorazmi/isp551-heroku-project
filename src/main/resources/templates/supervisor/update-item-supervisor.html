@@ -116,6 +116,9 @@
                   aria-label="name"
                   placeholder="Item Name"
                   th:value="${items.name}"
+                  pattern="^[a-zA-Z ]*$"
+                  title="Please enter alphabets only, no numbers or symbols!"
+                  required
                 />
               </div>
             </div>
@@ -139,6 +142,9 @@
                   aria-label="quantity"
                   placeholder="Quantity"
                   th:value="${items.quantity}"
+                  pattern="^[0-9]*$"
+                  title="Please enter numbers only, no alphabets or symbols!"
+                  required
                 />
               </div>
             </div>
@@ -208,6 +214,9 @@
                     aria-label="location"
                     placeholder="Enter item Allocation"
                     th:value="${items.location}"
+                    pattern="^[a-zA-Z ]*$"
+                    title="Please enter alphabets only, no numbers or symbols!"
+                    required
                   />
                 </div>
               </div>
@@ -224,14 +233,25 @@
                 <div
                   class="col-5 d-flex justify-content-center align-items-center"
                 >
-                  <input
-                    type="text"
-                    name="warranty"
-                    class="form-control mb-3"
-                    aria-label="warranty"
-                    placeholder="Enter item warranty"
+                  <select
+                  class="form-select"
+                  name="warranty"
+                  aria-label="warranty"
+                  aria-placeholder="Warranty Status"
+                >
+                  <option
+                    selected
                     th:value="${items.warranty}"
-                  />
+                    th:text="${items.warranty}"
+                  ></option>
+                  <option
+                    th:value="${items.warranty.equals('no')} ? yes : no"
+                    th:text="${items.warranty.equals('no')} ? yes : no"
+                  >
+                    auto_generated_roles_opposite_selected
+                  </option>
+                  <!-- <option value="supervisor">supervisor</option> -->
+                </select>
                 </div>
               </div>
             </div>
