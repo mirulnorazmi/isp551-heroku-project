@@ -20,6 +20,17 @@
       p{
         margin: 0;
       }
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
     </style>
 </head>
 <body id="releasePage" style="background-color: #f0f2f5 !important;">
@@ -73,7 +84,7 @@
                               <div class="input-group">
                                 <span class="input-group-text">-</span>
                                 <input type="text" name="itemsid" th:value="${item.id}" hidden>
-                                <input type="text" name="itemquantity" class="form-control" value="0" style="width: 60px; max-width: 60px;">
+                                <input type="number" name="itemquantity" min="0" pattern="[0-9]" th:max="${item.quantity}" class="form-control" value="0" style="width: 60px; max-width: 60px;">
                               </div>
                                 
                                 

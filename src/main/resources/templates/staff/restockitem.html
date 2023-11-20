@@ -23,6 +23,19 @@
       th:href="@{/stylesheets/view.css}"
     />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+    </style>
   </head>
   <body id="viewStaffPage" style="background-color: #f0f2f5 !important;">
     <div class="main-section" style="width: 100%; height: 90vh; background-color: #f0f2f5 !important;">
@@ -70,7 +83,7 @@
                           </td>
                           <td>
                               <input type="text" name="itemsid" th:value="${item.id}" hidden>
-                              <input type="number" name="itemquantity" class="form-control mb-3" value="0" style="width: 60px;">
+                              <input type="number" name="itemquantity" min="0" pattern="[0-9]" class="form-control mb-3" value="0" style="width: 60px;">
                           </td>
                           <td>
                               <ul class="list-inline m-0">
