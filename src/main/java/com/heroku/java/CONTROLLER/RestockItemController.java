@@ -81,6 +81,16 @@ public class RestockItemController {
     }
     System.out.println("status : " + status);
 
-    return "redirect:/restockitem";
+    // check all quantity is 0 or not
+    int cumulativeQuantity = 0;
+      for (int i = 0; i < itemIds.length; i++) {
+      cumulativeQuantity += itemQuantities[i];
+    }
+    if(cumulativeQuantity != 0){
+      return "redirect:/restockitem?success=true";
+    }else {
+      return "redirect:/restockitem?success=false";
+    }
+    
   }
 }

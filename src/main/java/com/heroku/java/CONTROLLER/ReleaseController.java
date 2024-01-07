@@ -33,7 +33,8 @@ public class ReleaseController {
   private QuantityItemServices quantityItemServices;
 
   @Autowired
-  public ReleaseController(DataSource dataSource, ItemServices itemServices, QuantityItemServices quantityItemServices) {
+  public ReleaseController(DataSource dataSource, ItemServices itemServices,
+      QuantityItemServices quantityItemServices) {
     this.dataSource = dataSource;
     this.itemServices = itemServices;
     this.quantityItemServices = quantityItemServices;
@@ -44,12 +45,12 @@ public class ReleaseController {
       @RequestParam(value = "create_success", defaultValue = "false") boolean createSuccess, Model model)
       throws Exception {
     // if (session.getAttribute("username") != null) {
-      ArrayList<Items> itemList = itemServices.getAllItems();
-      model.addAttribute("items", itemList);
-      return "supervisor/PAGE_RELEASE_ITEM/release-item";
+    ArrayList<Items> itemList = itemServices.getAllItems();
+    model.addAttribute("items", itemList);
+    return "supervisor/PAGE_RELEASE_ITEM/release-item";
     // } else {
-    //   System.out.println("No valid session or session...");
-    //   return "redirect:/";
+    // System.out.println("No valid session or session...");
+    // return "redirect:/";
     // }
   }
 
@@ -57,10 +58,18 @@ public class ReleaseController {
   public String confirmRelease(@RequestParam(name = "itemsid") int[] itemIds,
       @RequestParam(name = "itemquantity") int[] itemQuantities,
       Model model) {
+        // check quantity 
+        int cumulativeQuantity = 0;
     for (int i = 0; i < itemIds.length; i++) {
       System.out.println("ID: " + itemIds[i] + " Quantity: " + itemQuantities[i]);
-      boolean status = quantityItemServices.updateReleaseQuantityItem(itemIds[i],itemQuantities[i] );
+      boolean status = quantityItemServices.updateReleaseQuantityItem(itemIds[i], itemQuantities[i]);
+      cumulativeQuantity += itemQuantities[i];
     }
-    return "redirect:/release-item";
+    if(cumulativeQuantity != 0){
+      return "redirect:/release-item?success=true";
+    }else{
+      return "redirect:/release-item?success=false";
+    }
+    
   }
 }

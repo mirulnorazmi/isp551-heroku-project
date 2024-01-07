@@ -122,7 +122,7 @@
             <input
               type="date"
               class="form-control mb-3"
-              id="addeddate currentDateInput"
+              id="currentDateInput"
               name="added_date"
               required
             />
@@ -226,7 +226,7 @@
       document.getElementById("currentDateInput").value = currentDate;
 
       // Set the minimum date to the current date
-      document.getElementById("minDateInput").setAttribute("min", currentDate);
+      document.getElementById("currentDateInput").setAttribute("min", currentDate);
 
       function changeColor() {
         document.getElementById("button1").style.background = "#87A2FD";

@@ -153,19 +153,37 @@
                                 </div>
                             </div>
                         </form>
-                       
-    <script src="/list.js"></script>
-    <script>
-      function incrementQuantity(button, rowIndex) {
-          var row = button.closest('tr'); // Find the closest parent <tr> element
-          var input = row.querySelector('input[name="itemquantity"]'); // Find the corresponding input element
-  
-          if (input) {
-              var currentValue = parseInt(input.value); // Get the current value
-              input.value = currentValue + 1; // IncrementQuantity the value and update the input
-          }
-      }
-  </script>
+                        
+      <!-- Toast -->
+     <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img
+            src="../icon-192x192.png"
+            class="rounded me-2"
+            alt="..."
+            width="20px"
+          />
+          <strong class="me-auto">VFIMS</strong>
+          <!-- <small>11 mins ago</small> -->
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body" id="display_message">
+          <!-- Account successfully created -->
+        </div>
+      </div>
+    </div>      
     <script
     th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js}"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
@@ -176,5 +194,36 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"
   ></script>
+    <!-- <script src="/list.js"></script> -->
+    <script>
+      function incrementQuantity(button, rowIndex) {
+          var row = button.closest('tr'); // Find the closest parent <tr> element
+          var input = row.querySelector('input[name="itemquantity"]'); // Find the corresponding input element
+  
+          if (input) {
+              var currentValue = parseInt(input.value); // Get the current value
+              input.value = currentValue + 1; // IncrementQuantity the value and update the input
+          }
+      }
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var success = urlParams.get("success");
+
+      const toastLiveExample = document.getElementById("liveToast");
+      const toastBootstrap =
+        bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+      if (success != null) {
+        if (success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Items successfully release";
+        } else {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Items release failed : all quantity is 0......";
+        }
+      }
+  </script>
+    
   </body>
 </html>

@@ -123,7 +123,7 @@
             <input
               type="date"
               class="form-control mb-3"
-              id="addeddate currentDateInput"
+              id="currentDateInput"
               name="added_date"
               required
             />
@@ -205,9 +205,12 @@
     <script>
       var currentDate = new Date().toISOString().split("T")[0];
       document.getElementById("currentDateInput").value = currentDate;
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var success = urlParams.get("success");success
 
       // Set the minimum date to the current date
-      document.getElementById("minDateInput").setAttribute("min", currentDate);
+      document.getElementById("currentDateInput").setAttribute("min", currentDate);
 
       function changeColor() {
         document.getElementById("button2").style.background = "#87A2FD";
@@ -229,9 +232,7 @@
         document.getElementById("button1").style.background = "#F8F9F9";
         document.getElementById("button1").style.color = "black";
       }
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      var success = urlParams.get("success");
+      
 
       const toastLiveExample = document.getElementById("liveToast");
       const toastBootstrap =
@@ -241,6 +242,7 @@
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =
             "Items successfully request";
+            console.log("success items.")
         } else {
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =

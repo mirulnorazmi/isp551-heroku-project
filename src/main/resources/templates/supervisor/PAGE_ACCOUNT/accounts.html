@@ -141,7 +141,11 @@
                 </button>
               </a>
 
-              <button type="button" onclick="redirectDelete()" class="modal-vims-Button btn btn-primary" >
+              <button
+                type="button"
+                onclick="redirectDelete()"
+                class="modal-vims-Button btn btn-primary"
+              >
                 <b>Yes, Delete Account</b>
               </button>
             </div>
@@ -195,6 +199,7 @@
       const urlParams = new URLSearchParams(queryString);
       var create_success = urlParams.get("create_success");
       var update_success = urlParams.get("update_success");
+      var delete_success = urlParams.get("delete_success");
       var error_code = urlParams.get("error_code");
       var deleteId = urlParams.get("delete");
       var hasParam = window.location.href.indexOf("delete");
@@ -204,8 +209,8 @@
         // var href = document.querySelector("a").href;
         console.log("href", href);
       };
-      function redirectDelete(){
-        location.href='/deleteAccount?staffid=' + deleteId.toString();
+      function redirectDelete() {
+        location.href = "/deleteAccount?staffid=" + deleteId.toString();
       }
       // const toastTrigger = document.getElementById("liveToastBtn");
       const toastLiveExample = document.getElementById("liveToast");
@@ -222,7 +227,13 @@
           console.log("deleteId.toString()", deleteId.toString());
         }
       }
-
+      if (delete_success != null) {
+        if (delete_success.toString() == "true") {
+          toastBootstrap.show();
+          document.getElementById("display_message").innerHTML =
+            "Account successfully deleted!";
+        }
+      }
       if (create_success != null) {
         if (create_success.toString() == "true") {
           toastBootstrap.show();
@@ -237,15 +248,15 @@
             "Account successfully updated";
         }
       }
-      if(error_code != null){
+      if (error_code != null) {
         if (error_code.toString() == "101") {
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =
             "Can't delete superadmin account...";
         }
       }
-      if(error_code != null){
-        if(error_code.toString() == "102"){
+      if (error_code != null) {
+        if (error_code.toString() == "102") {
           toastBootstrap.show();
           document.getElementById("display_message").innerHTML =
             "Can't delete own session account...";
